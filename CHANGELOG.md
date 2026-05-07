@@ -12,32 +12,36 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
-## 🚧 Pending — v1.1 · Bean Model editorial redesign
+## [v1.1] — 2026-05-07 · Bean Model editorial redesign
 
-> Work order for Cursor. The bean-model page (`bean-model/index.html`) shipped
-> in v1.0 is **functionally complete but visually a step below** the hub
-> (`index.html`) and the USD/CNY tracker. It reads as a "data dashboard"
-> rather than a "research artifact". This patch brings it up to the same
-> editorial tier.
+> Delivered. `bean-model/index.html` upgraded to match tracker / hub editorial tier.
+> All 8 items from the work order shipped; EN/ZH i18n symmetric (54 keys each);
+> random-draw and sparkline functionality preserved. Tagged `v1.1`.
 
-### Diagnosis (what's wrong with the v1.0 bean-model page)
+### Shipped
 
-| Element | Tracker / Hub level | Current bean-model | Action |
-|---|---|---|---|
-| Chapter numbers | 88px italic Source Serif 4 | 28px regular | **Upgrade to 88px italic** |
-| Hero title | 48–72px display serif | clamp(32, 4.5vw, 44) | **Bump to clamp(44, 6vw, 64)** |
-| Hero lead paragraph | FT-style drop cap | Plain `<p>` | **Add `.drop-cap` first-letter** |
-| Pull quote | Big italic serif callout | Absent | **Add one between §2 and §3** |
-| Method box | Bordered box with JetBrains-Mono formula | `<ul>` inside a tinted box | **Reformat as proper `.method-box` w/ formula block** |
-| Headline stats | Single hero number + supporting stats | 6 generic stat cards | **Re-do as ONE huge headline number + 4 supporting cards** |
-| Charts | Tufte minimal, paper-bg, custom tick fonts | Plotly defaults | **Apply tracker's chart styling tokens** |
-| §1 Methodology | Flowing serif prose + numbered list | Bullet list only | **Rewrite as 2 paragraphs of serif prose, list as supplement** |
-| §3 Probe panel | (n/a — bespoke) | Dense table rows | **Redesign as 5 large cards w/ inline sparkline** |
-| Disclaimer | Footnote style w/ `†` mark | Plain italic block | **Reformat as proper research-footnote block** |
-| Section spacing | 96px between major chapters | 56px | **Increase to 96px** |
-| Plotly chart figures | Figure 1 label + source line | None | **Add figure caption + source attribution** |
+| # | Item | Result |
+|---|---|---|
+| 1 | Hero title | `clamp(44px, 6vw, 64px)` Source Serif 4 600, lh 1.08; `.hero-lead` + CSS `::first-letter` drop cap (64px ochre) |
+| 2 | Chapter headings | `.chapter-head` 110px/1fr grid; `.chapter-num` 88px italic Source Serif 4 ochre; applied to §01/02/03 |
+| 3 | §1 Methodology | 2 paragraphs flowing serif prose + JetBrains Mono method-box formula block + steps supplement + `⊘` privacy-note |
+| 4 | §2 headline stat | Single 96–112px JetBrains Mono `63.1%` bull number + 4 supporting stats (avg10, win20, avg20, stocks fired) |
+| 5 | Figure captions | Figure 1 · Annual breakdown + Figure 2 · Cumulative equity; source lines below each |
+| 6 | Plotly styling | `plot_bgcolor / paper_bgcolor: #faf8f5`, gridcolor `#e8e4dc`, navy line `#1e3a5f`, mono hover |
+| 7 | Pull quote | 22px Source Serif italic blockquote between §2 equity chart and §3; EN/ZH i18n (`quote.body` / `quote.cite`) |
+| 8 | §3 probe cards | 5 × `.probe-card` with 28px mono stats + inline 60px Plotly sparkline (always rendered, no click-to-expand) |
+| 9 | Draw button | Ochre outline style (was dark filled) |
+| 10 | Disclaimer | `.research-footnote` with `†` dagger + centred `独立思考 · 明辨是非` italic closer; moved below §3 |
+| 11 | Section spacing | 96px margin-top on each `.chapter-head` (was 56px) |
 
-### Specific edits — `bean-model/index.html`
+### Files touched
+
+- `bean-model/index.html` — full editorial redesign (1,315 insertions / 404 deletions vs v1.0)
+- `bean-model/index.v1.0.html.preserved` — v1.0 snapshot kept for diff / revert reference
+
+---
+
+### (archived) Specific edits — `bean-model/index.html`
 
 #### (1) Hero block
 - Title font: `clamp(44px, 6vw, 64px)` Source Serif 4 600-weight, line-height 1.08, letter-spacing -0.02em
