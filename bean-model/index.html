@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js?v=1.1"></script>
 <style>
 :root {
     --bg: #faf8f5; --bg-tint: #f5f2ec; --card: #ffffff;
@@ -32,8 +32,6 @@ body {
 ::selection { background: var(--navy); color: #fff; }
 a { color: var(--navy); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--ochre); }
-.serif { font-family: 'Source Serif 4', Georgia, serif; }
-.mono  { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
 /* ─── TOP BAR ─── */
 .topbar {
@@ -53,36 +51,27 @@ a:hover { color: var(--ochre); }
     color: var(--muted); font-size: 12px;
 }
 .back-link:hover { color: var(--ink); }
-.back-link .arrow {
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px; line-height: 1;
-}
+.back-link .arrow { font-family: 'Source Serif 4', serif; font-size: 16px; line-height: 1; }
 .brand-mark {
     width: 32px; height: 32px;
     background: var(--ink); color: var(--bg);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Source Serif 4', serif;
     font-weight: 600; font-size: 16px;
-    letter-spacing: -0.02em;
-    border-radius: 2px;
+    letter-spacing: -0.02em; border-radius: 2px;
 }
 .brand-text { font-size: 13px; font-weight: 500; line-height: 1.2; }
 .brand-text small {
     display: block; color: var(--muted);
     font-size: 10px; font-weight: 400;
-    letter-spacing: 0.5px; text-transform: uppercase;
-    margin-top: 1px;
+    letter-spacing: 0.5px; text-transform: uppercase; margin-top: 1px;
 }
 .topbar-spacer { flex: 1; }
-.lang-toggle {
-    display: flex; border: 1px solid var(--hairline);
-    border-radius: 4px; overflow: hidden;
-}
+.lang-toggle { display: flex; border: 1px solid var(--hairline); border-radius: 4px; overflow: hidden; }
 .lang-toggle button {
     padding: 6px 11px; border: none; background: transparent;
     font-size: 11px; font-weight: 500; color: var(--muted);
-    cursor: pointer; font-family: inherit;
-    transition: all 0.15s;
+    cursor: pointer; font-family: inherit; transition: all 0.15s;
 }
 .lang-toggle button.active { background: var(--ink); color: var(--bg); }
 
@@ -93,265 +82,340 @@ main {
 }
 
 /* ─── HERO ─── */
-.hero { margin-bottom: 56px; }
+.hero { margin-bottom: 64px; }
 .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ochre);
-    margin-bottom: 14px;
-    font-weight: 600;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ochre); margin-bottom: 14px; font-weight: 600;
 }
 h1.title {
     font-family: 'Source Serif 4', Georgia, serif;
     font-weight: 600;
-    font-size: clamp(32px, 4.5vw, 44px);
-    line-height: 1.15;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 1.08;
     letter-spacing: -0.02em;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     color: var(--ink);
 }
-.subtitle {
-    font-size: 16px;
-    color: var(--muted);
-    line-height: 1.55;
-    max-width: 680px;
+/* Drop cap via CSS first-letter — works with dynamically set i18n text */
+.hero-lead {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    max-width: 700px;
+}
+.hero-lead::first-letter {
+    font-family: 'Source Serif 4', Georgia, serif;
+    float: left;
+    font-size: 64px;
+    line-height: 0.9;
+    font-weight: 600;
+    color: var(--ochre);
+    padding: 6px 10px 0 0;
+    margin-top: 2px;
 }
 
-/* ─── SECTIONS ─── */
-.section-head {
-    margin: 56px 0 20px;
-    display: flex; align-items: baseline; gap: 16px;
-    border-bottom: 1px solid var(--hairline);
-    padding-bottom: 12px;
+/* ─── CHAPTER HEADINGS ─── */
+.chapter-head {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    margin: 96px 0 32px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 18px;
 }
-.section-num {
+.chapter-num {
     font-family: 'Source Serif 4', serif;
     font-style: italic;
-    font-size: 28px;
+    font-size: 88px;
     font-weight: 400;
     color: var(--ochre);
-    letter-spacing: -0.02em;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
 }
-.section-title {
-    font-family: 'Source Serif 4', Georgia, serif;
-    font-size: 20px; font-weight: 600;
+.chapter-title-block .eyebrow { margin-bottom: 6px; }
+.chapter-title-block h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 32px;
+    font-weight: 600;
     letter-spacing: -0.01em;
+    line-height: 1.15;
     color: var(--ink);
 }
 
+/* ─── PROSE ─── */
 p, ul, ol { color: var(--ink-soft); margin-bottom: 14px; max-width: 720px; }
 ul, ol { padding-left: 22px; }
 li { margin-bottom: 6px; }
+.prose-p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px; line-height: 1.78;
+    color: var(--ink-soft);
+    max-width: 720px; margin-bottom: 18px;
+}
 
 /* ─── METHOD BOX ─── */
 .method-box {
     background: var(--bg-tint);
     border-left: 3px solid var(--ochre);
-    padding: 18px 22px;
-    margin: 18px 0 24px;
+    padding: 20px 24px;
+    margin: 24px 0;
     border-radius: 2px;
 }
 .method-box-label {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ochre);
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ochre); font-weight: 600; margin-bottom: 12px;
 }
-.method-box ul { margin-bottom: 0; }
+.method-formula {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12.5px; line-height: 1.85;
+    color: var(--ink-soft);
+    white-space: pre; overflow-x: auto;
+}
 
-/* ─── HEADLINE STAT GRID ─── */
-.proof-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
+/* ─── STEPS SUPPLEMENT ─── */
+.steps-label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; margin: 28px 0 8px;
 }
-.stat-card {
+
+/* ─── PRIVACY NOTE ─── */
+.privacy-note {
+    background: #fef9f0;
+    border-left: 3px solid var(--ochre-soft);
+    border-radius: 2px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    display: flex; gap: 12px; align-items: flex-start;
+}
+.privacy-note-icon {
+    font-size: 16px; color: var(--ochre); flex-shrink: 0; line-height: 1.5;
+}
+.privacy-note-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.privacy-note-body strong {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ochre); display: block; margin-bottom: 6px; font-weight: 600;
+}
+
+/* ─── HEADLINE STAT BLOCK ─── */
+.headline-stat-block {
     background: var(--card);
     border: 1px solid var(--hairline);
     border-radius: 4px;
-    padding: 18px 20px;
     box-shadow: var(--shadow-card);
+    padding: 36px 40px 32px;
+    margin: 24px 0;
+    max-width: 680px;
 }
-.stat-card .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted-soft);
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-.stat-card .stat-value {
+.headline-number {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--ink);
-    letter-spacing: -0.01em;
+    font-size: clamp(80px, 10vw, 112px);
+    font-weight: 700;
+    color: var(--bull);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
 }
-.stat-card .stat-value.bull  { color: var(--bull); }
-.stat-card .stat-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
+.headline-rule {
+    width: 60px; height: 3px;
+    background: var(--ochre);
+    margin: 14px 0 10px;
+}
+.headline-label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; margin-bottom: 4px;
+}
+.headline-sub {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px; color: var(--muted); margin-bottom: 28px;
+}
+.headline-supporting {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    padding-top: 20px; border-top: 1px solid var(--hairline);
+}
+.supporting-stat .sup-value {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 28px; font-weight: 600;
+    color: var(--bull); letter-spacing: -0.01em; line-height: 1;
+}
+.supporting-stat .sup-label {
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; margin-top: 4px;
+}
+
+/* ─── FIGURE BLOCK ─── */
+.figure-block { margin: 32px 0; }
+.figure-caption {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; margin-bottom: 8px;
+}
+.figure-source {
+    font-size: 11px; font-style: italic;
+    color: var(--muted); margin-top: 8px;
 }
 
 /* ─── YEAR TABLE ─── */
 .year-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin: 16px 0;
+    width: 100%; border-collapse: collapse; font-size: 13px;
 }
 .year-table th, .year-table td {
-    padding: 12px 14px;
-    text-align: left;
+    padding: 10px 14px; text-align: left;
     border-bottom: 1px solid var(--hairline);
 }
 .year-table th {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted-soft);
-    font-weight: 600;
-    background: var(--bg-tint);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; background: var(--bg-tint);
 }
 .year-table td.num {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    text-align: right;
+    font-family: 'JetBrains Mono', ui-monospace, monospace; text-align: right;
 }
 .year-table td.bull { color: var(--bull); font-weight: 500; }
 .year-table td.bear { color: var(--bear); font-weight: 500; }
 
+/* ─── EQUITY CURVE ─── */
+#equity-chart { height: 320px; }
+
+/* ─── PULL QUOTE ─── */
+.pullquote {
+    border-left: 3px solid var(--ochre);
+    margin: 48px auto;
+    max-width: 640px;
+    padding: 4px 0 4px 28px;
+}
+.pullquote p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 22px; font-style: italic;
+    line-height: 1.55; color: var(--ink-soft);
+    max-width: none; margin-bottom: 12px;
+}
+.pullquote cite {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted-soft); font-style: normal; font-weight: 600;
+}
+
 /* ─── PROBE PANEL ─── */
-.probe-panel {
+.probe-panel { margin: 24px 0; }
+.probe-controls {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.probe-meta { font-size: 12px; color: var(--muted); }
+.probe-meta .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; color: var(--ink); }
+.draw-btn {
+    padding: 9px 20px;
+    background: transparent;
+    color: var(--ochre);
+    border: 1.5px solid var(--ochre);
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+.draw-btn:hover { background: var(--ochre); color: #fff; transform: translateY(-1px); }
+.draw-btn:active { transform: translateY(0); }
+.probe-cards { display: flex; flex-direction: column; gap: 16px; }
+
+/* ─── PROBE CARD ─── */
+.probe-card {
     background: var(--card);
     border: 1px solid var(--hairline);
     border-radius: 4px;
+    padding: 24px;
     box-shadow: var(--shadow-card);
-    padding: 28px;
-    margin: 24px 0;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
-.probe-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 18px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--hairline);
-    flex-wrap: wrap;
+.probe-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+.probe-card.zero { opacity: 0.6; }
+.probe-card.zero:hover { transform: none; box-shadow: var(--shadow-card); }
+.probe-card-header {
+    display: flex; align-items: baseline;
+    gap: 10px; margin-bottom: 16px;
 }
-.probe-meta {
-    font-size: 12px; color: var(--muted);
+.probe-card-name {
+    font-size: 18px; font-weight: 600;
+    color: var(--ink); font-family: 'Inter', sans-serif;
 }
-.probe-meta .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; color: var(--ink); }
-.draw-btn {
-    padding: 10px 20px;
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-    border-radius: 3px;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    transition: background 0.15s, transform 0.15s;
-}
-.draw-btn:hover { background: var(--navy); transform: translateY(-1px); }
-.draw-btn:active { transform: translateY(0); }
-
-.probe-results {
-    display: flex; flex-direction: column;
-}
-.probe-row {
-    display: grid;
-    grid-template-columns: 1fr 80px 90px 90px 60px;
-    gap: 12px;
-    padding: 14px 4px;
-    border-bottom: 1px solid var(--hairline);
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.15s;
-}
-.probe-row:hover { background: var(--bg-tint); }
-.probe-row.zero { opacity: 0.55; cursor: default; }
-.probe-row.zero:hover { background: transparent; }
-.probe-stock {
-    display: flex; flex-direction: column;
-}
-.probe-name { font-weight: 500; font-size: 14px; color: var(--ink); }
-.probe-code {
+.probe-card-code {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 11px; color: var(--muted-soft);
-    margin-top: 2px;
+    font-size: 12px; color: var(--muted-soft);
 }
-.probe-num {
+.probe-card-arrow { margin-left: auto; font-size: 18px; color: var(--bull); }
+.probe-card-stats {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    margin-bottom: 16px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--hairline);
+}
+.probe-card-stat .pcs-value {
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-size: 13px;
-    text-align: right;
-    color: var(--ink);
+    font-size: 28px; font-weight: 600;
+    letter-spacing: -0.01em; line-height: 1;
 }
-.probe-num.bull { color: var(--bull); }
-.probe-num.bear { color: var(--bear); }
-.probe-num.muted { color: var(--muted-soft); }
-.probe-arrow {
-    font-size: 14px;
-    color: var(--muted-soft);
-    text-align: right;
+.probe-card-stat .pcs-value.bull  { color: var(--bull); }
+.probe-card-stat .pcs-value.bear  { color: var(--bear); }
+.probe-card-stat .pcs-value.neutral { color: var(--ink); }
+.probe-card-stat .pcs-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted-soft); font-weight: 600; margin-top: 4px;
 }
-.probe-row:hover .probe-arrow { color: var(--ochre); }
+.probe-card-sparkline { height: 60px; }
+.probe-card-zero-label {
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ochre); font-weight: 600;
+    padding: 16px 0 4px; text-align: center;
+}
 
-.probe-detail {
-    display: none;
-    padding: 18px 4px 8px;
-    background: var(--bg-tint);
-    border-radius: 3px;
-    margin: 8px 0 16px;
-}
-.probe-detail.open { display: block; }
-.probe-detail-chart {
-    height: 180px;
-    margin-bottom: 8px;
-}
-.probe-detail-meta {
-    display: flex; gap: 18px; flex-wrap: wrap;
-    font-size: 11px; color: var(--muted);
-    padding: 0 12px;
-}
-.probe-detail-meta .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; color: var(--ink); }
-
-/* ─── DISCLAIMER ─── */
-.disclaimer {
+/* ─── RESEARCH FOOTNOTE ─── */
+.research-footnote {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
     font-size: 12px;
     color: var(--muted);
-    font-style: italic;
-    border-left: 2px solid var(--hairline);
-    padding: 12px 16px;
-    margin: 24px 0;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-family: 'Source Serif 4', Georgia, serif;
+    max-width: 720px;
 }
-
-/* ─── EQUITY CURVE ─── */
-#equity-chart { height: 320px; margin: 16px 0; }
+.research-footnote .dagger {
+    color: var(--ochre); font-weight: 600;
+    margin-right: 6px; font-size: 14px;
+}
+.research-footnote .closing {
+    display: block;
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+.research-footnote .closing .sep {
+    color: var(--ochre);
+    font-size: 12px;
+    margin: 0 6px;
+    font-style: normal;
+}
 
 /* ─── FOOTER ─── */
 .site-footer {
     margin-top: 96px;
     padding: 24px 32px;
     border-top: 1px solid var(--hairline);
-    font-size: 11px;
-    color: var(--muted);
-    text-align: center;
-    letter-spacing: 0.04em;
+    font-size: 11px; color: var(--muted);
+    text-align: center; letter-spacing: 0.04em;
 }
 
-@media (max-width: 600px) {
-    .probe-row { grid-template-columns: 1fr 60px 70px 30px; }
-    .probe-row .col-avg { display: none; }
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+    .chapter-head { grid-template-columns: 72px 1fr; gap: 14px; }
+    .chapter-num  { font-size: 56px; }
+    .headline-stat-block { padding: 24px 20px; }
+    .headline-number { font-size: 72px; }
+    .headline-supporting { gap: 20px; }
+    .probe-card-stats { gap: 16px; }
+    .pullquote { margin: 32px 0; }
+    .topbar-inner { padding: 12px 16px; }
+    main { padding: 32px 16px 64px; }
 }
 </style>
 </head>
@@ -379,81 +443,113 @@ li { margin-bottom: 6px; }
 
 <main>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
     <div class="eyebrow" data-i18n="eyebrow">A-Share Quantitative Stock Selection · Research</div>
     <h1 class="title" data-i18n="title">Bobo Bean Model v2 — A 股选股模型</h1>
-    <p class="subtitle" data-i18n="subtitle">
-        基于 IC 分析、覆盖 40,292 条日线样本的 A 股技术选股模型。6 条核心入场规则 + 3 条追高过滤，分离训练集与测试集验证。本页展示 2024-2025 年回测结果，并提供随机抽样实验区域；具体规则阈值与 IC 值不公开。
+    <p class="hero-lead" data-i18n="subtitle">
+        基于 IC 分析、覆盖 61 只 A 股 2022–2026 年间 40,292 条日线样本的技术选股模型。6 条核心入场规则 + 3 条追高过滤，分离训练集与测试集验证，测试集表现超过训练集。本页展示 2024-2025 年回测结果，并提供随机抽样实验区域；具体规则阈值与 IC 值不公开。
     </p>
 </section>
 
-<!-- 01 · METHODOLOGY -->
-<div class="section-head">
-    <div class="section-num">01</div>
-    <div class="section-title" data-i18n="s1.title">Methodology</div>
+<!-- ═══ §01 · METHODOLOGY ═══ -->
+<div class="chapter-head">
+    <div class="chapter-num">01</div>
+    <div class="chapter-title-block">
+        <div class="eyebrow" data-i18n="s1.eyebrow">Research Framework</div>
+        <h2 data-i18n="s1.title">Methodology</h2>
+    </div>
 </div>
 
-<p data-i18n-html="s1.p1">
-    豆模型 v2 是一个 <strong>IC（信息系数）驱动的多因子技术筛选系统</strong>。研究流程：
+<p class="prose-p" data-i18n="s1.prose1">
+    Bean Model v2 is an IC-driven multi-factor technical screen built on 40,292 daily observations spanning 61 A-share stocks across 2022–2026. Twenty standard technical indicators — RSI, MACD, Bollinger bandwidth, volume ratio, momentum, and more — were evaluated against forward 10-day returns using Pearson information coefficients.
 </p>
 
-<ol data-i18n-html="s1.steps">
-    <li>采集 61 只 A 股 2022-01 至 2026-02 期间的日线数据，共 40,292 条样本</li>
-    <li>计算 20 个常用技术指标（RSI、MACD、布林带、量比、动量等）</li>
-    <li>对每个指标计算与未来 10 日收益的皮尔逊 IC，按效力排序</li>
-    <li>在训练集（2023-2024 年，21,143 条）上由 IC 推导出 6 条核心入场规则 + 3 条追高过滤</li>
-    <li>在测试集（2025+ 年，15,073 条）上独立验证胜率与平均收益</li>
-</ol>
+<p class="prose-p" data-i18n="s1.prose2">
+    Indicators were ranked by predictive power, and six core entry rules plus three anti-chase filters were derived from the training set (2023–2024 · 21,143 observations). These rules were then validated independently on the held-out test set (2025+ · 15,073 observations). Out-of-sample performance exceeded in-sample performance — the primary evidence against overfitting.
+</p>
 
 <div class="method-box">
-    <div class="method-box-label" data-i18n="s1.box_label">What's withheld</div>
-    <ul data-i18n-html="s1.withheld">
-        <li>具体的 6 条规则阈值（如 RSI、MACD 各自的临界点）</li>
-        <li>20 个技术指标的 IC 值排序</li>
-        <li>当前年份（2026+）的实时信号与命中股票</li>
-        <li>触发信号当日的指标具体取值</li>
-    </ul>
+    <div class="method-box-label">METHOD · IC DISCOVERY</div>
+    <div class="method-formula">For each indicator i:
+  IC_i  =  corr( indicator_i,  ret_{t→t+10} )
+
+Rank by |IC|, derive thresholds on 2023–24
+training set, validate on 2025+ test set.</div>
 </div>
 
-<!-- 02 · PROOF -->
-<div class="section-head">
-    <div class="section-num">02</div>
-    <div class="section-title" data-i18n="s2.title">Performance Proof</div>
+<div class="steps-label" data-i18n="s1.steps_label">Five-step research workflow</div>
+
+<ol data-i18n-html="s1.steps">
+    <li>Collect daily price-volume data for 61 A-share stocks across 2022-01 to 2026-02 — 40,292 observations</li>
+    <li>Compute 20 standard technical indicators (RSI, MACD, Bollinger, vol ratio, momentum, etc.)</li>
+    <li>Calculate Pearson IC of each indicator vs forward 10-day return; rank by predictive power</li>
+    <li>Derive 6 core entry rules + 3 anti-chase filters from the IC ranking on the training set (2023-2024, 21,143 obs)</li>
+    <li>Independently validate hit rate and average return on the held-out test set (2025+, 15,073 obs)</li>
+</ol>
+
+<div class="privacy-note">
+    <div class="privacy-note-icon">⊘</div>
+    <div class="privacy-note-body">
+        <strong data-i18n="s1.box_label">What's withheld</strong>
+        <span data-i18n="s1.withheld_prose">The specific thresholds for the 6 rules (e.g., RSI / MACD cut-off points) · IC values for the 20 indicators · Current-period (2026+) live signals and stock picks · Indicator readings on individual signal-trigger dates.</span>
+    </div>
 </div>
 
-<p data-i18n-html="s2.intro">
-    所有数据来自半导体板块龙头股 25 只股票池 · 2024-2025 全样本 · 信号判定标准：豆模型 6 条满足 ≥5 条且追高过滤通过 ≥2 条。
+<!-- ═══ §02 · PERFORMANCE PROOF ═══ -->
+<div class="chapter-head">
+    <div class="chapter-num">02</div>
+    <div class="chapter-title-block">
+        <div class="eyebrow" data-i18n="s2.eyebrow">Backtest Results · 2024–2025</div>
+        <h2 data-i18n="s2.title">Performance Proof</h2>
+    </div>
+</div>
+
+<p class="prose-p" data-i18n="s2.intro">
+    All figures from a 25-stock semiconductor sector leader universe · 2024-2025 full sample · Signal definition: bean score ≥ 5 of 6 rules AND anti-chase score ≥ 2 of 3 filters.
 </p>
 
-<div class="proof-grid" id="proof-stats"></div>
+<div id="proof-stats"></div>
 
-<p data-i18n="s2.year_intro" style="margin-top: 24px"><strong>分年度表现</strong></p>
-
-<table class="year-table" id="year-table">
-    <thead>
-        <tr>
-            <th data-i18n="s2.col_year">Year</th>
-            <th data-i18n="s2.col_signals">Signals</th>
-            <th data-i18n="s2.col_win10">10-Day Win Rate</th>
-            <th data-i18n="s2.col_avg10">10-Day Avg Return</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-<p data-i18n="s2.equity_intro" style="margin-top: 32px"><strong>累计净值曲线</strong>（每笔信号 10 日收益复利）</p>
-
-<div id="equity-chart"></div>
-
-<!-- 03 · STOCK PROBE -->
-<div class="section-head">
-    <div class="section-num">03</div>
-    <div class="section-title" data-i18n="s3.title">Stock Probe — Vintage Sample</div>
+<div class="figure-block">
+    <div class="figure-caption" data-i18n="s2.figure1_caption">Figure 1 · Annual breakdown</div>
+    <table class="year-table" id="year-table">
+        <thead>
+            <tr>
+                <th data-i18n="s2.col_year">Year</th>
+                <th data-i18n="s2.col_signals">Signals</th>
+                <th data-i18n="s2.col_win10">10-Day Win Rate</th>
+                <th data-i18n="s2.col_avg10">10-Day Avg Return</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="figure-source" data-i18n="s2.figure1_source">Source: bean_model.py backtest, semiconductor universe (n=25), 2024–2025</div>
 </div>
 
-<p data-i18n-html="s3.intro">
-    在 <strong>2024-2025 年</strong>样本期内，从 25 只半导体板块龙头股中随机抽取 5 只，查看豆模型在每只股票上的回测表现。点击任意一行展开净值小图。
+<div class="figure-block">
+    <div class="figure-caption" data-i18n="s2.figure2_caption">Figure 2 · Cumulative equity curve (each signal compounds 10-day return)</div>
+    <div id="equity-chart"></div>
+    <div class="figure-source" data-i18n="s2.figure2_source">Source: bean_model.py backtest, semiconductor universe (n=25), 2024–2025</div>
+</div>
+
+<!-- ═══ PULL QUOTE ═══ -->
+<blockquote class="pullquote">
+    <p data-i18n-html="quote.body">Test-set performance (2025: 68.9%) <em>exceeded</em> training-set performance (2024: 56.2%) — strong evidence the rules generalise rather than overfit.</p>
+    <cite data-i18n="quote.cite">— from the bean-model research log</cite>
+</blockquote>
+
+<!-- ═══ §03 · STOCK PROBE ═══ -->
+<div class="chapter-head">
+    <div class="chapter-num">03</div>
+    <div class="chapter-title-block">
+        <div class="eyebrow" data-i18n="s3.eyebrow">Random Sample · 25-Stock Universe</div>
+        <h2 data-i18n="s3.title">Stock Probe — Vintage Sample</h2>
+    </div>
+</div>
+
+<p class="prose-p" data-i18n-html="s3.intro">
+    Within the <strong>2024-2025</strong> sample window, draw 5 random stocks from the 25-stock semiconductor leader universe to inspect per-stock backtest performance.
 </p>
 
 <div class="probe-panel">
@@ -464,14 +560,16 @@ li { margin-bottom: 6px; }
             <span data-i18n="s3.universe_suffix">stocks · sample period</span>
             <span class="mono">2024–2025</span>
         </div>
-        <button class="draw-btn" id="draw-btn" data-i18n="s3.draw_btn">Draw 5 random stocks ↻</button>
+        <button class="draw-btn" id="draw-btn" data-i18n="s3.draw_btn">Draw 5 random ↻</button>
     </div>
-    <div class="probe-results" id="probe-results"></div>
+    <div class="probe-cards" id="probe-results"></div>
 </div>
 
-<div class="disclaimer" data-i18n-html="s3.disclaimer">
-    抽样仅展示 2024-2025 年聚合统计（信号数、胜率、均收）；不显示信号触发当日的具体指标值或可执行交易建议。当前年份信号、具体规则阈值、IC 值未公开。本页面仅为研究展示，不构成投资建议。
-</div>
+<!-- ═══ RESEARCH FOOTNOTE ═══ -->
+<aside class="research-footnote">
+    <span class="dagger">†</span><span data-i18n="s3.disclaimer_text">The probe shows only 2024-2025 aggregate statistics (signal count, win rate, avg return); it does not display indicator values on individual trigger dates or any executable trade recommendation. Current-period signals, specific rule thresholds, and IC values are not disclosed. This page is a research demo, not investment advice.</span>
+    <span class="closing">独立思考<span class="sep">·</span>明辨是非</span>
+</aside>
 
 </main>
 
@@ -486,78 +584,116 @@ li { margin-bottom: 6px; }
  * ───────────────────────────────────────────────────────────── */
 const I18N = {
   en: {
-    "back":               "Back to portfolio",
-    "brand.role":         "Quantitative Macro Research",
-    "eyebrow":            "A-Share Quantitative Stock Selection · Research",
-    "title":              "Bobo Bean Model v2 — A-Share Stock Selection",
-    "subtitle":           "An IC-driven multi-factor technical screen for A-share equities, derived from 40,292 daily observations. Six core entry rules plus three anti-chase filters, validated on a held-out test set. This page shows 2024-2025 backtest results and an interactive random-sample probe; specific rule thresholds and IC values are withheld.",
-    "s1.title":           "Methodology",
-    "s1.p1":              "Bean Model v2 is an <strong>IC-driven multi-factor technical screen</strong>. Research workflow:",
-    "s1.steps":           "<li>Collect daily price-volume data for 61 A-share stocks across 2022-01 to 2026-02 — 40,292 observations</li><li>Compute 20 standard technical indicators (RSI, MACD, Bollinger, vol ratio, momentum, etc.)</li><li>Calculate Pearson IC of each indicator vs forward 10-day return; rank by predictive power</li><li>Derive 6 core entry rules + 3 anti-chase filters from the IC ranking on the training set (2023-2024, 21,143 obs)</li><li>Independently validate hit rate and average return on the held-out test set (2025+, 15,073 obs)</li>",
-    "s1.box_label":       "What's withheld",
-    "s1.withheld":        "<li>The specific thresholds for the 6 rules (e.g., RSI / MACD cut-off points)</li><li>IC values for the 20 indicators</li><li>Current-period (2026+) live signals and stock picks</li><li>Indicator readings on individual signal-trigger dates</li>",
-    "s2.title":           "Performance Proof",
-    "s2.intro":           "All figures from a 25-stock semiconductor sector leader universe · 2024-2025 full sample · Signal definition: bean score ≥ 5 of 6 rules AND anti-chase score ≥ 2 of 3 filters.",
-    "s2.year_intro":      "<strong>Annual breakdown</strong>",
-    "s2.col_year":        "Year",
-    "s2.col_signals":     "Signals",
-    "s2.col_win10":       "10-Day Win Rate",
-    "s2.col_avg10":       "10-Day Avg Return",
-    "s2.equity_intro":    "<strong>Cumulative equity curve</strong> (each signal compounds 10-day return)",
-    "s3.title":           "Stock Probe — Vintage Sample",
-    "s3.intro":           "Within the <strong>2024-2025</strong> sample window, draw 5 random stocks from the 25-stock semiconductor leader universe to inspect the model's per-stock backtest performance. Click any row to expand a mini equity curve.",
-    "s3.universe_label":  "Universe:",
-    "s3.universe_suffix": "stocks · sample period",
-    "s3.draw_btn":        "Draw 5 random stocks ↻",
-    "s3.disclaimer":      "The probe shows only 2024-2025 aggregate statistics (signal count, win rate, avg return); it does not display indicator values on individual trigger dates or any executable trade recommendation. Current-period signals, specific rule thresholds, and IC values are not disclosed. This page is a research demo, not investment advice. <strong>Think for yourself · judge clearly.</strong>",
-    "stat.signals":       "Total signals",
-    "stat.stocks":        "Stocks fired",
-    "stat.win10":         "10-day win rate",
-    "stat.avg10":         "10-day avg return",
-    "stat.win20":         "20-day win rate",
-    "stat.avg20":         "20-day avg return",
-    "stat.universe":      "of 25 universe",
-    "stat.signal_unit":   "trades",
-    "probe.no_signals":   "no signals fired",
-    "probe.signals_unit": "signals",
-    "footer":             "© 2026 Erick Wei · Columbia SIPA · Research demo, not investment advice",
+    "back":                "Back to portfolio",
+    "brand.role":          "Quantitative Macro Research",
+    "eyebrow":             "A-Share Quantitative Stock Selection · Research",
+    "title":               "Bobo Bean Model v2 — A-Share Stock Selection",
+    "subtitle":            "An IC-driven multi-factor technical screen for A-share equities, derived from 40,292 daily observations across 61 stocks spanning 2022–2026. Six core entry rules plus three anti-chase filters, validated on a held-out test set that exceeded training-set performance. This page presents 2024–2025 backtest results and an interactive random-sample probe; specific rule thresholds and IC values are withheld.",
+    "s1.eyebrow":          "Research Framework",
+    "s1.title":            "Methodology",
+    "s1.prose1":           "Bean Model v2 is an IC-driven multi-factor technical screen built on 40,292 daily observations spanning 61 A-share stocks across 2022–2026. Twenty standard technical indicators — RSI, MACD, Bollinger bandwidth, volume ratio, momentum, and more — were evaluated against forward 10-day returns using Pearson information coefficients.",
+    "s1.prose2":           "Indicators were ranked by predictive power, and six core entry rules plus three anti-chase filters were derived from the training set (2023–2024 · 21,143 observations). These rules were then validated independently on the held-out test set (2025+ · 15,073 observations). Out-of-sample performance exceeded in-sample performance — the primary evidence against overfitting.",
+    "s1.steps_label":      "Five-step research workflow",
+    "s1.p1":               "Bean Model v2 is an <strong>IC-driven multi-factor technical screen</strong>. Research workflow:",
+    "s1.steps":            "<li>Collect daily price-volume data for 61 A-share stocks across 2022-01 to 2026-02 — 40,292 observations</li><li>Compute 20 standard technical indicators (RSI, MACD, Bollinger, vol ratio, momentum, etc.)</li><li>Calculate Pearson IC of each indicator vs forward 10-day return; rank by predictive power</li><li>Derive 6 core entry rules + 3 anti-chase filters from the IC ranking on the training set (2023-2024, 21,143 obs)</li><li>Independently validate hit rate and average return on the held-out test set (2025+, 15,073 obs)</li>",
+    "s1.box_label":        "What's withheld",
+    "s1.withheld":         "<li>The specific thresholds for the 6 rules (e.g., RSI / MACD cut-off points)</li><li>IC values for the 20 indicators</li><li>Current-period (2026+) live signals and stock picks</li><li>Indicator readings on individual signal-trigger dates</li>",
+    "s1.withheld_prose":   "The specific thresholds for the 6 rules (e.g., RSI / MACD cut-off points) · IC values for the 20 indicators · Current-period (2026+) live signals and stock picks · Indicator readings on individual signal-trigger dates.",
+    "s2.eyebrow":          "Backtest Results · 2024–2025",
+    "s2.title":            "Performance Proof",
+    "s2.intro":            "All figures from a 25-stock semiconductor sector leader universe · 2024-2025 full sample · Signal definition: bean score ≥ 5 of 6 rules AND anti-chase score ≥ 2 of 3 filters.",
+    "s2.headline_label":   "10-DAY WIN RATE",
+    "s2.sup_avg10":        "AVG 10D",
+    "s2.sup_win20":        "WIN 20D",
+    "s2.sup_avg20":        "AVG 20D",
+    "s2.sup_stocks":       "STOCKS FIRED",
+    "s2.year_intro":       "<strong>Annual breakdown</strong>",
+    "s2.col_year":         "Year",
+    "s2.col_signals":      "Signals",
+    "s2.col_win10":        "10-Day Win Rate",
+    "s2.col_avg10":        "10-Day Avg Return",
+    "s2.equity_intro":     "<strong>Cumulative equity curve</strong> (each signal compounds 10-day return)",
+    "s2.figure1_caption":  "Figure 1 · Annual breakdown",
+    "s2.figure1_source":   "Source: bean_model.py backtest, semiconductor universe (n=25), 2024–2025",
+    "s2.figure2_caption":  "Figure 2 · Cumulative equity curve (each signal compounds 10-day return)",
+    "s2.figure2_source":   "Source: bean_model.py backtest, semiconductor universe (n=25), 2024–2025",
+    "quote.body":          "Test-set performance (2025: 68.9%) <em>exceeded</em> training-set performance (2024: 56.2%) — strong evidence the rules generalise rather than overfit.",
+    "quote.cite":          "— from the bean-model research log",
+    "s3.eyebrow":          "Random Sample · 25-Stock Universe",
+    "s3.title":            "Stock Probe — Vintage Sample",
+    "s3.intro":            "Within the <strong>2024-2025</strong> sample window, draw 5 random stocks from the 25-stock semiconductor leader universe to inspect per-stock backtest performance.",
+    "s3.universe_label":   "Universe:",
+    "s3.universe_suffix":  "stocks · sample period",
+    "s3.draw_btn":         "Draw 5 random ↻",
+    "s3.disclaimer":       "The probe shows only 2024-2025 aggregate statistics (signal count, win rate, avg return); it does not display indicator values on individual trigger dates or any executable trade recommendation. Current-period signals, specific rule thresholds, and IC values are not disclosed. This page is a research demo, not investment advice. <strong>Think for yourself · judge clearly.</strong>",
+    "s3.disclaimer_text":  "The probe shows only 2024-2025 aggregate statistics (signal count, win rate, avg return); it does not display indicator values on individual trigger dates or any executable trade recommendation. Current-period signals, specific rule thresholds, and IC values are not disclosed. This page is a research demo, not investment advice.",
+    "stat.signals":        "Total signals",
+    "stat.stocks":         "Stocks fired",
+    "stat.win10":          "10-day win rate",
+    "stat.avg10":          "10-day avg return",
+    "stat.win20":          "20-day win rate",
+    "stat.avg20":          "20-day avg return",
+    "stat.universe":       "of 25 universe",
+    "stat.signal_unit":    "trades",
+    "probe.no_signals":    "NO SIGNAL FIRED",
+    "probe.signals_unit":  "signals",
+    "footer":              "© 2026 Erick Wei · Columbia SIPA · Research demo, not investment advice",
   },
   zh: {
-    "back":               "返回主页",
-    "brand.role":         "量化宏观研究",
-    "eyebrow":            "A 股量化选股模型 · 研究展示",
-    "title":              "Bobo 豆模型 v2 — A 股选股策略",
-    "subtitle":           "基于 IC 分析、覆盖 40,292 条日线样本的 A 股技术选股模型。6 条核心入场规则 + 3 条追高过滤，分离训练集与测试集验证。本页展示 2024-2025 年回测结果，并提供随机抽样实验区域；具体规则阈值与 IC 值不公开。",
-    "s1.title":           "方法论",
-    "s1.p1":              "豆模型 v2 是一个 <strong>IC（信息系数）驱动的多因子技术筛选系统</strong>。研究流程：",
-    "s1.steps":           "<li>采集 61 只 A 股 2022-01 至 2026-02 期间的日线数据，共 40,292 条样本</li><li>计算 20 个常用技术指标（RSI、MACD、布林带、量比、动量等）</li><li>对每个指标计算与未来 10 日收益的皮尔逊 IC，按效力排序</li><li>在训练集（2023-2024 年，21,143 条）上由 IC 推导出 6 条核心入场规则 + 3 条追高过滤</li><li>在测试集（2025+ 年，15,073 条）上独立验证胜率与平均收益</li>",
-    "s1.box_label":       "未公开内容",
-    "s1.withheld":        "<li>6 条规则的具体阈值（例如 RSI、MACD 各自的临界点）</li><li>20 个技术指标的 IC 值排序</li><li>当前年份（2026+）的实时信号与命中股票</li><li>触发信号当日的指标具体取值</li>",
-    "s2.title":           "回测验证",
-    "s2.intro":           "所有数据来自半导体板块龙头股 25 只股票池 · 2024-2025 全样本 · 信号判定标准：豆模型 6 条满足 ≥5 条且追高过滤通过 ≥2 条。",
-    "s2.year_intro":      "<strong>分年度表现</strong>",
-    "s2.col_year":        "年份",
-    "s2.col_signals":     "信号数",
-    "s2.col_win10":       "10 日胜率",
-    "s2.col_avg10":       "10 日均收",
-    "s2.equity_intro":    "<strong>累计净值曲线</strong>（每笔信号 10 日收益复利）",
-    "s3.title":           "随机抽样实验",
-    "s3.intro":           "在 <strong>2024-2025 年</strong>样本期内，从 25 只半导体板块龙头股中随机抽取 5 只，查看豆模型在每只股票上的回测表现。点击任意一行展开净值小图。",
-    "s3.universe_label":  "股票池：",
-    "s3.universe_suffix": "只 · 样本期",
-    "s3.draw_btn":        "随机抽 5 只 ↻",
-    "s3.disclaimer":      "抽样仅展示 2024-2025 年聚合统计（信号数、胜率、均收）；不显示信号触发当日的具体指标值或可执行交易建议。当前年份信号、具体规则阈值、IC 值未公开。本页面仅为研究展示，不构成投资建议。<strong>独立思考 · 明辨是非。</strong>",
-    "stat.signals":       "总信号数",
-    "stat.stocks":        "命中股票",
-    "stat.win10":         "10 日胜率",
-    "stat.avg10":         "10 日均收",
-    "stat.win20":         "20 日胜率",
-    "stat.avg20":         "20 日均收",
-    "stat.universe":      "/ 共 25 只",
-    "stat.signal_unit":   "笔",
-    "probe.no_signals":   "本期未触发信号",
-    "probe.signals_unit": "次信号",
-    "footer":             "© 2026 Erick Wei · 哥伦比亚大学 SIPA · 研究展示页面，不构成投资建议",
+    "back":                "返回主页",
+    "brand.role":          "量化宏观研究",
+    "eyebrow":             "A 股量化选股模型 · 研究展示",
+    "title":               "Bobo 豆模型 v2 — A 股选股策略",
+    "subtitle":            "基于 IC 分析、覆盖 61 只 A 股 2022–2026 年间 40,292 条日线样本的技术选股模型。6 条核心入场规则 + 3 条追高过滤，分离训练集与测试集验证，测试集表现超过训练集。本页展示 2024-2025 年回测结果，并提供随机抽样实验区域；具体规则阈值与 IC 值不公开。",
+    "s1.eyebrow":          "研究框架",
+    "s1.title":            "方法论",
+    "s1.prose1":           "豆模型 v2 是一个 IC（信息系数）驱动的多因子技术筛选系统，基于 61 只 A 股 2022–2026 年间 40,292 条日线样本。研究对 20 个常用技术指标——RSI、MACD、布林带带宽、量比、动量等——计算与未来 10 日收益的皮尔逊 IC，并按预测效力排序。",
+    "s1.prose2":           "基于排序结果，在训练集（2023–2024 · 21,143 条）上推导出 6 条核心入场规则 + 3 条追高过滤条件，随后在完全独立的测试集（2025+ · 15,073 条）上验证胜率与平均收益。测试集表现超过训练集表现——这是规则可泛化、非过拟合的核心证据。",
+    "s1.steps_label":      "五步研究流程",
+    "s1.p1":               "豆模型 v2 是一个 <strong>IC（信息系数）驱动的多因子技术筛选系统</strong>。研究流程：",
+    "s1.steps":            "<li>采集 61 只 A 股 2022-01 至 2026-02 期间的日线数据，共 40,292 条样本</li><li>计算 20 个常用技术指标（RSI、MACD、布林带、量比、动量等）</li><li>对每个指标计算与未来 10 日收益的皮尔逊 IC，按效力排序</li><li>在训练集（2023-2024 年，21,143 条）上由 IC 推导出 6 条核心入场规则 + 3 条追高过滤</li><li>在测试集（2025+ 年，15,073 条）上独立验证胜率与平均收益</li>",
+    "s1.box_label":        "未公开内容",
+    "s1.withheld":         "<li>6 条规则的具体阈值（例如 RSI、MACD 各自的临界点）</li><li>20 个技术指标的 IC 值排序</li><li>当前年份（2026+）的实时信号与命中股票</li><li>触发信号当日的指标具体取值</li>",
+    "s1.withheld_prose":   "6 条规则的具体阈值（如 RSI、MACD 临界点）· 20 个技术指标的 IC 值排序 · 当前年份（2026+）的实时信号与命中股票 · 触发信号当日的指标具体取值。",
+    "s2.eyebrow":          "回测结果 · 2024–2025",
+    "s2.title":            "回测验证",
+    "s2.intro":            "所有数据来自半导体板块龙头股 25 只股票池 · 2024-2025 全样本 · 信号判定标准：豆模型 6 条满足 ≥5 条且追高过滤通过 ≥2 条。",
+    "s2.headline_label":   "10 日胜率",
+    "s2.sup_avg10":        "10 日均收",
+    "s2.sup_win20":        "20 日胜率",
+    "s2.sup_avg20":        "20 日均收",
+    "s2.sup_stocks":       "命中股票",
+    "s2.year_intro":       "<strong>分年度表现</strong>",
+    "s2.col_year":         "年份",
+    "s2.col_signals":      "信号数",
+    "s2.col_win10":        "10 日胜率",
+    "s2.col_avg10":        "10 日均收",
+    "s2.equity_intro":     "<strong>累计净值曲线</strong>（每笔信号 10 日收益复利）",
+    "s2.figure1_caption":  "图 1 · 分年度表现",
+    "s2.figure1_source":   "来源：bean_model.py 回测，半导体板块（n=25），2024–2025",
+    "s2.figure2_caption":  "图 2 · 累计净值曲线（每笔信号 10 日收益复利）",
+    "s2.figure2_source":   "来源：bean_model.py 回测，半导体板块（n=25），2024–2025",
+    "quote.body":          "测试集表现（2025 · 68.9%）<em>超过</em>训练集表现（2024 · 56.2%）—— 这是规则可泛化、非过拟合的有力证据。",
+    "quote.cite":          "—— 豆模型研究日志",
+    "s3.eyebrow":          "随机抽样 · 25 只股票池",
+    "s3.title":            "随机抽样实验",
+    "s3.intro":            "在 <strong>2024-2025 年</strong>样本期内，从 25 只半导体板块龙头股中随机抽取 5 只，查看豆模型在每只股票上的回测表现。",
+    "s3.universe_label":   "股票池：",
+    "s3.universe_suffix":  "只 · 样本期",
+    "s3.draw_btn":         "随机抽 5 只 ↻",
+    "s3.disclaimer":       "抽样仅展示 2024-2025 年聚合统计（信号数、胜率、均收）；不显示信号触发当日的具体指标值或可执行交易建议。当前年份信号、具体规则阈值、IC 值未公开。本页面仅为研究展示，不构成投资建议。<strong>独立思考 · 明辨是非。</strong>",
+    "s3.disclaimer_text":  "抽样仅展示 2024-2025 年聚合统计（信号数、胜率、均收）；不显示信号触发当日的具体指标值或可执行交易建议。当前年份信号、具体规则阈值、IC 值未公开。本页面仅为研究展示，不构成投资建议。",
+    "stat.signals":        "总信号数",
+    "stat.stocks":         "命中股票",
+    "stat.win10":          "10 日胜率",
+    "stat.avg10":          "10 日均收",
+    "stat.win20":          "20 日胜率",
+    "stat.avg20":          "20 日均收",
+    "stat.universe":       "/ 共 25 只",
+    "stat.signal_unit":    "笔",
+    "probe.no_signals":    "本期未触发信号",
+    "probe.signals_unit":  "次信号",
+    "footer":              "© 2026 Erick Wei · 哥伦比亚大学 SIPA · 研究展示页面，不构成投资建议",
   }
 };
 
@@ -572,6 +708,7 @@ function applyI18n() {
     document.querySelectorAll("[data-i18n-html]").forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
     document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
 }
+
 function setLang(lang) {
     LANG = lang;
     localStorage.setItem("portfolio-lang", lang);
@@ -583,35 +720,50 @@ function setLang(lang) {
         renderProof(window.__data);
         renderYearTable(window.__data);
         renderEquityCurve(window.__data);
-        renderProbe();   // re-render with new language
+        renderProbe();
     }
 }
 
 /* ─────────────────────────────────────────────────────────────
- *  Data + Renderers
+ *  Renderers
  * ───────────────────────────────────────────────────────────── */
 function renderProof(d) {
     const h = d.headline;
-    const stats = [
-        { label: t("stat.signals"), value: h.n_signals,         sub: t("stat.signal_unit"),                  cls: "" },
-        { label: t("stat.stocks"),  value: `${h.n_stocks} / 25`,sub: t("stat.universe"),                    cls: "" },
-        { label: t("stat.win10"),   value: `${h.win10}%`,       sub: `${h.n_signals} ${t("stat.signal_unit")}`, cls: "bull" },
-        { label: t("stat.avg10"),   value: `+${h.avg10}%`,      sub: t("stat.win10"),                        cls: "bull" },
-        { label: t("stat.win20"),   value: `${h.win20}%`,       sub: `${h.n_signals} ${t("stat.signal_unit")}`, cls: "" },
-        { label: t("stat.avg20"),   value: `+${h.avg20}%`,      sub: t("stat.win20"),                        cls: "bull" },
-    ];
-    document.getElementById("proof-stats").innerHTML = stats.map(s => `
-        <div class="stat-card">
-            <div class="stat-label">${s.label}</div>
-            <div class="stat-value ${s.cls}">${s.value}</div>
-            <div class="stat-sub">${s.sub}</div>
-        </div>`).join("");
+    const signalUnit = t("stat.signal_unit");
+    const headlineSub = LANG === "zh"
+        ? `${h.n_signals} ${signalUnit} · 2024–2025`
+        : `${h.n_signals} ${signalUnit} · 2024–2025`;
+    document.getElementById("proof-stats").innerHTML = `
+        <div class="headline-stat-block">
+            <div class="headline-number">${h.win10}%</div>
+            <div class="headline-rule"></div>
+            <div class="headline-label">${t("s2.headline_label")}</div>
+            <div class="headline-sub">${headlineSub}</div>
+            <div class="headline-supporting">
+                <div class="supporting-stat">
+                    <div class="sup-value">+${h.avg10}%</div>
+                    <div class="sup-label">${t("s2.sup_avg10")}</div>
+                </div>
+                <div class="supporting-stat">
+                    <div class="sup-value">${h.win20}%</div>
+                    <div class="sup-label">${t("s2.sup_win20")}</div>
+                </div>
+                <div class="supporting-stat">
+                    <div class="sup-value">+${h.avg20}%</div>
+                    <div class="sup-label">${t("s2.sup_avg20")}</div>
+                </div>
+                <div class="supporting-stat">
+                    <div class="sup-value">${h.n_stocks}/25</div>
+                    <div class="sup-label">${t("s2.sup_stocks")}</div>
+                </div>
+            </div>
+        </div>`;
 }
 
 function renderYearTable(d) {
     const tbody = document.querySelector("#year-table tbody");
     tbody.innerHTML = d.by_year.map(y => {
-        if (y.signals === 0) return `<tr><td>${y.year}</td><td class="num muted">—</td><td class="num muted">—</td><td class="num muted">—</td></tr>`;
+        if (y.signals === 0) return `<tr><td>${y.year}</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>`;
         const winCls = y.win10 >= 60 ? 'bull' : y.win10 >= 50 ? '' : 'bear';
         const avgCls = y.avg10 > 0 ? 'bull' : 'bear';
         return `<tr>
@@ -637,9 +789,8 @@ function renderEquityCurve(d) {
         margin: { t: 12, r: 12, b: 36, l: 48 },
         font:   { family: "Inter, sans-serif", size: 11, color: "#57534e" },
         xaxis:  { gridcolor: "#e8e4dc", linecolor: "#d4cec1", tickfont: { size: 10 } },
-        yaxis:  { gridcolor: "#e8e4dc", linecolor: "#d4cec1", tickfont: { size: 10 },
-                  tickformat: ".2f" },
-        plot_bgcolor: "#faf8f5",
+        yaxis:  { gridcolor: "#e8e4dc", linecolor: "#d4cec1", tickfont: { size: 10 }, tickformat: ".2f" },
+        plot_bgcolor:  "#faf8f5",
         paper_bgcolor: "#faf8f5",
         showlegend: false,
         hoverlabel: { bgcolor: "#0c0a09", font: { color: "#faf8f5", family: "JetBrains Mono" } },
@@ -651,66 +802,53 @@ let CURRENT_DRAW = [];
 function renderProbe() {
     if (!window.__data) return;
     if (CURRENT_DRAW.length === 0) {
-        // Initial random draw
         CURRENT_DRAW = drawRandomFive(window.__data.per_stock);
     }
     const html = CURRENT_DRAW.map((s, idx) => {
-        const isZero = s.signals === 0;
-        if (isZero) {
-            return `<div class="probe-row zero">
-                <div class="probe-stock">
-                    <span class="probe-name">${s.name}</span>
-                    <span class="probe-code">${s.code}</span>
+        if (s.signals === 0) {
+            return `<div class="probe-card zero">
+                <div class="probe-card-header">
+                    <span class="probe-card-name">${s.name}</span>
+                    <span class="probe-card-code">${s.code}</span>
                 </div>
-                <div class="probe-num muted">0</div>
-                <div class="probe-num muted col-avg">—</div>
-                <div class="probe-num muted col-avg">—</div>
-                <div class="probe-arrow">${t('probe.no_signals')}</div>
+                <div class="probe-card-zero-label">${t('probe.no_signals')}</div>
             </div>`;
         }
-        const winCls = s.win10 >= 60 ? 'bull' : s.win10 >= 50 ? '' : 'bear';
+        const winCls = s.win10 >= 60 ? 'bull' : s.win10 >= 50 ? 'neutral' : 'bear';
         const avgCls = s.avg10 > 0 ? 'bull' : 'bear';
-        return `<div class="probe-row" data-idx="${idx}">
-            <div class="probe-stock">
-                <span class="probe-name">${s.name}</span>
-                <span class="probe-code">${s.code}</span>
+        return `<div class="probe-card">
+            <div class="probe-card-header">
+                <span class="probe-card-name">${s.name}</span>
+                <span class="probe-card-code">${s.code}</span>
+                <span class="probe-card-arrow">↗</span>
             </div>
-            <div class="probe-num">${s.signals}</div>
-            <div class="probe-num ${winCls} col-avg">${s.win10}%</div>
-            <div class="probe-num ${avgCls} col-avg">${s.avg10 > 0 ? '+' : ''}${s.avg10}%</div>
-            <div class="probe-arrow">↗</div>
-        </div>
-        <div class="probe-detail" id="detail-${idx}">
-            <div class="probe-detail-chart" id="chart-${idx}"></div>
-            <div class="probe-detail-meta">
-                <span><span class="mono">${s.signals}</span> ${t('probe.signals_unit')}</span>
-                <span>${t('stat.win10')}: <span class="mono">${s.win10}%</span></span>
-                <span>${t('stat.avg10')}: <span class="mono">+${s.avg10}%</span></span>
-                <span>${s.first_signal} → ${s.last_signal}</span>
+            <div class="probe-card-stats">
+                <div class="probe-card-stat">
+                    <div class="pcs-value neutral">${s.signals}</div>
+                    <div class="pcs-label">${t('probe.signals_unit')}</div>
+                </div>
+                <div class="probe-card-stat">
+                    <div class="pcs-value ${winCls}">${s.win10}%</div>
+                    <div class="pcs-label">${t('stat.win10')}</div>
+                </div>
+                <div class="probe-card-stat">
+                    <div class="pcs-value ${avgCls}">${s.avg10 > 0 ? '+' : ''}${s.avg10}%</div>
+                    <div class="pcs-label">${t('stat.avg10')}</div>
+                </div>
             </div>
+            <div class="probe-card-sparkline" id="spark-${idx}"></div>
         </div>`;
     }).join("");
+
     document.getElementById("probe-results").innerHTML = html;
 
-    // Click to expand
-    document.querySelectorAll("#probe-results .probe-row[data-idx]").forEach(row => {
-        row.addEventListener("click", () => {
-            const idx = parseInt(row.dataset.idx);
-            const det = document.getElementById(`detail-${idx}`);
-            const wasOpen = det.classList.contains("open");
-            // Close all
-            document.querySelectorAll(".probe-detail").forEach(d => d.classList.remove("open"));
-            if (!wasOpen) {
-                det.classList.add("open");
-                renderStockEquityChart(idx, CURRENT_DRAW[idx]);
-            }
-        });
+    CURRENT_DRAW.forEach((s, idx) => {
+        if (s.signals > 0) renderSparkline(idx, s);
     });
 }
 
 function drawRandomFive(stocks) {
     const arr = [...stocks];
-    // Fisher-Yates shuffle, take first 5
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -718,37 +856,30 @@ function drawRandomFive(stocks) {
     return arr.slice(0, 5);
 }
 
-function renderStockEquityChart(idx, stock) {
-    if (stock.signals === 0) return;
-    // Build mini equity curve from this stock's signals only
-    // Filter the global equity_curve points... actually we don't have per-stock equity points
-    // So we synthesise: from the stock's win10 and avg10, simulate a flat-ish curve
-    // For now: use the global equity slice between this stock's first/last signal as illustrative
+function renderSparkline(idx, stock) {
+    const el = document.getElementById(`spark-${idx}`);
+    if (!el) return;
     const all = window.__data.equity_curve;
     const within = all.filter(p => p.date >= stock.first_signal && p.date <= stock.last_signal);
-    if (within.length < 2) {
-        document.getElementById(`chart-${idx}`).innerHTML =
-            `<p style="font-size:12px;color:var(--muted);text-align:center;padding:30px 0">— ${stock.signals} signals · single point —</p>`;
-        return;
-    }
-    const dates = within.map(p => p.date);
-    const vals  = within.map(p => p.equity);
-    Plotly.newPlot(`chart-${idx}`, [{
-        x: dates, y: vals,
+    if (within.length < 2) { el.style.display = "none"; return; }
+    const lineColor = stock.avg10 > 0 ? "#15803d" : "#b91c1c";
+    const fillColor = stock.avg10 > 0 ? "rgba(21,128,61,0.08)" : "rgba(185,28,28,0.08)";
+    Plotly.newPlot(el, [{
+        x: within.map(p => p.date),
+        y: within.map(p => p.equity),
         type: "scatter", mode: "lines",
-        line: { color: stock.avg10 > 0 ? "#15803d" : "#b91c1c", width: 1.6 },
-        fill: "tozeroy",
-        fillcolor: stock.avg10 > 0 ? "rgba(21,128,61,0.08)" : "rgba(185,28,28,0.08)",
+        line: { color: lineColor, width: 1.5 },
+        fill: "tozeroy", fillcolor: fillColor,
         hovertemplate: "%{x}<br>%{y:.4f}<extra></extra>",
     }], {
-        margin: { t: 6, r: 6, b: 28, l: 36 },
-        font:   { family: "Inter, sans-serif", size: 10, color: "#78716c" },
-        xaxis:  { gridcolor: "#e8e4dc", tickfont: { size: 9 }, showticklabels: true },
-        yaxis:  { gridcolor: "#e8e4dc", tickfont: { size: 9 }, tickformat: ".2f" },
-        plot_bgcolor: "#f5f2ec",
-        paper_bgcolor: "#f5f2ec",
+        margin: { t: 2, r: 2, b: 2, l: 2 },
+        xaxis: { visible: false, showgrid: false },
+        yaxis: { visible: false, showgrid: false },
+        plot_bgcolor:  "#faf8f5",
+        paper_bgcolor: "#faf8f5",
         showlegend: false,
-    }, { displayModeBar: false, responsive: true });
+        height: 60,
+    }, { displayModeBar: false, responsive: true, staticPlot: true });
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -767,7 +898,6 @@ async function boot() {
         renderProbe();
     });
 
-    // Initial render
     setLang(LANG);
     renderProof(data);
     renderYearTable(data);
