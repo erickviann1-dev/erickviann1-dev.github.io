@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erick Wei · Quantitative Macro & Capital Markets Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+ *  Portfolio Hub · v1.0
+ *  Design language inherits from usdcny-tracker
+ * ═══════════════════════════════════════════════════════════════ */
+:root {
+    --bg:           #faf8f5;
+    --bg-tint:      #f5f2ec;
+    --card:         #ffffff;
+    --hairline:     #e8e4dc;
+    --rule:         #d4cec1;
+
+    --ink:          #0c0a09;
+    --ink-soft:     #292524;
+    --muted:        #57534e;
+    --muted-soft:   #78716c;
+
+    --navy:         #1e3a5f;
+    --navy-soft:    #2c4f7c;
+    --ochre:        #a16207;
+    --ochre-soft:   #ca8a04;
+
+    --bull:         #15803d;
+    --bear:         #b91c1c;
+
+    --shadow-card:  0 1px 0 rgba(12,10,9,0.04), 0 1px 3px rgba(12,10,9,0.04), 0 12px 24px -8px rgba(12,10,9,0.04);
+    --shadow-lift:  0 2px 4px rgba(12,10,9,0.05), 0 24px 48px -12px rgba(12,10,9,0.10);
+
+    --content-max:  920px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: "ss01", "cv11", "kern";
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+::selection { background: var(--navy); color: #fff; }
+a { color: var(--navy); text-decoration: none; transition: color 0.15s; }
+a:hover { color: var(--ochre); }
+.serif { font-family: 'Source Serif 4', Georgia, serif; font-feature-settings: "ss01", "kern"; }
+.mono  { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.hairline { border: none; border-top: 1px solid var(--hairline); margin: 0; }
+
+/* ─── TOP BAR ─── */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 248, 245, 0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--hairline);
+}
+.topbar-inner {
+    display: flex; align-items: center; gap: 18px;
+    max-width: var(--content-max); margin: 0 auto;
+    padding: 14px 32px;
+}
+.brand {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--ink);
+}
+.brand-mark {
+    width: 32px; height: 32px;
+    background: var(--ink); color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600; font-size: 16px;
+    letter-spacing: -0.02em;
+    border-radius: 2px;
+}
+.brand-text {
+    font-size: 13px; font-weight: 500; line-height: 1.2;
+}
+.brand-text small {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+}
+.topbar-spacer { flex: 1; }
+.lang-toggle {
+    display: flex;
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.lang-toggle button {
+    padding: 6px 11px;
+    border: none;
+    background: transparent;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+}
+.lang-toggle button.active { background: var(--ink); color: var(--bg); }
+
+/* ─── PAGE LAYOUT ─── */
+main {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+}
+
+/* ─── HERO ─── */
+.hero {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 36px;
+    align-items: start;
+    margin-bottom: 72px;
+}
+@media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 28px; }
+    .hero .avatar { width: 120px; height: 120px; }
+}
+.avatar {
+    width: 168px; height: 168px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-lift);
+    background: linear-gradient(135deg, var(--navy), var(--ochre));
+}
+.avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* Fallback monogram if image missing */
+.avatar.no-image {
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 64px;
+    letter-spacing: -0.04em;
+}
+.hero-overline {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.hero-name {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    color: var(--ink);
+}
+.hero-tagline {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+.hero-tagline strong { color: var(--ink); font-weight: 500; }
+.hero-bio {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 640px;
+}
+
+/* ─── SECTION HEAD ─── */
+.section-head {
+    margin: 56px 0 24px;
+    display: flex; align-items: baseline; gap: 16px;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 14px;
+}
+.section-num {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ochre);
+    letter-spacing: -0.02em;
+}
+.section-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+.section-eyebrow {
+    margin-left: auto;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted-soft);
+    font-weight: 500;
+}
+
+/* ─── TOOLS GRID ─── */
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+@media (max-width: 720px) {
+    .tools-grid { grid-template-columns: 1fr; }
+}
+.tool-card {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    padding: 28px 28px 24px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.18s, box-shadow 0.18s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+.tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    color: inherit;
+}
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+}
+.tool-card.live::before     { background: var(--bull); }
+.tool-card.research::before { background: var(--ochre); }
+.tool-card-tag {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.tool-card.live    .tool-card-tag { color: var(--bull); }
+.tool-card.research .tool-card-tag { color: var(--ochre); }
+.tool-card-tag .pulse {
+    width: 6px; height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+}
+.tool-card-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+.tool-card-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+.tool-card-stats {
+    display: flex;
+    gap: 18px;
+    padding: 10px 0;
+    border-top: 1px solid var(--hairline);
+    margin-top: auto;
+    font-size: 12px;
+}
+.tool-card-stats .stat-label {
+    color: var(--muted-soft);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+.tool-card-stats .stat-value {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 13px;
+}
+.tool-card-arrow {
+    position: absolute;
+    top: 28px; right: 28px;
+    font-size: 18px;
+    color: var(--muted-soft);
+    transition: transform 0.2s, color 0.2s;
+}
+.tool-card:hover .tool-card-arrow {
+    transform: translate(4px, -4px);
+    color: var(--ink);
+}
+
+/* ─── PAPERS LIST ─── */
+.papers {
+    display: flex;
+    flex-direction: column;
+}
+.paper-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hairline);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+}
+.paper-row:hover {
+    background: var(--bg-tint);
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: inherit;
+}
+.paper-year {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+}
+.paper-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+.paper-meta {
+    font-size: 12px;
+    color: var(--muted);
+}
+.paper-link {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.placeholder-tag {
+    display: inline-block;
+    margin-left: 8px;
+    background: var(--bg-tint);
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+/* ─── CONTACT ─── */
+.contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 32px;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    color: var(--ink);
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+}
+.contact-item:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+    border-color: var(--ochre);
+    color: var(--ink);
+}
+.contact-icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-tint);
+    border-radius: 50%;
+    color: var(--navy);
+}
+.contact-icon svg { width: 18px; height: 18px; }
+.contact-text {
+    display: flex; flex-direction: column;
+    min-width: 0;
+}
+.contact-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-soft);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.contact-value {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.contact-item:hover .contact-value { color: var(--ochre); }
+
+/* ─── FOOTER ─── */
+.site-footer {
+    margin-top: 96px;
+    padding: 24px 32px;
+    border-top: 1px solid var(--hairline);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+.site-footer .mono { color: var(--muted-soft); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOP BAR ═══════════════════ -->
+<div class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="/">
+            <div class="brand-mark">EW</div>
+            <div class="brand-text">
+                <span>Erick Wei</span>
+                <small data-i18n="brand.role">Quantitative Macro Research</small>
+            </div>
+        </a>
+        <div class="topbar-spacer"></div>
+        <div class="lang-toggle">
+            <button data-lang="en">EN</button>
+            <button class="active" data-lang="zh">中</button>
+        </div>
+    </div>
+</div>
+
+<main>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero">
+    <div class="avatar"><img src="assets/headshot.png" alt="Erick Wei" loading="eager"></div>
+    <div>
+        <div class="hero-overline" data-i18n="hero.overline">Personal Research Site</div>
+        <h1 class="hero-name">Erick Wei</h1>
+        <p class="hero-tagline" data-i18n-html="hero.tagline">
+            <strong>Columbia SIPA</strong> · International Finance &amp; Capital Markets &nbsp;·&nbsp;
+            B.A. Economics, Boston University
+        </p>
+        <p class="hero-bio" data-i18n="hero.bio">
+            哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位。具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层逻辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略。
+        </p>
+    </div>
+</section>
+
+<!-- ═══════════════════ TOOLS ═══════════════════ -->
+<div class="section-head">
+    <div class="section-num">01</div>
+    <div class="section-title" data-i18n="tools.title">Live Research Tools</div>
+    <div class="section-eyebrow" data-i18n="tools.eyebrow">Updated daily</div>
+</div>
+
+<div class="tools-grid">
+
+    <!-- TOOL 1 — USD/CNY Tracker -->
+    <a class="tool-card live" href="https://erickviann1-dev.github.io/usdcny-tracker/" target="_blank" rel="noopener">
+        <div class="tool-card-arrow">↗</div>
+        <div class="tool-card-tag"><span class="pulse"></span><span data-i18n="card.tracker.tag">Live · Daily Updates</span></div>
+        <div class="tool-card-title" data-i18n="card.tracker.title">
+            USD/CNY Macro-Policy Divergence Tracker
+        </div>
+        <div class="tool-card-subtitle" data-i18n="card.tracker.subtitle">
+            Three-layer real-time read on PBOC policy intent vs market pricing of the carry trade. Verdict, policy stance, and integrity audit refreshed at 10am &amp; 2pm New York time.
+        </div>
+        <div class="tool-card-stats">
+            <div>
+                <div class="stat-label" data-i18n="card.tracker.stat1_label">Coverage</div>
+                <div class="stat-value">2024–2026</div>
+            </div>
+            <div>
+                <div class="stat-label" data-i18n="card.tracker.stat2_label">Layers</div>
+                <div class="stat-value">3 + Verdict</div>
+            </div>
+            <div>
+                <div class="stat-label" data-i18n="card.tracker.stat3_label">Sources</div>
+                <div class="stat-value">FRED · CFETS · akshare</div>
+            </div>
+        </div>
+    </a>
+
+    <!-- TOOL 2 — Bobo Bean Model -->
+    <a class="tool-card research" href="bean-model/">
+        <div class="tool-card-arrow">↗</div>
+        <div class="tool-card-tag"><span data-i18n="card.bean.tag">Research · A-Share Alpha</span></div>
+        <div class="tool-card-title" data-i18n="card.bean.title">
+            Bobo Bean Model v2 — A-Share Stock Selection
+        </div>
+        <div class="tool-card-subtitle" data-i18n="card.bean.subtitle">
+            Six-rule IC-driven technical screen plus three-filter anti-chase logic, derived from 40,292 daily observations. Open the page to see 2024-2025 backtest proof and run a random-sample probe across the 25-stock semiconductor universe.
+        </div>
+        <div class="tool-card-stats">
+            <div>
+                <div class="stat-label" data-i18n="card.bean.stat1_label">Sample</div>
+                <div class="stat-value">40,292 obs</div>
+            </div>
+            <div>
+                <div class="stat-label" data-i18n="card.bean.stat2_label">Indicators</div>
+                <div class="stat-value">20 / IC ranked</div>
+            </div>
+            <div>
+                <div class="stat-label" data-i18n="card.bean.stat3_label">10D Win</div>
+                <div class="stat-value" data-i18n="card.bean.stat3_value">63% · 195 trades</div>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<!-- ═══════════════════ PAPERS ═══════════════════ -->
+<div class="section-head">
+    <div class="section-num">02</div>
+    <div class="section-title" data-i18n="papers.title">Research &amp; Working Papers</div>
+    <div class="section-eyebrow" data-i18n="papers.eyebrow">Selected work</div>
+</div>
+
+<div class="papers">
+
+    <a class="paper-row" href="https://ssrn.com/abstract=6645380" target="_blank" rel="noopener">
+        <div class="paper-year">2026</div>
+        <div>
+            <div class="paper-title" data-i18n="paper1.title">Warsh's Quantitative-Tightening Dilemma and the Structural Opportunity in RMB Assets</div>
+            <div class="paper-meta" data-i18n="paper1.meta">Erick Wei · April 2026 · SSRN Working Paper · Path Analysis &amp; Falsification Scenarios</div>
+        </div>
+        <div class="paper-link">SSRN →</div>
+    </a>
+
+    <a class="paper-row" href="#">
+        <div class="paper-year">2025</div>
+        <div>
+            <div class="paper-title">[Paper Title 2]<span class="placeholder-tag">edit</span></div>
+            <div class="paper-meta">[Authors]</div>
+        </div>
+        <div class="paper-link">PDF →</div>
+    </a>
+
+    <a class="paper-row" href="#">
+        <div class="paper-year">2025</div>
+        <div>
+            <div class="paper-title">[Capstone / Term Project]<span class="placeholder-tag">edit</span></div>
+            <div class="paper-meta">Columbia SIPA</div>
+        </div>
+        <div class="paper-link">PDF →</div>
+    </a>
+
+</div>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<div class="section-head">
+    <div class="section-num">03</div>
+    <div class="section-title" data-i18n="contact.title">Contact</div>
+</div>
+
+<div class="contact">
+
+    <a class="contact-item" href="mailto:lw3170@columbia.edu">
+        <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </div>
+        <div class="contact-text">
+            <div class="contact-label" data-i18n="contact.email_label">Email</div>
+            <div class="contact-value">lw3170@columbia.edu</div>
+        </div>
+    </a>
+
+    <a class="contact-item" href="https://www.linkedin.com/in/laiwei1961aa2a0" target="_blank" rel="noopener">
+        <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        </div>
+        <div class="contact-text">
+            <div class="contact-label" data-i18n="contact.linkedin_label">LinkedIn</div>
+            <div class="contact-value">in/laiwei</div>
+        </div>
+    </a>
+
+</div>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="site-footer">
+    <span data-i18n="footer.copyright">© 2026 Erick Wei · Columbia SIPA</span>
+    &nbsp;·&nbsp;
+    <span class="mono">portfolio v1.0</span>
+</footer>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+ *  Minimal i18n engine
+ * ────────────────────────────────────────────────────────────── */
+const I18N = {
+  en: {
+    "brand.role":         "Quantitative Macro Research",
+    "hero.overline":      "Personal Research Site",
+    "hero.tagline":       "<strong>Columbia SIPA</strong> · International Finance &amp; Capital Markets &nbsp;·&nbsp; B.A. Economics, Boston University",
+    "hero.bio":           "Graduate student at Columbia University's School of International and Public Affairs (SIPA), majoring in International Finance and Capital Markets. Previously earned a B.A. in Economics from Boston University as an Honor Graduate. Strong foundation in macroeconomic theory, cross-border policy analysis and quantitative methods, with particular interest in unpacking global capital markets through the lens of geopolitical realignment and monetary-policy regime shifts. Currently focused on global capital markets research, with the explicit goal of translating macro narratives into actionable investment strategy.",
+    "tools.title":        "Live Research Tools",
+    "tools.eyebrow":      "Updated daily",
+    "card.tracker.tag":         "Live · Daily Updates",
+    "card.tracker.title":       "USD/CNY Macro-Policy Divergence Tracker",
+    "card.tracker.subtitle":    "Three-layer real-time read on PBOC policy intent vs market pricing of the carry trade. Verdict, policy stance, and integrity audit refreshed at 10am & 2pm New York time.",
+    "card.tracker.stat1_label": "Coverage",
+    "card.tracker.stat2_label": "Layers",
+    "card.tracker.stat3_label": "Sources",
+    "card.bean.tag":            "Research · A-Share Alpha",
+    "card.bean.title":          "Bobo Bean Model v2 — A-Share Stock Selection",
+    "card.bean.subtitle":       "Six-rule IC-driven technical screen plus three-filter anti-chase logic, derived from 40,292 daily observations. Open the page to see 2024-2025 backtest proof and run a random-sample probe across the 25-stock semiconductor universe.",
+    "card.bean.stat1_label":    "Sample",
+    "card.bean.stat2_label":    "Indicators",
+    "card.bean.stat3_label":    "10D Win",
+    "card.bean.stat3_value":    "63% · 195 trades",
+    "papers.title":       "Research & Working Papers",
+    "papers.eyebrow":     "Selected work",
+    "paper1.title":       "Warsh's Quantitative-Tightening Dilemma and the Structural Opportunity in RMB Assets",
+    "paper1.meta":        "Erick Wei · April 2026 · SSRN Working Paper · Path Analysis & Falsification Scenarios",
+    "contact.title":      "Contact",
+    "contact.email_label":    "Email",
+    "contact.linkedin_label": "LinkedIn",
+    "footer.copyright":   "© 2026 Erick Wei · Columbia SIPA",
+  },
+  zh: {
+    "brand.role":         "量化宏观研究",
+    "hero.overline":      "个人研究主页",
+    "hero.tagline":       "<strong>哥伦比亚大学 SIPA</strong> · 国际金融与资本市场 &nbsp;·&nbsp; 波士顿大学经济学学士",
+    "hero.bio":           "哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位。具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层逻辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略。",
+    "tools.title":        "在线研究工具",
+    "tools.eyebrow":      "每日更新",
+    "card.tracker.tag":         "实时 · 每日更新",
+    "card.tracker.title":       "USD/CNY 宏观政策分歧追踪器",
+    "card.tracker.subtitle":    "三层实时解读：央行政策意图 vs 市场对套利交易的定价。裁决、政策姿态与数据完整性审计在纽约时间每天 10:00 与 14:00 自动刷新。",
+    "card.tracker.stat1_label": "覆盖期",
+    "card.tracker.stat2_label": "分析层",
+    "card.tracker.stat3_label": "数据源",
+    "card.bean.tag":            "研究 · A 股 Alpha",
+    "card.bean.title":          "豆模型 v2 — A 股选股策略",
+    "card.bean.subtitle":       "基于 40,292 条日线样本的 IC 分析，提炼出 6 条核心入场规则与 3 条追高过滤。点击进入查看 2024-2025 年回测验证，并可在 25 只半导体板块龙头股中随机抽样测试模型表现。",
+    "card.bean.stat1_label":    "样本量",
+    "card.bean.stat2_label":    "指标数",
+    "card.bean.stat3_label":    "10 日胜率",
+    "card.bean.stat3_value":    "63% · 195 笔",
+    "papers.title":       "学术论文与工作底稿",
+    "papers.eyebrow":     "精选研究",
+    "paper1.title":       "Warsh 的缩表困境与人民币资产的结构性机会",
+    "paper1.meta":        "魏来 · 2026 年 4 月 · SSRN 工作论文 · 路径分析与证伪情景",
+    "contact.title":      "联系方式",
+    "contact.email_label":    "电子邮箱",
+    "contact.linkedin_label": "领英",
+    "footer.copyright":   "© 2026 Erick Wei · 哥伦比亚大学 SIPA",
+  }
+};
+
+let LANG = localStorage.getItem("portfolio-lang") || "zh";
+
+function t(key) {
+    const v = I18N[LANG]?.[key];
+    return v != null ? v : (I18N.en?.[key] ?? key);
+}
+
+function applyI18n() {
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+        el.textContent = t(el.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+        el.innerHTML = t(el.dataset.i18nHtml);
+    });
+    document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
+}
+
+function setLang(lang) {
+    LANG = lang;
+    localStorage.setItem("portfolio-lang", lang);
+    document.querySelectorAll(".lang-toggle button").forEach(b => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    applyI18n();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".lang-toggle button").forEach(b => {
+        b.addEventListener("click", () => setLang(b.dataset.lang));
+    });
+    setLang(LANG);
+
+    // Bean model link — show coming-soon notice if URL not set
+    const bean = document.getElementById("bean-link");
+    if (bean) {
+        bean.addEventListener("click", e => {
+            if (bean.getAttribute("href") === "#") {
+                e.preventDefault();
+                alert(LANG === "zh"
+                    ? "豆模型详情页正在搭建中。已点亮位置等待网页上线。"
+                    : "The Bean Model page is under construction.");
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>
