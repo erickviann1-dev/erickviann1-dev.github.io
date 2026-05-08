@@ -12,15 +12,56 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
-## 🚧 Pending — v1.2 · "¥1,000,000 portfolio" — concrete-money UX
+## 🚧 Pending — v1.2 · Authoritative numbers + ¥1M portfolio + research findings
 
-> Work order for Cursor. v1.1 fixed visual polish but the page still
-> communicates in **abstract quant language** (win rate %, avg return %).
-> Real visitors (recruiters, professors, friends) want a **landed, visceral
-> story**: "if you started with ¥1,000,000 in Jan 2024 following this model,
-> here's what your account looks like in Dec 2025." This is the standard
-> Vanguard / Morningstar / Bridgewater public-facing pattern. v1.2 turns
-> the abstract curve into a concrete-money equity story.
+> Work order for Cursor. **TWO scope additions** vs the previous draft:
+>
+> 1. The headline numbers must come from **`豆模型/bobo豆模型v3日志.md`** (v3
+>    research log), NOT from semi_backtest_signals.csv. Canonical figure:
+>    **240 stocks · 390 signals · 10-day win rate 68.1% · 5-day 69.8%** —
+>    derived from the 数据库3号 large-scale validation that the v3 log
+>    is built on.
+>
+> 2. Add a NEW section "Key Research Findings" surfacing 4 v3 conclusions
+>    (stop-loss-harmful, 5-day optimal hold, entry-timing-is-alpha, v3 market
+>    gate). These move the page from "I built a tool" to "I derived
+>    non-obvious truths from data".
+>
+> Plus the original v1.2 goal: visitors should get a landed, visceral story
+> (¥1,000,000 → ¥X over the sample period) instead of abstract win-rate %.
+
+### CANONICAL DATA — read from research log, not from semi CSV
+
+**Source of truth:** `C:\Users\魏来\Desktop\山顶资本\豆模型\bobo豆模型v3日志.md`
+
+Hardcode these numbers into a new top-level field `canonical` in
+`bean-model/data.json` (added by `export_data.py`):
+
+```python
+payload["canonical"] = {
+    "source":        "Research log v3.0 — 数据库3号 large-scale validation",
+    "universe_size": 240,                # stocks
+    "n_signals":     390,                # total signals across full universe
+    "win_5d":        69.8,               # %
+    "avg_5d":        3.18,               # % (best hold period)
+    "win_10d":       68.1,               # % (the headline 68%)
+    "avg_10d":       3.53,               # % (from log L128, fixed-10d strategy)
+    "win_20d":       57.0,               # %
+    "optimal_hold":  5,                  # days (locked by v3)
+    "best_year":     {"year": 2022, "win": 88.3},
+    "weak_year":     {"year": 2023, "win": 52.8, "note": "震荡磨底，技术信号失效"},
+    "training_window":   "2023-2024",
+    "validation_window": "2025+",
+}
+```
+
+Why this matters: the semi backtest CSV we already have only covers a
+**25-stock semiconductor subset** (195 signals at 60.5%/63.1%/59.0%).
+Those numbers undersell the model. The 390-signal large-scale numbers
+are the **honest authoritative result** that the v3 design is built on.
+
+The semi CSV stays as the source for the §3 interactive probe (per-stock
+aggregates) — but headlines come from the v3 log.
 
 ### Two distinct problems being fixed
 
@@ -37,6 +78,11 @@ trading has overlapping positions; you cannot full-bet every signal.
 does. Headline + chart need to speak in concrete CNY.
 
 ### Specific edits
+
+#### (0) `bean-model/export_data.py` — add `canonical` block
+
+Add the `canonical` dict (above) as a top-level JSON field. Hardcoded —
+these are research-log numbers, not derived from the semi CSV.
 
 #### (1) `bean-model/export_data.py` — portfolio simulation rewrite
 
@@ -102,17 +148,43 @@ Add to JSON payload:
 The legacy `equity_curve` field can stay (used by per-stock sparklines)
 or be removed if nothing else references it.
 
-#### (2) `bean-model/index.html` §2 — Concrete-money headline
+#### (2) `bean-model/index.html` §2 — DUAL hero (canonical + portfolio)
 
-**Replace** the v1.1 single-headline `63.1%` block with a "money story" hero:
+The §2 section gets **two stacked hero blocks**:
+
+**§2A — Canonical research result** (top, biggest visual element)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
+│  LARGE-SCALE VALIDATION                                        │
 │                                                                │
-│  ¥1,000,000          ──→          ¥1,540,000                  │
+│      68.1%          390 signals          240 stocks           │
+│      ──────         ──────────           ──────────           │
+│      10-DAY WIN     SAMPLE               UNIVERSE             │
+│                                                                │
+│      Hold-period decay: 5d 69.8% → 10d 68.1% → 20d 57.0%      │
+│                                                                │
+│  Source: Research log v3.0 · 数据库3号 backtest (Apr 2026)    │
+└──────────────────────────────────────────────────────────────┘
+```
+
+- The `68.1%` number: 96-112px JetBrains Mono 700 in `var(--bull)` color
+- Subordinate numbers: 36-48px mono in default ink
+- Caption row in 13px Inter italic muted
+- Source line at bottom: 11px italic, ochre tint
+
+Bind to `data.json:canonical.{win_10d, n_signals, universe_size, win_5d, win_20d}`.
+
+**§2B — ¥1,000,000 Portfolio Path** (below §2A, secondary)
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  PORTFOLIO SIMULATION  (semiconductor sub-sample · 25 stocks) │
+│                                                                │
+│  ¥1,000,000          ──→          ¥X,XXX,XXX                  │
 │  Jan 2024                          Dec 2025                   │
 │                                                                │
-│  +54.0% total · ¥540,000 P&L · max drawdown −¥83,000          │
+│  +XX.X% total · ¥XXX,XXX P&L · max drawdown −¥XX,XXX          │
 │                                                                │
 └──────────────────────────────────────────────────────────────┘
 ```
