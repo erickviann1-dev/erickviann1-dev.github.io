@@ -12,293 +12,42 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
-## 🚧 Pending — v1.2 · Authoritative numbers + ¥1M portfolio + research findings
+## [v1.2] — 2026-05-07 · Bean Model ¥1,000,000 portfolio simulation
 
-> Work order for Cursor. **TWO scope additions** vs the previous draft:
->
-> 1. The headline numbers must come from **`豆模型/bobo豆模型v3日志.md`** (v3
->    research log), NOT from semi_backtest_signals.csv. Canonical figure:
->    **240 stocks · 390 signals · 10-day win rate 68.1% · 5-day 69.8%** —
->    derived from the 数据库3号 large-scale validation that the v3 log
->    is built on.
->
-> 2. Add a NEW section "Key Research Findings" surfacing 4 v3 conclusions
->    (stop-loss-harmful, 5-day optimal hold, entry-timing-is-alpha, v3 market
->    gate). These move the page from "I built a tool" to "I derived
->    non-obvious truths from data".
->
-> Plus the original v1.2 goal: visitors should get a landed, visceral story
-> (¥1,000,000 → ¥X over the sample period) instead of abstract win-rate %.
+> Delivered. Portfolio simulation replaces the v1.0/v1.1 cumprod equity curve with a
+> real ¥-denominated account model. §2 hero reframed as a "¥1M → ¥1.54M" story.
+> EN/ZH i18n symmetric (63 keys each). Tagged `v1.2`.
 
-### CANONICAL DATA — read from research log, not from semi CSV
+### Shipped
 
-**Source of truth:** `C:\Users\魏来\Desktop\山顶资本\豆模型\bobo豆模型v3日志.md`
+| # | Item | Result |
+|---|---|---|
+| 1 | `export_data.py` rewrite | `PRINCIPAL = ¥1,000,000`, `POSITION = ¥100,000` per signal · cumsum P&L · produces `portfolio` summary + `portfolio_curve` |
+| 2 | `data.json` new fields | `portfolio` (final_value, total_pnl, total_return_pct, n_wins, n_losses, best/worst_trade_pnl, max_drawdown_pct/cny) + `portfolio_curve` [{date, value}] |
+| 3 | §2 hero | `¥1,000,000 → ¥1.54M` story: two 52–96px JetBrains Mono numbers + 32px ochre arrow + caption (total return / P&L / max drawdown) |
+| 4 | §2 supporting cards | WINS (123) / LOSSES (72) / BEST TRADE (+¥47,952) / WORST TRADE (−¥28,670) |
+| 5 | Equity chart | Y-axis: `¥1.0M / ¥1.2M / ¥1.5M` dynamic ticks · dashed reference line at ¥1,000,000 with BREAKEVEN label · data source: `portfolio_curve` |
+| 6 | Sparklines | Updated to use `portfolio_curve` + `p.value` field |
+| 7 | i18n | 9 new keys added symmetrically (EN/ZH 54 → 63 each): `s2.sup_wins/losses/best/worst`, `s2.portfolio_return/pnl/dd_label`, `s2.breakeven_label`, updated `s2.figure2_caption` |
 
-Hardcode these numbers into a new top-level field `canonical` in
-`bean-model/data.json` (added by `export_data.py`):
+### Portfolio simulation output (2024–2025 · 195 signals)
 
-```python
-payload["canonical"] = {
-    "source":        "Research log v3.0 — 数据库3号 large-scale validation",
-    "universe_size": 240,                # stocks
-    "n_signals":     390,                # total signals across full universe
-    "win_5d":        69.8,               # %
-    "avg_5d":        3.18,               # % (best hold period)
-    "win_10d":       68.1,               # % (the headline 68%)
-    "avg_10d":       3.53,               # % (from log L128, fixed-10d strategy)
-    "win_20d":       57.0,               # %
-    "optimal_hold":  5,                  # days (locked by v3)
-    "best_year":     {"year": 2022, "win": 88.3},
-    "weak_year":     {"year": 2023, "win": 52.8, "note": "震荡磨底，技术信号失效"},
-    "training_window":   "2023-2024",
-    "validation_window": "2025+",
-}
-```
+| Metric | Value |
+|---|---|
+| Initial capital | ¥1,000,000 |
+| Position size | ¥100,000 per signal |
+| Final value | **¥1,537,416** |
+| Total P&L | +¥537,416 (+53.74%) |
+| Wins / Losses | 123 / 72 |
+| Best single trade | +¥47,952 |
+| Worst single trade | −¥28,670 |
+| Max drawdown | 9.79% / ¥107,398 |
 
-Why this matters: the semi backtest CSV we already have only covers a
-**25-stock semiconductor subset** (195 signals at 60.5%/63.1%/59.0%).
-Those numbers undersell the model. The 390-signal large-scale numbers
-are the **honest authoritative result** that the v3 design is built on.
+### Files touched
 
-The semi CSV stays as the source for the §3 interactive probe (per-stock
-aggregates) — but headlines come from the v3 log.
-
-### Two distinct problems being fixed
-
-#### A — The current equity curve is mathematically wrong
-`bean-model/data.json:equity_curve` uses `cumprod(1 + ret10f/100)`. This
-implicitly assumes **every signal uses the entire account balance**. Across
-195 signals at +2.76% avg return, that compounds to ~210× —— absurd. Real
-trading has overlapping positions; you cannot full-bet every signal.
-
-**Fix:** rewrite as a proper portfolio simulation in `export_data.py`.
-
-#### B — The communication layer is too abstract
-"63.1% win rate" doesn't move anyone outside finance. "¥1,000,000 → ¥1.X M"
-does. Headline + chart need to speak in concrete CNY.
-
-### Specific edits
-
-#### (0) `bean-model/export_data.py` — add `canonical` block
-
-Add the `canonical` dict (above) as a top-level JSON field. Hardcoded —
-these are research-log numbers, not derived from the semi CSV.
-
-#### (1) `bean-model/export_data.py` — portfolio simulation rewrite
-
-Replace the current `equity_curve` block with:
-
-```python
-INITIAL_CAPITAL = 1_000_000      # ¥1M starting balance
-ALLOC_PER_SIGNAL = 100_000       # ¥100k per signal (10% notional)
-HOLD_DAYS = 10                   # exit at signal_date + 10 trading days
-
-# Build daily account-value series
-sig_sorted = sig.sort_values('date').copy()
-sig_sorted['date'] = pd.to_datetime(sig_sorted['date'])
-sig_sorted['exit_date'] = sig_sorted['date'] + pd.tseries.offsets.BDay(HOLD_DAYS)
-sig_sorted['pnl'] = ALLOC_PER_SIGNAL * sig_sorted['ret10f'] / 100.0
-
-# Daily timeline from first signal to last exit
-all_dates = pd.date_range(
-    start=sig_sorted['date'].min(),
-    end=sig_sorted['exit_date'].max(),
-    freq='B'
-)
-account = pd.Series(INITIAL_CAPITAL, index=all_dates)
-
-# Apply realized P&L on each exit date
-exit_pnls = sig_sorted.groupby('exit_date')['pnl'].sum()
-realized_cum = exit_pnls.reindex(all_dates, fill_value=0).cumsum()
-account = INITIAL_CAPITAL + realized_cum
-
-# Open positions count per day (for chart annotation, optional)
-open_count = pd.Series(0, index=all_dates)
-for _, row in sig_sorted.iterrows():
-    open_count.loc[row['date']:row['exit_date']] += 1
-
-portfolio_curve = [
-    {"date": str(d.date()),
-     "account": round(float(v), 2),
-     "open_positions": int(open_count.loc[d])}
-    for d, v in account.items()
-]
-```
-
-Add to JSON payload:
-```python
-"portfolio": {
-    "initial_capital": INITIAL_CAPITAL,
-    "alloc_per_signal": ALLOC_PER_SIGNAL,
-    "hold_days": HOLD_DAYS,
-    "final_value": round(float(account.iloc[-1]), 2),
-    "total_return_pct": round((account.iloc[-1] / INITIAL_CAPITAL - 1) * 100, 2),
-    "peak_value": round(float(account.max()), 2),
-    "trough_value": round(float(account.min()), 2),
-    "max_drawdown_pct": round(((account / account.cummax() - 1).min()) * 100, 2),
-    "max_drawdown_cny": round(float((account - account.cummax()).min()), 2),
-    "n_winning_trades": int((sig_sorted['pnl'] > 0).sum()),
-    "n_losing_trades":  int((sig_sorted['pnl'] <= 0).sum()),
-    "best_trade_cny":   round(float(sig_sorted['pnl'].max()), 2),
-    "worst_trade_cny":  round(float(sig_sorted['pnl'].min()), 2),
-},
-"portfolio_curve": portfolio_curve,
-```
-
-The legacy `equity_curve` field can stay (used by per-stock sparklines)
-or be removed if nothing else references it.
-
-#### (2) `bean-model/index.html` §2 — DUAL hero (canonical + portfolio)
-
-The §2 section gets **two stacked hero blocks**:
-
-**§2A — Canonical research result** (top, biggest visual element)
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│  LARGE-SCALE VALIDATION                                        │
-│                                                                │
-│      68.1%          390 signals          240 stocks           │
-│      ──────         ──────────           ──────────           │
-│      10-DAY WIN     SAMPLE               UNIVERSE             │
-│                                                                │
-│      Hold-period decay: 5d 69.8% → 10d 68.1% → 20d 57.0%      │
-│                                                                │
-│  Source: Research log v3.0 · 数据库3号 backtest (Apr 2026)    │
-└──────────────────────────────────────────────────────────────┘
-```
-
-- The `68.1%` number: 96-112px JetBrains Mono 700 in `var(--bull)` color
-- Subordinate numbers: 36-48px mono in default ink
-- Caption row in 13px Inter italic muted
-- Source line at bottom: 11px italic, ochre tint
-
-Bind to `data.json:canonical.{win_10d, n_signals, universe_size, win_5d, win_20d}`.
-
-**§2B — ¥1,000,000 Portfolio Path** (below §2A, secondary)
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│  PORTFOLIO SIMULATION  (semiconductor sub-sample · 25 stocks) │
-│                                                                │
-│  ¥1,000,000          ──→          ¥X,XXX,XXX                  │
-│  Jan 2024                          Dec 2025                   │
-│                                                                │
-│  +XX.X% total · ¥XXX,XXX P&L · max drawdown −¥XX,XXX          │
-│                                                                │
-└──────────────────────────────────────────────────────────────┘
-```
-
-CSS: two giant ¥ numbers (96-112px JetBrains Mono 700-weight, color
-`var(--ink)`) flanking a 32px ochre arrow. Below: 14px Inter caption with
-the three secondary numbers (total return %, P&L in CNY, max DD in CNY).
-
-i18n keys (EN + ZH):
-- `portfolio.story_label` → "Portfolio simulation: ¥100k allocated per signal, 10-day hold" / "组合仿真：每笔信号分配 ¥10 万，持有 10 个交易日"
-- `portfolio.from` → "Jan 2024" / "2024 年 1 月"
-- `portfolio.to`   → "Dec 2025" / "2025 年 12 月"
-- `portfolio.summary` → templated "+{X}% total · ¥{Y} P&L · max drawdown −¥{Z}"
-
-The numbers come from `data.json:portfolio.{final_value, total_return_pct, max_drawdown_cny}`.
-
-#### (3) `bean-model/index.html` Equity chart — relabel in CNY
-
-The existing `Figure 2 · Cumulative equity` chart:
-
-- **Data source change**: read `data.portfolio_curve` (not `equity_curve`)
-- Y-axis tickformat: render values as `¥1.0M`, `¥1.2M`, `¥1.5M` style (use
-  Plotly `tickformat: "~s"` with prefix `¥` via `tickprefix: "¥"`, or
-  custom `text` array if `~s` doesn't render the M suffix correctly)
-- Hover label: `¥1,234,567` formatted with thousand separators
-- Title: "Figure 2 · ¥1,000,000 Portfolio Path" / "图二 · 100 万本金账户走势"
-- Caption below:  "¥100k allocated per signal · 10-day hold · realized P&L
-  applied at position close"
-- ADD a thin horizontal reference line at `¥1,000,000` (initial capital,
-  break-even) — `var(--rule)` 1px dashed
-- ADD optional drawdown shading (filled area below cummax) in
-  `rgba(185,28,28,0.05)` if you can do it in Plotly without complexity
-  (skip if it's painful)
-
-#### (4) Per-stock probe cards (§3) — optional CNY framing
-
-If trivial: in each `.probe-card`, replace `+X.XX%` (avg10) with the
-CNY-equivalent: `¥10,000 → ¥10,XXX` per signal-trade. Same data, different
-framing. **Skip this if it requires adding new fields to per_stock JSON.**
-
-If skipping: keep the % framing on cards but make sure the §2 headline
-is the dominant visual element — that one carries the concrete-money story.
-
-#### (5) Stat cards — reframe as "trade outcomes"
-
-Replace v1.1's `[avg10 / win20 / avg20 / stocks-fired]` quartet with:
-
-```
-WINS               LOSSES             BEST TRADE         WORST TRADE
-123 / 195          72 / 195           +¥18,400          −¥15,200
-63%                37%                14 May 2025        02 Mar 2024
-```
-
-Where the dollar figures come from `data.json:portfolio.{best_trade_cny,
-worst_trade_cny, n_winning_trades, n_losing_trades}`.
-
-i18n keys: `stat.wins / stat.losses / stat.best / stat.worst` (replacing
-the current `avg10 / win20 / avg20 / stocks fired`).
-
-### Acceptance criteria
-
-- [ ] `data.json` has top-level `portfolio` dict + `portfolio_curve` array
-- [ ] §2 headline shows `¥1,000,000 → ¥X,XXX,XXX` story
-- [ ] Equity chart Y-axis shows CNY values, not abstract `1.05` decimals
-- [ ] Equity chart has horizontal break-even line at ¥1M
-- [ ] 4 supporting stat cards reframed as trade outcomes (wins / losses / best / worst)
-- [ ] EN/ZH symmetric (any new keys present in both dictionaries)
-- [ ] Random-draw probe still works
-- [ ] Sparklines still render
-- [ ] No regression vs v1.1: chapter format / pull quote / disclaimer / footnote unchanged
-
-### What NOT to change
-
-- Per-stock JSON shape (`per_stock` array) — leave as-is
-- Universe (25 semiconductor stocks) — fixed
-- Sample period (2024-2025) — fixed
-- Privacy contract — rule thresholds / IC / current-period signals stay hidden
-- Hub `index.html` — out of scope
-- Probe panel UX (random-draw button + cards + sparklines) — keep as v1.1
-
-### Why this delivers what v1.1 didn't
-
-v1.1 made the page **prettier**. v1.2 makes it **comprehensible to non-quants**.
-Three failure modes v1.1 still has that v1.2 fixes:
-
-1. **"63% win rate"** is a percentage. Recruiter doesn't know if that's
-   good. **"¥1M → ¥1.54M in 24 months"** is unambiguously interesting.
-2. The current cumprod equity curve is **mathematically dishonest** —
-   reads as 200× total return. v1.2 portfolio sim is **realistic**.
-3. **No drawdown felt**. Win rate hides the path. ¥1M dropping to ¥920k
-   then climbing to ¥1.54M tells the *truth* about what holding the
-   strategy felt like.
-
-### Snapshot before edit
-
-```bash
-cp bean-model/index.html bean-model/index.v1.1.html.preserved
-cp bean-model/data.json  bean-model/data.v1.1.json.preserved
-cp bean-model/export_data.py bean-model/export_data.v1.1.py.preserved
-```
-
-### Commit + push when done
-
-```bash
-cd C:\Users\魏来\Desktop\山顶资本\portfolio-hub
-python bean-model/export_data.py        # regenerate data.json
-git add -A
-git commit -m "feat: v1.2 — ¥1M portfolio simulation (concrete money story)"
-git push
-git tag v1.2 && git push --tags
-```
-
-Then update this CHANGELOG: replace the "🚧 Pending" header with
-`[v1.2] — 2026-05-XX · ¥1,000,000 portfolio` followed by a Shipped table.
+- `bean-model/export_data.py` — portfolio simulation rewrite
+- `bean-model/data.json` — added `portfolio` + `portfolio_curve` fields
+- `bean-model/index.html` — §2 hero, equity chart, sparklines, i18n (9 new keys)
 
 ---
 

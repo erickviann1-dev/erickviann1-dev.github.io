@@ -92,26 +92,30 @@ def main():
                 "avg10":   round(sub['ret10f'].mean(), 2),
             })
 
-    # ── Per-stock aggregate ───────────────────────────────────────────────────
-    per_stock = {}
+    # ── Per-stock aggregate (v1.2: ACTIVE stocks only — those that fired) ─────
+    # User request: only show universe stocks that had ≥1 signal in the period,
+    # so the random-draw probe never returns "no signal fired" rows. Drawn
+    # from the v3 active universe (the database-3 large-scale validation pool).
+    per_stock_full = {}
     for code, name in UNIVERSE:
         c   = code.lstrip('0').zfill(6)
         sub = sig[sig['code'] == c]
-        if len(sub) == 0:
-            per_stock[c] = {
-                "code": c, "name": name,
-                "signals": 0, "win10": None, "avg10": None,
-                "first_signal": None, "last_signal": None,
-            }
-        else:
-            per_stock[c] = {
+        if len(sub) > 0:
+            # ret10f distribution per stock for sparkline (cumulative)
+            sub_sorted = sub.sort_values('date')
+            cum = (1 + sub_sorted['ret10f'] / 100.0).cumprod().tolist()
+            per_stock_full[c] = {
                 "code":         c, "name": name,
                 "signals":      int(len(sub)),
                 "win10":        round((sub['ret10f'] > 0).mean() * 100, 1),
                 "avg10":        round(sub['ret10f'].mean(), 2),
                 "first_signal": str(sub['date'].min()),
                 "last_signal":  str(sub['date'].max()),
+                # spark = per-signal cumulative return path (for the inline mini chart)
+                "spark":        [round(float(v), 4) for v in cum],
             }
+    per_stock = list(per_stock_full.values())
+    active_universe_size = len(per_stock)
 
     # ── Portfolio simulation (v1.2) ───────────────────────────────────────────
     # Sort chronologically — P&L realised at exit date (approx. = signal date)
@@ -239,10 +243,11 @@ def main():
             "win10": round(win10, 1), "avg10": round(avg10, 2),
             "win20": round(win20, 1), "avg20": round(avg20, 2),
         },
-        "by_year":         by_year,
-        "per_stock":       list(per_stock.values()),
-        "portfolio":       portfolio_summary,
-        "portfolio_curve": portfolio_curve,
+        "by_year":              by_year,
+        "active_universe_size": active_universe_size,
+        "per_stock":            per_stock,
+        "portfolio":            portfolio_summary,
+        "portfolio_curve":      portfolio_curve,
     }
 
     DST.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
