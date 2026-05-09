@@ -378,6 +378,53 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     text-transform: uppercase; vertical-align: middle;
 }
 
+/* ───────── REGIME TIMELINE ───────── */
+.regime-timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin: 16px 0 0;
+}
+@media (max-width: 720px) {
+    .regime-timeline { grid-template-columns: repeat(2, 1fr); }
+}
+.regime-item {
+    background: var(--bg-tint);
+    border-radius: 4px;
+    padding: 16px 14px;
+    border-top: 3px solid var(--ochre);
+    transition: transform 0.3s var(--transition-elegant), box-shadow 0.3s;
+    cursor: default;
+}
+.regime-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.regime-item.bull { border-top-color: var(--bull); }
+.regime-item.bear { border-top-color: var(--bear); }
+.regime-item.warn { border-top-color: var(--ochre); }
+.regime-year {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 14px; font-weight: 700; color: var(--ink-soft);
+    letter-spacing: 0.04em;
+}
+.regime-win {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 26px; font-weight: 700;
+    margin-top: 4px;
+    line-height: 1;
+}
+.regime-win.bull { color: var(--bull); }
+.regime-win.bear { color: var(--bear); }
+.regime-win.warn { color: var(--ochre); }
+.regime-label {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--ink); margin-top: 10px;
+    line-height: 1.3;
+}
+.regime-note {
+    font-size: 11px; color: var(--muted);
+    line-height: 1.5; margin-top: 8px;
+}
+
 /* ───────── PULL QUOTE ───────── */
 .pullquote {
     margin: 64px auto; max-width: 720px;
@@ -542,10 +589,10 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 <section class="hero reveal">
     <div class="eyebrow" data-i18n="hero.eyebrow">A-Share Quantitative Stock Selection · v3</div>
     <h1 class="hero-title" data-i18n-html="hero.title">
-        Bobo 豆模型 v3 — <span class="accent">A 股技术选股研究</span>
+        从短线反转到中线趋势 ——<br><span class="accent">一个量化模型的认知重构</span>
     </h1>
     <p class="hero-lead" data-i18n-html="hero.lead">
-        <span class="drop-cap">基</span>于 IC（信息系数）分析框架的多因子技术选股模型。在 240 只 A 股、390 笔历史信号的大规模回测上，10 日胜率 68.1%、5 日 69.8%。本页展示研究结论与 ¥100 万本金的实测账户路径；具体规则阈值与 IC 排序为研究产权，不公开。
+        <span class="drop-cap">最</span>初我们以为在研究一个 5-10 日的短线反转策略。一个月、20 个回测版本、500 只科技股、1,199 笔信号之后，发现自己手里其实握着一个**中线趋势进场系统**。同一批信号在 5 日持有的胜率是 50.0%，在 80 日持有的胜率是 88.5%。这是研究的全过程与最终结论。
     </p>
 </section>
 
@@ -594,37 +641,62 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 <div class="canonical-hero reveal">
     <div class="canonical-eyebrow">
         <span class="pulse"></span>
-        <span data-i18n="canonical.eyebrow">Large-Scale Validation · Database 3</span>
+        <span data-i18n="canonical.eyebrow">v3.1 LOCKED · Database 3 · 80-Day Hold</span>
     </div>
     <div class="canonical-row">
         <div class="canonical-stat primary">
-            <span class="num counter" data-target="68.1" data-decimals="1" data-suffix="%">0.0%</span>
+            <span class="num counter" data-target="88.5" data-decimals="1" data-suffix="%">0.0%</span>
             <div class="num-rule"></div>
-            <div class="label" data-i18n="canonical.win10_label">10-Day Win Rate</div>
+            <div class="label" data-i18n="canonical.win80_label">80-Day Win Rate</div>
         </div>
         <div class="canonical-stat secondary">
-            <span class="num counter" data-target="390" data-decimals="0">0</span>
+            <span class="num counter" data-target="1199" data-decimals="0">0</span>
             <div class="num-rule"></div>
             <div class="label" data-i18n="canonical.signals_label">Signals</div>
         </div>
         <div class="canonical-stat secondary">
-            <span class="num counter" data-target="240" data-decimals="0">0</span>
+            <span class="num counter" data-target="500" data-decimals="0">0</span>
             <div class="num-rule"></div>
             <div class="label" data-i18n="canonical.universe_label">Stock Universe</div>
         </div>
     </div>
     <div class="canonical-decay">
-        <span data-i18n="canonical.decay_intro">Hold-period decay:</span>
-        <span class="mono">5d <strong>69.8%</strong></span> →
-        <span class="mono">10d <strong>68.1%</strong></span> →
-        <span class="mono">20d 57.0%</span>
-        <span data-i18n="canonical.decay_note"> — v3 锁定 5 日为标准持仓期。</span>
+        <span data-i18n="canonical.decay_intro">Hold-period scaling — same 52 signals:</span>
+        <span class="mono">5d <strong style="color:var(--bear)">50.0%</strong></span> →
+        <span class="mono">10d 59.6%</span> →
+        <span class="mono">30d 64.4%</span> →
+        <span class="mono">60d 75.0%</span> →
+        <span class="mono">80d <strong style="color:var(--bull);font-size:1.05em">88.5%</strong></span>
     </div>
-    <div class="canonical-source" data-i18n="canonical.source">来源 · 研究日志 v3.0 · 数据库 3 号大规模验证（2026 年 4 月）</div>
+    <div class="canonical-source" data-i18n="canonical.source">来源 · 研究终稿 · 数据库 3 号 · 500 只科技股 · 2022-2026 全样本</div>
+</div>
+
+<!-- ═══════════════════ HOLD-PERIOD DISCOVERY ═══════════════════ -->
+<div class="figure-wrap reveal" style="margin-top: 48px;">
+    <div class="figure-caption">
+        <strong data-i18n="hold.label">FIGURE A ·</strong>
+        <span data-i18n="hold.title">The Discovery — Win Rate vs Hold Period</span>
+    </div>
+    <div id="hold-period-chart" style="height: 320px;"></div>
+    <div class="figure-source" data-i18n="hold.source">
+        Source · 52 signals from May 2025 – Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing.
+    </div>
+</div>
+
+<!-- ═══════════════════ MARKET REGIME TIMELINE ═══════════════════ -->
+<div class="figure-wrap reveal" style="margin-top: 32px;">
+    <div class="figure-caption">
+        <strong data-i18n="regime.label">FIGURE B ·</strong>
+        <span data-i18n="regime.title">2022–2026 · Market Style Evolution</span>
+    </div>
+    <div id="regime-timeline"></div>
+    <div class="figure-source" data-i18n="regime.source">
+        Source · Database 3 · 10-day win rate by year, with regime label. The same v3.1 entry rules produced 81.5% in 2022 and 38% in 2026 — at the same hold period. The right hold period for 2026 is 80 days, not 10.
+    </div>
 </div>
 
 <div class="reveal">
-    <p class="portfolio-eyebrow" style="color: var(--ochre); margin-top: 56px;" data-i18n="portfolio.intro">将上述模型在半导体板块龙头子样本上做实测，¥100 万本金、每笔信号配 ¥10 万、持有 10 日。账户路径如下：</p>
+    <p class="portfolio-eyebrow" style="color: var(--ochre); margin-top: 56px;" data-i18n="portfolio.intro">v3.1 在半导体板块龙头子样本（25 只）上的 ¥100 万本金实测 · 每笔 ¥10 万 · 持有 10 日（保守口径，未升级到 80 日）：</p>
 </div>
 
 <div class="portfolio-hero reveal">
@@ -675,8 +747,8 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 </div>
 
 <blockquote class="pullquote reveal">
-    <p data-i18n-html="quote.body">止损不是切输家，是<em>切赢家</em> —— 加上 −5%/MA10 止损后，胜率从 69% 直接掉到 54%。</p>
-    <cite data-i18n="quote.cite">— 数据库 3 号回测，2026 年 4 月</cite>
+    <p data-i18n-html="quote.body">我们以为在研究一个短线反转策略，最终发现自己手里其实握着一个<em>中线趋势进场系统</em>。</p>
+    <cite data-i18n="quote.cite">— 研究终稿，2026 年 5 月</cite>
 </blockquote>
 
 <div class="chapter-head reveal">
@@ -741,13 +813,18 @@ const I18N = {
     "findings.intro": "The four findings below come from the 390-signal large-scale backtest. Each contradicts a textbook consensus and motivated specific v3 design changes.",
     "s2.eyebrow": "Validated Result",
     "s2.title": "Empirical Performance",
-    "canonical.eyebrow": "Large-Scale Validation · Database 3",
-    "canonical.win10_label": "10-Day Win Rate",
+    "canonical.eyebrow": "v3.1 LOCKED · Database 3 · 80-Day Hold",
+    "canonical.win80_label": "80-Day Win Rate",
     "canonical.signals_label": "Signals",
     "canonical.universe_label": "Stock Universe",
-    "canonical.decay_intro": "Hold-period decay:",
-    "canonical.decay_note": " — v3 locks 5-day hold as canonical exit (down from v2's 10–20d).",
-    "canonical.source": "Source · Research log v3.0 · Database 3 large-scale validation (Apr 2026)",
+    "canonical.decay_intro": "Hold-period scaling — same 52 signals:",
+    "canonical.source": "Source · v3.1 final note · Database 3 · 500 tech stocks · 2022-2026",
+    "hold.label": "FIGURE A ·",
+    "hold.title": "The Discovery — Win Rate vs Hold Period",
+    "hold.source": "Source · 52 signals from May 2025 – Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing — the discovery that reframed the whole model.",
+    "regime.label": "FIGURE B ·",
+    "regime.title": "2022–2026 · Market Style Evolution",
+    "regime.source": "Source · Database 3 · 10-day win rate by year, with regime label. The same v3.1 entry rules produced 81.5% in 2022 and 38% in 2026 — at the same hold period. The right hold period for 2026 is 80 days, not 10.",
     "portfolio.intro": "Applying the same model to a semiconductor sub-sample with ¥1,000,000 starting capital, ¥100,000 per signal, 10-day hold. Account path:",
     "portfolio.label": "Portfolio Simulation · Semiconductor sub-sample",
     "portfolio.from": "Jan 2024",
@@ -769,8 +846,8 @@ const I18N = {
     "annual.col_model": "Bean Model",
     "annual.col_lift": "Lift",
     "annual.source": "Source · Research log v3.0 · year-by-year out-of-sample win rate vs market baseline",
-    "quote.body": "Stop-losses don't cut losers — they <em>cut winners</em>. Adding a −5% / MA10 stop-loss dropped the win rate from 69% straight to 54%.",
-    "quote.cite": "— Database 3 backtest, April 2026",
+    "quote.body": "We thought we were studying a short-term reversal strategy. We discovered we were holding a <em>medium-term trend entry system</em>.",
+    "quote.cite": "— Final research note, May 2026",
     "s3.eyebrow": "Interactive sample",
     "s3.title": "Random-Sample Probe",
     "s3.intro": "Drawn from Database 3, filtered to stocks that actually fired ≥1 signal under the v2 rules during 2024–2025 — <strong id='active-count'>13</strong> stocks. Each click samples 5 at random; cards show signal count, win rate, average return, and an inline equity sparkline.",
@@ -806,13 +883,18 @@ const I18N = {
     "findings.intro": "以下四条结论来自 390 笔信号的大规模回测，每一条都与\"教科书共识\"相反，是 v3 设计调整的依据。",
     "s2.eyebrow": "验证结果",
     "s2.title": "实证表现",
-    "canonical.eyebrow": "大规模验证 · 数据库 3 号",
-    "canonical.win10_label": "10 日胜率",
+    "canonical.eyebrow": "v3.1 锁定版 · 数据库 3 号 · 80 日持有",
+    "canonical.win80_label": "80 日胜率",
     "canonical.signals_label": "信号样本",
     "canonical.universe_label": "股票池",
-    "canonical.decay_intro": "持仓期衰减：",
-    "canonical.decay_note": " — v3 锁定 5 日为标准持仓期（从 v2 的 10-20 日下调）。",
-    "canonical.source": "来源 · 研究日志 v3.0 · 数据库 3 号大规模验证（2026 年 4 月）",
+    "canonical.decay_intro": "持有期递增 · 同 52 笔信号：",
+    "canonical.source": "来源 · v3.1 终稿 · 数据库 3 号 · 500 只科技股 · 2022-2026 全样本",
+    "hold.label": "图 A ·",
+    "hold.title": "关键发现 — 胜率随持有期单调递增",
+    "hold.source": "来源 · 2025 年 5 月 - 2026 年 2 月共 52 笔信号（这是唯一所有信号都能完整跑完 80 日持有期的窗口）。同一组进场信号，只改变退出时间。胜率单调非递减 — 这一个发现重构了整个模型的定位。",
+    "regime.label": "图 B ·",
+    "regime.title": "2022-2026 · 中国科技股市场风格演化",
+    "regime.source": "来源 · 数据库 3 号 · 分年度 10 日胜率与市场环境标签。同一套 v3.1 进场规则，2022 年跑出 81.5%、2026 年只剩 38% —— 在同样的持有期下。2026 年正确的持有期是 80 日，不是 10 日。",
     "portfolio.intro": "将上述模型在半导体板块龙头子样本上做实测，¥100 万本金、每笔信号配 ¥10 万、持有 10 日。账户路径如下：",
     "portfolio.label": "组合仿真 · 半导体板块子样本",
     "portfolio.from": "2024 年 1 月",
@@ -834,8 +916,8 @@ const I18N = {
     "annual.col_model": "豆模型胜率",
     "annual.col_lift": "提升",
     "annual.source": "来源 · 研究日志 v3.0 · 分年度样本外胜率 vs 市场基准",
-    "quote.body": "止损不是切输家，是<em>切赢家</em> —— 加上 −5%/MA10 止损后，胜率从 69% 直接掉到 54%。",
-    "quote.cite": "— 数据库 3 号回测，2026 年 4 月",
+    "quote.body": "我们以为在研究一个短线反转策略，最终发现自己手里其实握着一个<em>中线趋势进场系统</em>。",
+    "quote.cite": "— 研究终稿，2026 年 5 月",
     "s3.eyebrow": "互动抽样",
     "s3.title": "随机抽样实验",
     "s3.intro": "从数据库 3 号中筛出 2024-2025 期间在 v2 规则下确实触发过信号的股票，共 <strong id='active-count'>13</strong> 只。每次随机抽 5 只，查看模型在那只股票上的回测表现 —— 信号数、胜率、平均收益、内嵌净值小图。",
@@ -873,6 +955,8 @@ function setLang(lang) {
     applyI18n();
     if (window.__data) {
         renderFindings(window.__data);
+        renderHoldPeriod(window.__data);
+        renderRegime(window.__data);
         renderPortfolioSummary(window.__data);
         renderOutcomes(window.__data);
         renderEquity(window.__data);
@@ -1019,6 +1103,72 @@ function renderEquity(d) {
     }, { displayModeBar: false, responsive: true });
 }
 
+function renderHoldPeriod(d) {
+    const tbl = d.hold_period_table;
+    if (!tbl) return;
+    const xs = tbl.map(r => r.days + 'd');
+    const wins = tbl.map(r => r.win);
+    const colors = wins.map(w => w >= 75 ? '#15803d' : w >= 60 ? '#a16207' : '#b91c1c');
+    Plotly.newPlot('hold-period-chart', [{
+        x: xs, y: wins,
+        type: 'bar',
+        marker: { color: colors, line: { color: '#0c0a09', width: 0 } },
+        text: wins.map(w => w.toFixed(1) + '%'),
+        textposition: 'outside',
+        textfont: { family: 'JetBrains Mono', size: 13, color: '#0c0a09' },
+        hovertemplate: '<b>%{x} hold</b><br>Win rate: %{y:.1f}%<extra></extra>',
+    }], {
+        margin: { t: 28, r: 24, b: 36, l: 56 },
+        font: { family: 'Inter, sans-serif', size: 11, color: '#57534e' },
+        xaxis: {
+            tickfont: { size: 12, color: '#0c0a09', family: 'JetBrains Mono' },
+            showgrid: false, linecolor: '#d4cec1',
+        },
+        yaxis: {
+            range: [40, 100], ticksuffix: '%',
+            gridcolor: '#e8e4dc', linecolor: '#d4cec1',
+            tickfont: { size: 10 },
+        },
+        plot_bgcolor: '#faf8f5', paper_bgcolor: '#faf8f5',
+        showlegend: false,
+        shapes: [{
+            type: 'line', xref: 'paper', x0: 0, x1: 1,
+            yref: 'y', y0: 50, y1: 50,
+            line: { color: '#a16207', width: 1, dash: 'dot' },
+        }],
+        annotations: [{
+            xref: 'paper', x: 0.01, xanchor: 'left',
+            yref: 'y', y: 50, yanchor: 'bottom',
+            text: LANG === 'zh' ? '随机基准 50%' : 'random baseline 50%',
+            showarrow: false,
+            font: { size: 10, color: '#a16207', family: 'JetBrains Mono' },
+        }],
+        hoverlabel: {
+            bgcolor: '#0c0a09',
+            font: { color: '#faf8f5', family: 'JetBrains Mono', size: 12 },
+        },
+    }, { displayModeBar: false, responsive: true });
+}
+
+function renderRegime(d) {
+    const wrap = document.getElementById('regime-timeline');
+    if (!wrap || !d.market_regime) return;
+    wrap.className = 'regime-timeline';
+    wrap.innerHTML = d.market_regime.map(r => {
+        const cls = r.win10 >= 70 ? 'bull' : r.win10 >= 55 ? 'warn' : 'bear';
+        const label = LANG === 'zh' ? r.label_zh : r.label_en;
+        const note  = LANG === 'zh' ? r.note_zh  : r.note_en;
+        return `
+            <div class="regime-item ${cls}">
+                <div class="regime-year">${r.year}</div>
+                <div class="regime-win ${cls}">${r.win10.toFixed(1)}%</div>
+                <div class="regime-label">${label}</div>
+                <div class="regime-note">${note}</div>
+            </div>
+        `;
+    }).join('');
+}
+
 function renderAnnual(d) {
     const tbody = document.getElementById('annual-tbody');
     if (!tbody) return;
@@ -1131,6 +1281,8 @@ async function boot() {
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     renderFindings(data);
+    renderHoldPeriod(data);
+    renderRegime(data);
     renderPortfolioSummary(data);
     renderOutcomes(data);
     renderEquity(data);

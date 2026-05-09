@@ -178,50 +178,86 @@ def main():
         "max_drawdown_cny": round(max_dd_abs),
     }
 
-    # ── Canonical headline (from v3 research log, NOT derived from semi CSV) ─
-    # Source of truth: 豆模型/bobo豆模型v3日志.md  ·  数据库3号 large-scale validation
+    # ── Canonical headline (v3.1 LOCKED — from 网站发布版.md, 2026-05) ─────
+    # Source: v2模型验证/网站发布版.md (database-3 final validation, 500 stocks)
     canonical = {
-        "source_en":         "Research log v3.0 — 数据库3号 large-scale validation",
-        "source_zh":         "研究日志 v3.0 — 数据库 3 号大规模验证",
-        "universe_size":     240,
-        "n_signals":         390,
-        "win_5d":            69.8,
-        "avg_5d":            3.18,
-        "win_10d":           68.1,
-        "avg_10d":           3.53,
-        "win_20d":           57.0,
-        "optimal_hold":      5,
-        "training_window":   "2023-2024",
-        "validation_window": "2025+",
-        "best_year":         {"year": 2022, "win": 88.3, "note_en": "bull market", "note_zh": "牛市"},
-        "weak_year":         {"year": 2023, "win": 52.8, "note_en": "choppy bottom — technical signals lost edge", "note_zh": "震荡磨底，技术信号失效"},
+        "source_en":         "Research note v3.1 LOCKED — Database 3, 500 tech stocks, 2022-2026",
+        "source_zh":         "研究终稿 v3.1 锁定版 — 数据库 3 号 · 500 只科技股 · 2022-2026",
+        "universe_size":     500,
+        "n_signals":         1199,
+        "win_5d":            60.7,
+        "win_10d":           62.6,
+        "win_20d":           56.8,
+        "optimal_hold":      80,
+        "headline_win":      88.5,           # 80-day hold rate
+        "headline_avg":      36.67,          # 80-day avg return %
+        "headline_window":   "2025-05 → 2026-02 (full 80d completion possible)",
     }
 
-    # ── Key research findings (from v3 log; copyable bullets for §1.5) ────────
+    # ── Hold-period discovery — THE killer finding ──────────────────────────
+    # Test window: 2025-05 → 2026-02, 52 signals where full 80d holds
+    hold_period_table = [
+        {"days": 5,  "win": 50.0, "avg": 1.77,  "median": -0.03},
+        {"days": 10, "win": 59.6, "avg": 2.94,  "median": 1.83},
+        {"days": 30, "win": 64.4, "avg": 8.64,  "median": 6.64},
+        {"days": 60, "win": 75.0, "avg": 24.77, "median": 12.38},
+        {"days": 80, "win": 88.5, "avg": 36.67, "median": 23.00},  # LOCKED
+    ]
+
+    # ── Market regime timeline (2022-2026) ──────────────────────────────────
+    market_regime = [
+        {"year": 2022, "win10": 81.5, "n": 222,
+         "label_en": "Short-term reversal golden age",
+         "label_zh": "短线反转黄金期",
+         "note_en": "Sector rotation rapid; '5-10d mean reversion' worked everywhere.",
+         "note_zh": "板块快速轮动；5-10 日均值回归在各处都有效。"},
+        {"year": 2023, "win10": 49.1, "n": 51,
+         "label_en": "Models collectively fail",
+         "label_zh": "模型集体失效",
+         "note_en": "Capital lacked consensus direction; reversal strategies fail across the board.",
+         "note_zh": "资金一致性预期不足，方向感弱；短线反转策略集体失灵。"},
+        {"year": 2024, "win10": 71.0, "n": 280,
+         "label_en": "Strategy contradiction",
+         "label_zh": "策略矛盾期",
+         "note_en": "5d holds 71% / 20d holds 41% — choppy market; short OK, medium dangerous.",
+         "note_zh": "5 日持有 71%、20 日持有 41% — 震荡市；短线还能做、中线持有就是雷。"},
+        {"year": 2025, "win10": 65.0, "n": 380,
+         "label_en": "Main-line holding regime emerges",
+         "label_zh": "主线持仓型市场登场",
+         "note_en": "AI / compute / semis become strong main lines. Q2 76.5%, Q4 41.7% — but 80d in Q4 = 71.4%.",
+         "note_zh": "AI、算力、半导体崛起为强势主线。Q2 76.5%、Q4 41.7% — 但 Q4 用 80 日重测，胜率回到 71.4%。"},
+        {"year": 2026, "win10": 38.0, "n": 266,
+         "label_en": "Style deepens",
+         "label_zh": "风格延续与深化",
+         "note_en": "Main lines concentrate further; short-term dips no longer rebound. The real money is now in 80-day trends.",
+         "note_zh": "主线集中度进一步提升；短期回调不再立刻反弹。真正的钱在中线趋势中。"},
+    ]
+
+    # ── Key research findings (from 网站发布版.md, the authoritative reframe) ─
     findings = [
         {
-            "label_en": "Stop-loss is harmful",
-            "label_zh": "止损反而砍胜率",
-            "body_en":  "Adding −5% / MA10 stop-losses cut win rate from 69% to 54% across 390 signals. The losses being avoided were future winners. Lesson: do not interfere with positions once entered.",
-            "body_zh":  "在 390 笔信号上加 -5% / 跌破 MA10 止损，胜率从 69% 直接砍到 54%。被止损切掉的大多是后来的赢家。结论：进场后不要主动干预。",
+            "label_en": "Hold period is a vastly under-rated variable",
+            "label_zh": "持有期是被严重低估的变量",
+            "body_en":  "The same 52 entry signals produce a 50.0% win rate at a 5-day hold and an 88.5% win rate at an 80-day hold. Hold period doesn't just scale returns — it changes the strategy's identity.",
+            "body_zh":  "同一批 52 笔进场信号：5 日持有胜率 50.0%，80 日持有胜率 88.5%。持有期决定的不只是收益大小，是策略的本质。",
         },
         {
-            "label_en": "5-day hold optimal, not 10–20",
-            "label_zh": "5 日持仓最优，非 10-20 日",
-            "body_en":  "Win-rate decay across hold periods: 5d 69.8% → 10d 68.1% → 20d 57.0%. The original v2 spec of \"10-20 trading days\" was empirically wrong; v3 locks 5-day hold as the canonical exit.",
-            "body_zh":  "持仓期胜率衰减明显：5 日 69.8% → 10 日 68.1% → 20 日 57.0%。v2 原定的 10-20 日持仓被数据证伪；v3 锁定 5 日为标准出场。",
+            "label_en": "Market style is destiny",
+            "label_zh": "市场风格决定策略命运",
+            "body_en":  "2022 rewarded short-term reversal (81.5% at 10d). 2025+ rewards medium-term trend holding (88.5% at 80d). The model didn't change — the regime did. There is no permanently optimal strategy; there are only matched holds.",
+            "body_zh":  "2022 年震荡市奖励短线反转（10 日 81.5%）；2025 年起主线持仓奖励中线趋势（80 日 88.5%）。模型没变，市场变了。没有永远有效的策略，只有匹配市场的持有期。",
         },
         {
-            "label_en": "Alpha is in entry timing, not exit",
-            "label_zh": "Alpha 来自进场，不来自出场",
-            "body_en":  "Soft-exit scoring, profit locks, and trailing stops all tested on the 390-signal panel — every active management overlay reduced win rate. The model's edge sits entirely in selecting WHEN to enter; staying in is passive.",
-            "body_zh":  "软性卖点评分、浮盈锁定、跟踪止损 —— 在 390 笔信号上全部测过，每一种主动管理都让胜率下降。模型的 alpha 完全在\"何时进场\"，进场后就该被动持有。",
+            "label_en": "Short-term failure is often hold-mismatch",
+            "label_zh": "短线\"失效\"往往是视角错配",
+            "body_en":  "Q4 2025 looked like model collapse: 10-day win rate fell to 41.7%. The same signals at 80-day hold: 71.4%. Question your viewpoint before you question the model — most apparent failures are wrong holding periods, not broken edges.",
+            "body_zh":  "2025 Q4 看似 v3.1 灾难季（10 日胜率 41.7%），同一批信号用 80 日持有：71.4%。怀疑视角，不要急着怀疑模型 —— 大多数\"看似失效\"只是持有期错配。",
         },
         {
-            "label_en": "v3 adds market-regime gate",
-            "label_zh": "v3 新增大盘门控",
-            "body_en":  "v2 fired regardless of market regime — 2023's choppy bottom dragged win rate to 52.8%. v3 only fires when (i) HS300 trades above its 20-day MA AND (ii) ChiNext is not down >8% over 20 days. Predicted win-rate lift to 72-76% (pending verification on 数据库3号).",
-            "body_zh":  "v2 不管大盘环境硬开仓，2023 震荡磨底拖到 52.8%。v3 只在 (i) 沪深 300 站上 20 日均线 且 (ii) 创业板 20 日跌幅不超过 8% 时才允许开仓。预计胜率提升至 72-76%（待数据库 3 号回测验证）。",
+            "label_en": "Smart filters are usually overfitting in disguise",
+            "label_zh": "聪明的过滤往往是过拟合的伪装",
+            "body_en":  "Sector strength filter, relative-strength check, dynamic exits, RSI band tightening — all tested, all failed. Each looked smarter than the base model; each made results worse. Simple core rules + the right hold period beat layered filters.",
+            "body_zh":  "板块强度过滤、相对强度检查、动态退出、RSI 区间收窄 —— 全部测过，全部失败。每一个看起来都比原版更\"聪明\"，每一个都让结果更差。简单核心规则 + 正确持有期，胜过复杂层层过滤。",
         },
     ]
 
@@ -231,6 +267,8 @@ def main():
         "period":            "2024-01-01 to 2025-12-31",
         "canonical":         canonical,
         "findings":          findings,
+        "hold_period_table": hold_period_table,
+        "market_regime":     market_regime,
         "universe_size":     len(UNIVERSE),
         "universe_label_en": "Semiconductor sector leaders (A-share)",
         "universe_label_zh": "半导体板块龙头（A 股）",
