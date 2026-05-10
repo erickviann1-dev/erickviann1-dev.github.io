@@ -12,8 +12,7 @@ Privacy filters applied:
     - Only 2024-2025 signal records (excludes 2026+ to keep current period private)
     - Per-stock aggregate stats only (no specific trigger dates with indicator values)
     - No RSI / MACD / vol_ratio values per signal
-    - No rule thresholds, IC ranks, current picks, or live candidate lists
-    - Interactive cases are historical / delayed display only
+    - Universe + total signal count visible (semi sector leaders are public domain)
 
 Portfolio simulation (v1.2):
     - Principal : ¥1,000,000
@@ -29,7 +28,6 @@ from pathlib import Path
 from datetime import datetime
 
 SRC = Path(r"C:/Users/魏来/Desktop/山顶资本/量化/全部数据/bobo1号模型/semi_backtest_signals.csv")
-DB4_RANDOM_UNIVERSE = Path(r"C:/Users/魏来/Desktop/山顶资本/豆模型/random_tech_120_baseline_db4tech_20250205_20260205_universe.csv")
 DST = Path(__file__).parent / "data.json"
 
 PRINCIPAL = 1_000_000     # ¥1,000,000 starting capital
@@ -94,9 +92,10 @@ def main():
                 "avg10":   round(sub['ret10f'].mean(), 2),
             })
 
-    # ── Legacy per-stock aggregate fallback ──────────────────────────────────
-    # This is kept only as a fallback if the DB4 public-random universe file is
-    # unavailable. The public site should prefer DB4 delayed random tech cases.
+    # ── Per-stock aggregate (v1.2: ACTIVE stocks only — those that fired) ─────
+    # User request: only show universe stocks that had ≥1 signal in the period,
+    # so the random-draw probe never returns "no signal fired" rows. Drawn
+    # from the v3 active universe (the database-3 large-scale validation pool).
     per_stock_full = {}
     for code, name in UNIVERSE:
         c   = code.lstrip('0').zfill(6)
@@ -115,63 +114,7 @@ def main():
                 # spark = per-signal cumulative return path (for the inline mini chart)
                 "spark":        [round(float(v), 4) for v in cum],
             }
-    per_stock = []
-
-    # ── Public interactive sample pool: DB4 random 50 technology cases ───────
-    # Source file contains DB4 technology-universe 120D forward-return windows.
-    # Public display may show historical stock names/codes, but still exports no
-    # signal dates, factor values, thresholds, or current candidate information.
-    if DB4_RANDOM_UNIVERSE.exists():
-        db4 = pd.read_csv(DB4_RANDOM_UNIVERSE)
-        db4["symbol"] = db4["symbol"].astype(str).str.lstrip("0").str.zfill(6)
-        grouped = list(db4.groupby("symbol", sort=True))
-        sample_symbols = (
-            pd.Series([sym for sym, _ in grouped])
-            .sample(n=min(50, len(grouped)), random_state=42)
-            .tolist()
-        )
-        group_map = {sym: g for sym, g in grouped}
-        for idx, sym in enumerate(sample_symbols, start=1):
-            g = group_map[sym].sort_values("date")
-            display_name = str(g["name"].iloc[0]) if "name" in g.columns else sym
-            ret = pd.to_numeric(g["ret_120d"], errors="coerce").dropna()
-            mdd = pd.to_numeric(g["mdd_120d"], errors="coerce").dropna()
-            closes = pd.to_numeric(g["close"], errors="coerce").dropna()
-            if len(ret) == 0:
-                continue
-            if len(closes) >= 2:
-                spark = (closes / closes.iloc[0]).tolist()
-            else:
-                spark = (1 + ret / 100.0).cumprod().tolist()
-            curve = []
-            if len(closes) >= 2 and "date" in g.columns:
-                base = float(closes.iloc[0])
-                dates = g.loc[closes.index, "date"].astype(str).tolist()
-                curve = [
-                    {"date": dates[i], "value": round(float(closes.iloc[i] / base), 4)}
-                    for i in range(len(closes))
-                    if base != 0
-                ]
-            per_stock.append({
-                "case_id": f"DB4-{idx:02d}",
-                "code": sym,
-                "name": display_name,
-                "signals": int(len(ret)),
-                "win10": round((ret > 0).mean() * 100, 1),
-                "avg10": round(ret.mean(), 2),
-                "mdd120": round(mdd.median(), 2) if len(mdd) else None,
-                "spark": [round(float(v), 4) for v in spark[-80:]],
-                "curve": curve,
-            })
-    else:
-        for idx, item in enumerate(per_stock_full.values(), start=1):
-            anonymized = dict(item)
-            anonymized["case_id"] = f"CASE-{idx:02d}"
-            anonymized["code"] = f"CASE-{idx:02d}"
-            anonymized["name"] = "Historical case"
-            anonymized.pop("first_signal", None)
-            anonymized.pop("last_signal", None)
-            per_stock.append(anonymized)
+    per_stock = list(per_stock_full.values())
     active_universe_size = len(per_stock)
 
     # ── Portfolio simulation (v1.2) ───────────────────────────────────────────
@@ -318,72 +261,6 @@ def main():
         },
     ]
 
-    # ── Public-facing result layer (rules intentionally withheld) ────────────
-    result_summary = {
-        "v2_win_rate": 68.0,
-        "v2_note_en": "Large-sample validation showed the original core signal was real, but not mythical.",
-        "v2_note_zh": "大样本验证证明原始核心信号有效，但不是神话。",
-        "v4s_status": "LOCK_CANDIDATE",
-        "v4s_win": 92.86,
-        "v4s_avg": 59.44,
-        "v4s_median": 46.62,
-        "random_win": 78.0,
-        "random_avg": 42.0,
-        "random_median": 23.0,
-    }
-
-    model_timeline = [
-        {
-            "version": "v2",
-            "label_en": "Original core signal",
-            "label_zh": "原始核心买点",
-            "body_en": "Validated that a real trading feature can be extracted from historical buy records. Public result: about 68% large-sample win rate.",
-            "body_zh": "证明真实买入样本中确实存在可提炼的交易特征。公开结果：大样本胜率约 68%。",
-        },
-        {
-            "version": "v3.1",
-            "label_en": "Locked discipline",
-            "label_zh": "锁定与反过拟合纪律",
-            "body_en": "Stopped iterative result-chasing. The value is version discipline: lock first, test later.",
-            "body_zh": "停止一边看结果一边加条件。价值不只是胜率，而是先锁定、再验证的版本纪律。",
-        },
-        {
-            "version": "v4",
-            "label_en": "Technology-mainline framework",
-            "label_zh": "科技主线框架",
-            "body_en": "Signals are ranked into S/A/B quality tiers. The implementation details remain private; only aggregate outcomes are shown.",
-            "body_zh": "信号被分为 S/A/B 质量层级。具体实现细节不公开，只展示聚合结果。",
-        },
-        {
-            "version": "Exit",
-            "label_en": "Holding and exit research",
-            "label_zh": "持有与卖点研究",
-            "body_en": "Entry and exit are studied separately. Fixed holding captured stronger upside; dynamic exit reduced drawdown.",
-            "body_zh": "买点和卖点分开研究。固定持有吃到更强趋势，动态卖点降低回撤。",
-        },
-    ]
-
-    strategy_compare = [
-        {
-            "key": "fixed",
-            "label_en": "Fixed holding allocation",
-            "label_zh": "固定持有分仓",
-            "return": 70.31,
-            "max_dd": -20.92,
-            "note_en": "Higher upside, larger tail risk.",
-            "note_zh": "收益更高，但尾部风险更大。",
-        },
-        {
-            "key": "dynamic",
-            "label_en": "Dynamic exit allocation",
-            "label_zh": "动态卖点分仓",
-            "return": 53.22,
-            "max_dd": -13.35,
-            "note_en": "Lower drawdown, but may exit strong trends too early.",
-            "note_zh": "回撤更低，但可能卖飞强趋势票。",
-        },
-    ]
-
     # ── Build payload ─────────────────────────────────────────────────────────
     payload = {
         "generated_at":      datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -395,11 +272,8 @@ def main():
         "universe_size":     len(UNIVERSE),
         "universe_label_en": "Semiconductor sector leaders (A-share)",
         "universe_label_zh": "半导体板块龙头（A 股）",
-        "criterion_en":      "Protected research logic — public page shows results only.",
-        "criterion_zh":      "受保护的研究逻辑 — 公开页面只展示结果。",
-        "result_summary":    result_summary,
-        "model_timeline":    model_timeline,
-        "strategy_compare":  strategy_compare,
+        "criterion_en":      "bean_score >= 5 (of 6 rules) AND anti_chase_score >= 2 (of 3 filters)",
+        "criterion_zh":      "豆模型 6 条核心条件至少满足 5 条，且 3 条追高过滤至少通过 2 条",
         "headline": {
             "n_signals":   int(n_signals),
             "n_stocks":    int(sig['code'].nunique()),
