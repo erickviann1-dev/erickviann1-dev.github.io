@@ -17,30 +17,30 @@
     {
       "version": "v2",
       "label_en": "Original core signal",
-      "label_zh": "??????",
+      "label_zh": "原始核心买点",
       "body_en": "The first locked buy signal extracted from real trading records. It proved the sample contains a repeatable edge, but large-sample testing pulled the win rate back to a realistic ~68%.",
-      "body_zh": "??????????????????????????????????????????????????? 68%?"
+      "body_zh": "从真实买入记录中提炼出的第一版锁定买点。它证明样本里确实有可重复特征，但大样本验证把胜率拉回更真实的约 68%。"
     },
     {
       "version": "v3.1",
       "label_en": "Locked discipline",
-      "label_zh": "?????????",
+      "label_zh": "锁定与反过拟合纪律",
       "body_en": "v3.1 did not simply add complexity. Its real value was forcing version discipline: stop changing rules after seeing results, then test the locked signal across regimes and holding periods.",
-      "body_zh": "v3.1 ??????????????????????????????????????????????????????"
+      "body_zh": "v3.1 不是简单堆复杂条件。它真正的价值是建立版本纪律：看结果之后不再改规则，而是拿锁定信号去跨行情、跨持有期验证。"
     },
     {
       "version": "v4",
       "label_en": "Technology-mainline framework",
-      "label_zh": "??????",
+      "label_zh": "科技主线框架",
       "body_en": "v4 moved from one buy signal to a tiered framework. It can evaluate short-term moves and medium/long-term holds; the stricter v4.S layer is designed for the strongest medium-term trend opportunities.",
-      "body_zh": "v4 ??????????????????????????????????? v4.S ?????????????????"
+      "body_zh": "v4 从单一买点升级为分层框架。它既能看短线，也能看中长线；其中筛选最严格的 v4.S 层，目标是捕捉最强的中线趋势机会。"
     },
     {
       "version": "Exit",
       "label_en": "Holding and exit research",
-      "label_zh": "???????",
+      "label_zh": "持有与卖点研究",
       "body_en": "Entry and exit are separated. Short-term exits can reduce drawdown, but the strongest discovery is that strict signals often need 60-120 days to express their edge.",
-      "body_zh": "????????????????????????????????????? 60-120 ??????????"
+      "body_zh": "买点和卖点分开研究。短线卖点能降低回撤，但最强发现是：越严格的信号往往需要 60-120 日才能充分释放优势。"
     }
   ],
   "strategy_compare": [
@@ -31410,38 +31410,38 @@
     {
       "key": "short",
       "label_en": "Short-term validation",
-      "label_zh": "????",
+      "label_zh": "短线验证",
       "horizon_en": "10-20 trading days",
-      "horizon_zh": "10-20 ????",
+      "horizon_zh": "10-20 个交易日",
       "win": 73.33,
       "avg": 4.76,
       "median": 3.64,
       "body_en": "Useful for checking whether the entry has immediate follow-through, but not where the model's strongest edge appears.",
-      "body_zh": "??????????????????????????"
+      "body_zh": "适合验证买点是否有短期跟随，但这不是模型最强的地方。"
     },
     {
       "key": "mid",
       "label_en": "Medium-term trend",
-      "label_zh": "????",
+      "label_zh": "中线趋势",
       "horizon_en": "60-90 trading days",
-      "horizon_zh": "60-90 ????",
+      "horizon_zh": "60-90 个交易日",
       "win": 81.25,
       "avg": 31.91,
       "median": 19.89,
       "body_en": "The signal starts to reveal its true character as a trend-entry filter rather than a quick reversal trade.",
-      "body_zh": "??????????????????????????????????"
+      "body_zh": "信号开始显露真正属性：它更像趋势进场过滤器，而不是单纯短线反转交易。"
     },
     {
       "key": "long",
       "label_en": "Strict long-horizon layer",
-      "label_zh": "??????",
+      "label_zh": "严格中长线层",
       "horizon_en": "120 trading days ? v4.S",
-      "horizon_zh": "120 ???? ? v4.S",
+      "horizon_zh": "120 个交易日 ? v4.S",
       "win": 92.86,
       "avg": 59.44,
       "median": 46.62,
       "body_en": "The strictest layer filters harder and fires less often, but historically produced the strongest medium/long-term results.",
-      "body_zh": "???????????????????????????"
+      "body_zh": "最严格的层级筛得更少，但历史上给出了最强的中长线结果。"
     }
   ]
 }
