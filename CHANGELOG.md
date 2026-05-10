@@ -12,6 +12,34 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
+## [snapshot-web-v1.5.1] — 2026-05-10 · Stable online rollback point
+
+> Current preserved web version. Use this as the rollback anchor if later Bean
+> Model / portfolio hub edits break the page, weaken the design, or muddle the
+> model narrative.
+
+- Git commit: `17fda5a`
+- Git tag: `web-v1.5.1-v4s-evidence`
+- Live page: `https://erickviann1-dev.github.io/bean-model/`
+- Key state preserved: v4 framework explanation, v4.S empirical evidence card,
+  corrected v3.1 metric provenance, protected-method wording, DB4 random draw
+  interaction, and portfolio hub navigation.
+- Rollback command:
+
+```bash
+git checkout web-v1.5.1-v4s-evidence
+```
+
+- If restoring `main` to this version:
+
+```bash
+git checkout main
+git reset --hard web-v1.5.1-v4s-evidence
+git push --force-with-lease origin main
+```
+
+---
+
 ## [v1.5] — 2026-05-10 · Bean Model protected-results interactive page
 
 > Delivered. Bean Model page reframed from a methodology explainer into a
