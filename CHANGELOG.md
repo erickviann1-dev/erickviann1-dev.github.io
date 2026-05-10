@@ -27,6 +27,8 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 | 2 | Privacy boundary | Added explicit research-boundary block: no rules, thresholds, IC ranks, live signals, current picks, trigger dates, or factor readings. |
 | 3 | Result strip | First-screen evidence chips: v2 ~68% large-sample win rate, v4.S 92.86% historical win rate, fixed allocation +70.31%, rules protected. |
 | 4 | Model arc | Added v2 → v3.1 → v4 → Exit timeline; only explains version purpose and public conclusions, not implementation. |
+| 4.1 | Model distinction | Expanded model arc to explain v2 vs v3.1 vs v4: original buy signal, locked anti-overfitting discipline, then tiered technology-mainline framework. |
+| 4.2 | v4 horizon progression | Added v4 short / medium / long-horizon cards showing improvement trend: 10-20D validation, 60-90D trend expression, 120D v4.S strict long-horizon layer. |
 | 5 | Alpha/Beta comparison | Added v4.S vs random technology basket comparison: win rate, average return, median return. |
 | 6 | Holding-style interaction | Added interactive tabs for fixed holding allocation vs dynamic exit allocation: return, drawdown, interpretation. |
 | 7 | Historical sample draw | Random historical probe displays delayed DB4 stock names/codes after owner approval, while keeping signal logic private. |
@@ -43,6 +45,9 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 | v4.S historical win rate | 92.86% |
 | v4.S average return | +59.44% |
 | v4.S median return | +46.62% |
+| v4 short-term layer | 10-20D · 73.33% win · +4.76% avg |
+| v4 medium-term layer | 60-90D · 81.25% win · +31.91% avg |
+| v4 strict long-horizon layer | 120D v4.S · 92.86% win · +59.44% avg |
 | Random tech basket win rate | ~78% |
 | Random tech basket average return | ~42% |
 | Random tech basket median return | ~23% |
