@@ -230,6 +230,49 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     line-height: 1.55;
     color: var(--ink-soft);
 }
+.v4-brief {
+    margin: 28px 0 0;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 18px;
+}
+@media (max-width: 860px) { .v4-brief { grid-template-columns: 1fr; } }
+.v4-brief-main,
+.v4-brief-panel {
+    background: var(--card);
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+}
+.v4-brief-main { padding: 26px 28px; position: relative; overflow: hidden; }
+.v4-brief-main::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--ochre), var(--navy), var(--bull));
+}
+.v4-kicker {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ochre); font-weight: 800; margin-bottom: 12px;
+}
+.v4-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 30px; line-height: 1.08; font-weight: 600;
+    color: var(--ink); margin-bottom: 12px;
+}
+.v4-body {
+    font-size: 14.5px; line-height: 1.72; color: var(--ink-soft);
+    max-width: 760px;
+}
+.v4-brief-panel { padding: 22px; }
+.v4-panel-row {
+    display: grid; grid-template-columns: 84px 1fr; gap: 16px;
+    padding: 14px 0; border-bottom: 1px solid var(--hairline);
+}
+.v4-panel-row:last-child { border-bottom: 0; }
+.v4-panel-key {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px; font-weight: 800; color: var(--navy);
+}
+.v4-panel-copy { font-size: 13px; line-height: 1.56; color: var(--ink-soft); }
 .horizon-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
     margin: 28px 0 0;
@@ -847,6 +890,28 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     模型的进步不是“参数越堆越多”，而是研究问题逐步变清楚：v2 证明买点有效，v3.1 证明必须锁定版本，v4 把信号分层并把短线与中长线能力分开评估。越严格的层级触发越少，但中长线表现越强。
 </div>
 
+<div class="v4-brief reveal">
+    <div class="v4-brief-main">
+        <div class="v4-kicker" data-i18n="v4.kicker">Latest Framework</div>
+        <h3 class="v4-title" data-i18n="v4.title">v4 turns one signal into a staged decision system.</h3>
+        <p class="v4-body" data-i18n="v4.body">v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes only, without exposing selection thresholds or live candidates.</p>
+    </div>
+    <div class="v4-brief-panel">
+        <div class="v4-panel-row">
+            <div class="v4-panel-key" data-i18n="v4.row1_key">v4.A</div>
+            <div class="v4-panel-copy" data-i18n="v4.row1_copy">Short-horizon validation layer: useful for checking whether the original entry logic still has immediate follow-through.</div>
+        </div>
+        <div class="v4-panel-row">
+            <div class="v4-panel-key" data-i18n="v4.row2_key">v4.B</div>
+            <div class="v4-panel-copy" data-i18n="v4.row2_copy">Observation layer: catches candidates that need more time and should be evaluated as trend-building cases.</div>
+        </div>
+        <div class="v4-panel-row">
+            <div class="v4-panel-key" data-i18n="v4.row3_key">v4.S</div>
+            <div class="v4-panel-copy" data-i18n="v4.row3_copy">Strict long-horizon layer: fewer signals, stronger medium/long-term historical profile, and the clearest public evidence of model improvement.</div>
+        </div>
+    </div>
+</div>
+
 <div class="horizon-grid reveal" id="v4-horizon-grid"></div>
 
 <div class="chapter-head reveal">
@@ -872,7 +937,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 <div class="canonical-hero reveal">
     <div class="canonical-eyebrow">
         <span class="pulse"></span>
-        <span data-i18n="canonical.eyebrow">v3.1 LOCKED · Database 3 · 80-Day Hold</span>
+        <span data-i18n="canonical.eyebrow">v3.1 LOCKED · DB3-500 Universe · 80-Day Hold</span>
     </div>
     <div class="canonical-row">
         <div class="canonical-stat primary">
@@ -881,7 +946,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
             <div class="label" data-i18n="canonical.win80_label">80-Day Win Rate</div>
         </div>
         <div class="canonical-stat secondary">
-            <span class="num counter" data-target="1199" data-decimals="0">0</span>
+            <span class="num counter" data-target="52" data-decimals="0">0</span>
             <div class="num-rule"></div>
             <div class="label" data-i18n="canonical.signals_label">Signals</div>
         </div>
@@ -899,7 +964,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
         <span class="mono">60d 75.0%</span> →
         <span class="mono">80d <strong style="color:var(--bull);font-size:1.05em">88.5%</strong></span>
     </div>
-    <div class="canonical-source" data-i18n="canonical.source">来源 · 研究终稿 · 数据库 3 号 · 500 只科技股 · 2022-2026 全样本</div>
+    <div class="canonical-source" data-i18n="canonical.source">来源 · 80 日结果来自 2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科技股、2022-2026 共 1,199 笔信号。</div>
 </div>
 
 <div class="figure-wrap reveal" style="margin-top: 42px;">
@@ -1076,12 +1141,21 @@ const I18N = {
     "findings.intro": "The four findings below come from multiple rounds of large-sample validation. This page shows conclusions and outcomes only, not replicable stock-selection conditions.",
     "s2.eyebrow": "Validated Result",
     "s2.title": "Empirical Performance",
-    "canonical.eyebrow": "v3.1 LOCKED · Database 3 · 80-Day Hold",
+    "v4.kicker": "Latest Framework",
+    "v4.title": "v4 turns one signal into a staged decision system.",
+    "v4.body": "v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes only, without exposing selection thresholds or live candidates.",
+    "v4.row1_key": "v4.A",
+    "v4.row1_copy": "Short-horizon validation layer: useful for checking whether the original entry logic still has immediate follow-through.",
+    "v4.row2_key": "v4.B",
+    "v4.row2_copy": "Observation layer: catches candidates that need more time and should be evaluated as trend-building cases.",
+    "v4.row3_key": "v4.S",
+    "v4.row3_copy": "Strict long-horizon layer: fewer signals, stronger medium/long-term historical profile, and the clearest public evidence of model improvement.",
+    "canonical.eyebrow": "v3.1 LOCKED · DB3-500 Universe · 80-Day Hold",
     "canonical.win80_label": "80-Day Win Rate",
-    "canonical.signals_label": "Signals",
+    "canonical.signals_label": "Completed 80D Signals",
     "canonical.universe_label": "Stock Universe",
     "canonical.decay_intro": "Hold-period scaling — same 52 signals:",
-    "canonical.source": "Source · v3.1 final note · Database 3 · 500 tech stocks · 2022-2026",
+    "canonical.source": "Source · the 80D result uses 52 completed signals from May 2025-Feb 2026; the full background scan covers the expanded DB3-500 universe, 500 tech stocks and 1,199 signals across 2022-2026.",
     "compare.label": "FIGURE 0 ·",
     "compare.title": "Signal Quality vs Random Technology Basket",
     "compare.source": "Source · historical v4.S validation vs randomly sampled technology basket. The comparison asks whether the model adds quality beyond sector beta.",
@@ -1173,12 +1247,21 @@ const I18N = {
     "findings.intro": "以下四条结论来自多轮大样本验证。页面只展示研究结论与结果，不展示可复刻的选股条件。",
     "s2.eyebrow": "验证结果",
     "s2.title": "实证表现",
-    "canonical.eyebrow": "v3.1 锁定版 · 数据库 3 号 · 80 日持有",
+    "v4.kicker": "最新框架",
+    "v4.title": "v4 把一个买点信号，升级成分层决策系统。",
+    "v4.body": "v3.1 证明了进场信号需要锁定，并且必须放在正确的持有周期里判断。v4 是下一层：它把短线验证、中线趋势表达和长线严格筛选分开，最严格的 v4.S 只留给历史表现最强、触发更少的高置信样本。公开页面只展示这种进化后的结果，不展示筛选阈值或实时候选。",
+    "v4.row1_key": "v4.A",
+    "v4.row1_copy": "短线验证层：用于观察原始买点逻辑是否仍然具备较快的后续动能。",
+    "v4.row2_key": "v4.B",
+    "v4.row2_copy": "观察层：捕捉需要更长时间验证的候选，把它们作为趋势形成过程来评估。",
+    "v4.row3_key": "v4.S",
+    "v4.row3_copy": "严格中长线层：信号更少，但历史中长线表现更强，也是网页上最能体现模型进步的公开证据。",
+    "canonical.eyebrow": "v3.1 锁定版 · DB3-500 股票池 · 80 日持有",
     "canonical.win80_label": "80 日胜率",
-    "canonical.signals_label": "信号样本",
+    "canonical.signals_label": "80日完整信号",
     "canonical.universe_label": "股票池",
     "canonical.decay_intro": "持有期递增 · 同 52 笔信号：",
-    "canonical.source": "来源 · v3.1 终稿 · 数据库 3 号 · 500 只科技股 · 2022-2026 全样本",
+    "canonical.source": "来源 · 80 日结果来自 2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科技股、2022-2026 共 1,199 笔信号。",
     "compare.label": "图 0 ·",
     "compare.title": "v4.S 信号质量 vs 随机科技股票池",
     "compare.source": "来源 · v4.S 历史验证与随机科技股票池对照。这个比较回答：模型是否只是吃到了科技 Beta，还是提高了信号质量。",

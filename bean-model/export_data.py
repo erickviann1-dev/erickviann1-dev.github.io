@@ -236,12 +236,14 @@ def main():
     }
 
     # ── Canonical headline (v3.1 LOCKED — from 网站发布版.md, 2026-05) ─────
-    # Source: v2模型验证/网站发布版.md (database-3 final validation, 500 stocks)
+    # Source: v2模型验证/网站发布版.md. The 80D headline is from the
+    # completed-hold window; 1,199 is the broader DB3-500 background scan.
     canonical = {
-        "source_en":         "Research note v3.1 LOCKED — Database 3, 500 tech stocks, 2022-2026",
-        "source_zh":         "研究终稿 v3.1 锁定版 — 数据库 3 号 · 500 只科技股 · 2022-2026",
+        "source_en":         "Research note v3.1 LOCKED — 52 completed 80D signals; DB3-500 background scan has 1,199 signals across 500 tech stocks",
+        "source_zh":         "研究终稿 v3.1 锁定版 — 52 笔完整 80 日信号；DB3-500 背景扫描覆盖 500 只科技股、1,199 笔信号",
         "universe_size":     500,
-        "n_signals":         1199,
+        "n_signals":         52,
+        "full_scan_signals":  1199,
         "win_5d":            60.7,
         "win_10d":           62.6,
         "win_20d":           56.8,

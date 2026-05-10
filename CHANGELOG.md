@@ -30,6 +30,8 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 | 4.1 | Model distinction | Expanded model arc to explain v2 vs v3.1 vs v4: original buy signal, locked anti-overfitting discipline, then tiered technology-mainline framework. |
 | 4.2 | v4 horizon progression | Added v4 short / medium / long-horizon cards showing improvement trend: 10-20D validation, 60-90D trend expression, 120D v4.S strict long-horizon layer. |
 | 4.3 | Regime-adapted view | Figure B now shows the model/horizon adapted to each market regime; 2025 uses v4 medium-term and 2026 uses v4.S 120D instead of the old fixed v3.1 10D lens. |
+| 4.4 | v4 spotlight | Added a dedicated public v4 explanation block before the empirical section: v4.A short-horizon validation, v4.B observation layer, v4.S strict long-horizon layer. Wording explains the framework without exposing rules, thresholds, factor values, or live candidates. |
+| 4.5 | Metric provenance fix | Corrected the v3.1 headline card: 88.5% is from 52 completed 80D signals; 1,199 is the broader DB3-500 background scan, not the denominator for the 80D result. |
 | 5 | Alpha/Beta comparison | Added v4.S vs random technology basket comparison: win rate, average return, median return. |
 | 6 | Holding-style interaction | Added interactive tabs for fixed holding allocation vs dynamic exit allocation: return, drawdown, interpretation. |
 | 7 | Historical sample draw | Random historical probe displays delayed DB4 stock names/codes after owner approval, while keeping signal logic private. |
