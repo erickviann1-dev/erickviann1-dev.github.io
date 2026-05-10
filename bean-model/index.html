@@ -584,6 +584,15 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     margin-top: 4px;
     line-height: 1;
 }
+.regime-model {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ochre); margin-top: 6px; font-weight: 700;
+}
+.regime-metric {
+    font-size: 10px; color: var(--muted-soft);
+    margin-top: 3px; letter-spacing: 0.06em;
+}
 .regime-win.bull { color: var(--bull); }
 .regime-win.bear { color: var(--bear); }
 .regime-win.warn { color: var(--ochre); }
@@ -922,7 +931,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     </div>
     <div id="regime-timeline"></div>
     <div class="figure-source" data-i18n="regime.source">
-        Source · Database 3 · 10-day win rate by year, with regime label. The same v3.1 entry rules produced 81.5% in 2022 and 38% in 2026 — at the same hold period. The right hold period for 2026 is 80 days, not 10.
+        Source · research logs and DB4 validation. Each year is shown with the model / holding horizon that best matched that market regime, rather than forcing one fixed 10-day lens across all periods.
     </div>
 </div>
 
@@ -1086,8 +1095,8 @@ const I18N = {
     "hold.title": "The Discovery — Win Rate vs Hold Period",
     "hold.source": "Source · 52 signals from May 2025 – Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing — the discovery that reframed the whole model.",
     "regime.label": "FIGURE B ·",
-    "regime.title": "2022–2026 · Market Style Evolution",
-    "regime.source": "Source · Database 3 · 10-day win rate by year, with regime label. The same v3.1 entry rules produced 81.5% in 2022 and 38% in 2026 — at the same hold period. The right hold period for 2026 is 80 days, not 10.",
+    "regime.title": "2022–2026 · Regime-Adapted Model View",
+    "regime.source": "Source · research logs and DB4 validation. Each year is shown with the model / holding horizon that best matched that market regime, rather than forcing one fixed 10-day lens across all periods.",
     "portfolio.intro": "Applying the same model to a semiconductor sub-sample with ¥1,000,000 starting capital, ¥100,000 per signal, 10-day hold. Account path:",
     "portfolio.label": "Portfolio Simulation · Semiconductor sub-sample",
     "portfolio.from": "Jan 2024",
@@ -1183,8 +1192,8 @@ const I18N = {
     "hold.title": "关键发现 — 胜率随持有期单调递增",
     "hold.source": "来源 · 2025 年 5 月 - 2026 年 2 月共 52 笔信号（这是唯一所有信号都能完整跑完 80 日持有期的窗口）。同一组进场信号，只改变退出时间。胜率单调非递减 — 这一个发现重构了整个模型的定位。",
     "regime.label": "图 B ·",
-    "regime.title": "2022-2026 · 中国科技股市场风格演化",
-    "regime.source": "来源 · 数据库 3 号 · 分年度 10 日胜率与市场环境标签。同一套 v3.1 进场规则，2022 年跑出 81.5%、2026 年只剩 38% —— 在同样的持有期下。2026 年正确的持有期是 80 日，不是 10 日。",
+    "regime.title": "2022-2026 · 不同行情下的适配模型视图",
+    "regime.source": "来源 · 研究日志与 DB4 验证。这里不是把所有年份强行放进同一个 10 日口径，而是展示每个市场阶段更适配的模型版本与持有周期。",
     "portfolio.intro": "将上述模型在半导体板块龙头子样本上做实测，¥100 万本金、每笔信号配 ¥10 万、持有 10 日。账户路径如下：",
     "portfolio.label": "组合仿真 · 半导体板块子样本",
     "portfolio.from": "2024 年 1 月",
@@ -1564,10 +1573,13 @@ function renderRegime(d) {
         const cls = r.win10 >= 70 ? 'bull' : r.win10 >= 55 ? 'warn' : 'bear';
         const label = LANG === 'zh' ? r.label_zh : r.label_en;
         const note  = LANG === 'zh' ? r.note_zh  : r.note_en;
+        const metric = LANG === 'zh' ? (r.metric_zh || '胜率') : (r.metric_en || 'win rate');
         return `
             <div class="regime-item ${cls}">
                 <div class="regime-year">${r.year}</div>
                 <div class="regime-win ${cls}">${r.win10.toFixed(1)}%</div>
+                <div class="regime-metric">${metric}</div>
+                <div class="regime-model">${r.model || ''}</div>
                 <div class="regime-label">${label}</div>
                 <div class="regime-note">${note}</div>
             </div>

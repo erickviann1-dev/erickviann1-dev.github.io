@@ -29,6 +29,7 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 | 4 | Model arc | Added v2 → v3.1 → v4 → Exit timeline; only explains version purpose and public conclusions, not implementation. |
 | 4.1 | Model distinction | Expanded model arc to explain v2 vs v3.1 vs v4: original buy signal, locked anti-overfitting discipline, then tiered technology-mainline framework. |
 | 4.2 | v4 horizon progression | Added v4 short / medium / long-horizon cards showing improvement trend: 10-20D validation, 60-90D trend expression, 120D v4.S strict long-horizon layer. |
+| 4.3 | Regime-adapted view | Figure B now shows the model/horizon adapted to each market regime; 2025 uses v4 medium-term and 2026 uses v4.S 120D instead of the old fixed v3.1 10D lens. |
 | 5 | Alpha/Beta comparison | Added v4.S vs random technology basket comparison: win rate, average return, median return. |
 | 6 | Holding-style interaction | Added interactive tabs for fixed holding allocation vs dynamic exit allocation: return, drawdown, interpretation. |
 | 7 | Historical sample draw | Random historical probe displays delayed DB4 stock names/codes after owner approval, while keeping signal logic private. |
@@ -48,6 +49,8 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 | v4 short-term layer | 10-20D · 73.33% win · +4.76% avg |
 | v4 medium-term layer | 60-90D · 81.25% win · +31.91% avg |
 | v4 strict long-horizon layer | 120D v4.S · 92.86% win · +59.44% avg |
+| Figure B 2025 adapted view | v4 medium-term · 60-90D win 81.25% |
+| Figure B 2026 adapted view | v4.S strict layer · 120D win 92.86% |
 | Random tech basket win rate | ~78% |
 | Random tech basket average return | ~42% |
 | Random tech basket median return | ~23% |
