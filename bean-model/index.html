@@ -313,6 +313,76 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 .horizon-body {
     margin-top: 18px; font-size: 13px; line-height: 1.6; color: var(--ink-soft);
 }
+.v4-proof {
+    margin: 42px 0 0;
+    background: #fff;
+    border: 1px solid rgba(21,128,61,0.22);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+    padding: 28px 32px 30px;
+    position: relative;
+    overflow: hidden;
+}
+.v4-proof::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--bull), var(--ochre));
+}
+.v4-proof-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 24px; margin-bottom: 26px;
+}
+@media (max-width: 760px) { .v4-proof-head { flex-direction: column; } }
+.v4-proof-kicker {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--bull); font-weight: 800; margin-bottom: 10px;
+}
+.v4-proof-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 30px; line-height: 1.08; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+}
+.v4-proof-copy {
+    font-size: 14px; line-height: 1.68; color: var(--ink-soft);
+    max-width: 680px;
+}
+.v4-proof-badge {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px; font-weight: 800; color: var(--bull);
+    background: rgba(21,128,61,0.08);
+    border: 1px solid rgba(21,128,61,0.18);
+    border-radius: 999px;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+.v4-proof-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+}
+@media (max-width: 860px) { .v4-proof-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .v4-proof-grid { grid-template-columns: 1fr; } }
+.v4-proof-stat {
+    border-top: 1px solid var(--hairline);
+    padding-top: 18px;
+}
+.v4-proof-stat .num {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: clamp(28px, 4.2vw, 46px);
+    line-height: 1;
+    font-weight: 800;
+    color: var(--ink);
+}
+.v4-proof-stat.primary .num { color: var(--bull); }
+.v4-proof-stat .label {
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 800;
+}
+.v4-proof-source {
+    margin-top: 24px; padding-top: 18px; border-top: 1px dashed var(--hairline-strong);
+    font-size: 12px; color: var(--muted); line-height: 1.6; font-style: italic;
+}
 
 /* ───────── METHOD BOX ───────── */
 .method-box {
@@ -934,6 +1004,36 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     </div>
 </div>
 
+<div class="v4-proof reveal">
+    <div class="v4-proof-head">
+        <div>
+            <div class="v4-proof-kicker" data-i18n="v4proof.kicker">Current Model Evidence</div>
+            <h3 class="v4-proof-title" data-i18n="v4proof.title">v4.S shows the strongest medium / long-horizon profile.</h3>
+            <p class="v4-proof-copy" data-i18n="v4proof.copy">The latest public evidence focuses on v4.S, the strictest historical layer. It is not presented as a live stock-picking feed; it is shown as validation that the model improved from a broad entry signal into a higher-conviction medium/long-horizon framework.</p>
+        </div>
+        <div class="v4-proof-badge" data-i18n="v4proof.badge">v4.S · 120D layer</div>
+    </div>
+    <div class="v4-proof-grid">
+        <div class="v4-proof-stat primary">
+            <div class="num">92.86%</div>
+            <div class="label" data-i18n="v4proof.win_label">120D Win Rate</div>
+        </div>
+        <div class="v4-proof-stat">
+            <div class="num">+59.44%</div>
+            <div class="label" data-i18n="v4proof.avg_label">Average Return</div>
+        </div>
+        <div class="v4-proof-stat">
+            <div class="num">+46.62%</div>
+            <div class="label" data-i18n="v4proof.median_label">Median Return</div>
+        </div>
+        <div class="v4-proof-stat">
+            <div class="num">14</div>
+            <div class="label" data-i18n="v4proof.n_label">Strict Cases</div>
+        </div>
+    </div>
+    <div class="v4-proof-source" data-i18n="v4proof.source">Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics; current candidates, trigger dates, thresholds and factor readings are not disclosed.</div>
+</div>
+
 <div class="canonical-hero reveal">
     <div class="canonical-eyebrow">
         <span class="pulse"></span>
@@ -1150,6 +1250,15 @@ const I18N = {
     "v4.row2_copy": "Observation layer: catches candidates that need more time and should be evaluated as trend-building cases.",
     "v4.row3_key": "v4.S",
     "v4.row3_copy": "Strict long-horizon layer: fewer signals, stronger medium/long-term historical profile, and the clearest public evidence of model improvement.",
+    "v4proof.kicker": "Current Model Evidence",
+    "v4proof.title": "v4.S shows the strongest medium / long-horizon profile.",
+    "v4proof.copy": "The latest public evidence focuses on v4.S, the strictest historical layer. It is not presented as a live stock-picking feed; it is shown as validation that the model improved from a broad entry signal into a higher-conviction medium/long-horizon framework.",
+    "v4proof.badge": "v4.S · 120D layer",
+    "v4proof.win_label": "120D Win Rate",
+    "v4proof.avg_label": "Average Return",
+    "v4proof.median_label": "Median Return",
+    "v4proof.n_label": "Strict Cases",
+    "v4proof.source": "Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics; current candidates, trigger dates, thresholds and factor readings are not disclosed.",
     "canonical.eyebrow": "v3.1 LOCKED · DB3-500 Universe · 80-Day Hold",
     "canonical.win80_label": "80-Day Win Rate",
     "canonical.signals_label": "Completed 80D Signals",
@@ -1256,6 +1365,15 @@ const I18N = {
     "v4.row2_copy": "观察层：捕捉需要更长时间验证的候选，把它们作为趋势形成过程来评估。",
     "v4.row3_key": "v4.S",
     "v4.row3_copy": "严格中长线层：信号更少，但历史中长线表现更强，也是网页上最能体现模型进步的公开证据。",
+    "v4proof.kicker": "当前模型证据",
+    "v4proof.title": "v4.S 展现出最强的中长线历史表现。",
+    "v4proof.copy": "最新公开证据重点展示 v4.S，也就是最严格的历史分层。它不是实时荐股列表，而是证明模型已经从宽口径买点信号，进化为更高置信度的中长线框架。",
+    "v4proof.badge": "v4.S · 120日层",
+    "v4proof.win_label": "120日胜率",
+    "v4proof.avg_label": "平均收益",
+    "v4proof.median_label": "中位收益",
+    "v4proof.n_label": "严格样本",
+    "v4proof.source": "来源 · v4.S 严格分层历史验证。这里展示的是延迟历史验证指标；当前候选、触发日期、阈值与因子读数不公开。",
     "canonical.eyebrow": "v3.1 锁定版 · DB3-500 股票池 · 80 日持有",
     "canonical.win80_label": "80 日胜率",
     "canonical.signals_label": "80日完整信号",
