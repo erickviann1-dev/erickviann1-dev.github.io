@@ -239,11 +239,11 @@ def main():
     # Source: v2模型验证/网站发布版.md. The 80D headline is from the
     # completed-hold window; 1,199 is the broader DB3-500 background scan.
     canonical = {
-        "source_en":         "Research note v3.1 LOCKED — 52 completed 80D signals; DB3-500 background scan has 1,199 signals across 500 tech stocks",
-        "source_zh":         "研究终稿 v3.1 锁定版 — 52 笔完整 80 日信号；DB3-500 背景扫描覆盖 500 只科技股、1,199 笔信号",
-        "universe_size":     500,
-        "n_signals":         52,
-        "full_scan_signals":  1199,
+        "source_en":         "Research note v3.1 LOCKED — 1,199 signals across 500 tech stocks (DB3, 2022-2026). 88.5% is the 80-day result from the 52-signal sub-window where every signal completes.",
+        "source_zh":         "研究终稿 v3.1 锁定版 — 数据库 3 号 · 500 只科技股 · 2022-2026 共 1,199 笔信号。88.5% 是 52 笔完整 80 日测试子窗口的胜率。",
+        "universe_size":         500,
+        "n_signals":             1199,         # full DB3-500 scan, 2022-2026
+        "test_window_signals":   52,           # 2025-05 → 2026-02 sub-window with full 80d completion
         "win_5d":            60.7,
         "win_10d":           62.6,
         "win_20d":           56.8,
@@ -266,37 +266,36 @@ def main():
     # ── Regime-adapted model timeline (2022-2026) ───────────────────────────
     # These cards intentionally show the model / horizon that best matches each
     # market stage, rather than forcing every year into one fixed 10D lens.
+    # Source-aligned 10-day win rates per year:
+    #   2022/2023 — from 网站发布版.md (DB3 full 1199-signal scan)
+    #   2024/2025/2026 — computed from v2模型验证/archive/v315_signals_holdperiods.csv
+    #     (414 signals, ret_10d column, year-grouped) — closest CSV available
     market_regime = [
         {"year": 2022, "win10": 81.5, "n": 222,
-         "model": "v2 / v3.1", "metric_en": "10D win", "metric_zh": "10日胜率",
          "label_en": "Short-term reversal golden age",
          "label_zh": "短线反转黄金期",
-         "note_en": "Sector rotation rapid; '5-10d mean reversion' worked everywhere.",
-         "note_zh": "板块快速轮动；5-10 日均值回归在各处都有效。"},
+         "note_en": "Sector rotation rapid; 5-10 day mean reversion worked everywhere. Anything resembling a reversal strategy made money.",
+         "note_zh": "板块快速轮动；5-10 日均值回归在各处都有效。任何形似反转策略的方法都在这一年赚钱。"},
         {"year": 2023, "win10": 49.1, "n": 51,
-         "model": "Risk-off / cash filter", "metric_en": "10D win", "metric_zh": "10日胜率",
          "label_en": "Models collectively fail",
          "label_zh": "模型集体失效",
-         "note_en": "Capital lacked consensus direction; reversal strategies fail across the board.",
-         "note_zh": "资金一致性预期不足，方向感弱；短线反转策略集体失灵。"},
-        {"year": 2024, "win10": 71.0, "n": 280,
-         "model": "v3.1 short lens", "metric_en": "5D win", "metric_zh": "5日胜率",
+         "note_en": "Capital lacked consensus direction; reversal strategies fail across the board. Not the model — the market.",
+         "note_zh": "资金一致性预期不足，方向感弱；短线反转策略集体失灵。不是模型的问题，是市场的问题。"},
+        {"year": 2024, "win10": 60.0, "n": 137,
          "label_en": "Strategy contradiction",
          "label_zh": "策略矛盾期",
-         "note_en": "5d holds 71% / 20d holds 41% — choppy market; short OK, medium dangerous.",
-         "note_zh": "5 日持有 71%、20 日持有 41% — 震荡市；短线还能做、中线持有就是雷。"},
-        {"year": 2025, "win10": 81.25, "n": 48,
-         "model": "v4 medium-term", "metric_en": "60-90D win", "metric_zh": "60-90日胜率",
+         "note_en": "5-day hold 71% vs 20-day hold 41% — sectors diverge, short-term plays still work but holding longer is dangerous in this choppy regime.",
+         "note_zh": "5 日持有 71% vs 20 日持有 41% — 板块分化加剧，震荡市下短线还能做、拿太久反而成雷。"},
+        {"year": 2025, "win10": 66.0, "n": 59,
          "label_en": "Main-line holding regime emerges",
          "label_zh": "主线持仓型市场登场",
-         "note_en": "Technology beta strengthened. The adapted view shifts from quick reversal to v4 medium-term trend holding.",
-         "note_zh": "科技主线增强后，适配视角从短线反转切换到 v4 中线趋势持有。"},
-        {"year": 2026, "win10": 92.86, "n": 14,
-         "model": "v4.S strict layer", "metric_en": "120D win", "metric_zh": "120日胜率",
-         "label_en": "Strict medium/long-term layer",
-         "label_zh": "严格中长线层",
-         "note_en": "Short-term 10D view was no longer appropriate. The stricter v4.S layer is used to evaluate medium/long-term continuation.",
-         "note_zh": "10 日短线视角不再适配。这里改用筛选更严格的 v4.S 中长线口径展示模型进步。"},
+         "note_en": "AI / compute / semis become strong main lines. Quarter swings (Q2 76.5%, Q4 41.7% at 10-day) — but at 80-day hold, Q4 recovers to 71.4%. The hold-period mismatch becomes visible.",
+         "note_zh": "AI、算力、半导体成为强势主线。季度波动巨大（Q2 76.5%、Q4 41.7% 10 日口径），但用 80 日重测 Q4，胜率回到 71.4%。持有期错配第一次显形。"},
+        {"year": 2026, "win10": 56.0, "n": 27,
+         "label_en": "Trend regime deepens",
+         "label_zh": "趋势市深化",
+         "note_en": "Short dips no longer rebound. The 5-day win rate falls to 38% — the model looks broken. It is not. The same signals at 80-day hold are the canonical 88.5%. The edge is now in medium-term trends, not in short reversion.",
+         "note_zh": "短期回调不再立刻反弹。5 日胜率仅 38% —— 模型看似失效。实际不是。同样的信号用 80 日持有就是锁定的 88.5%。alpha 在中线趋势中，不在短线反转。"},
     ]
 
     # ── Key research findings (from 网站发布版.md, the authoritative reframe) ─
