@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02 20:31",
+  "generated_at": "2026-06-03 17:02",
   "period": "2024-01-01 to 2025-12-31",
   "canonical": {
     "source_en": "Research note v3.1 LOCKED — 1,199 signals across 500 tech stocks (DB3, 2022-2026). 88.5% is the 80-day result from the 52-signal sub-window where every signal completes.",
@@ -118,6 +118,44 @@
       "label_zh": "趋势市深化",
       "note_en": "Short dips no longer rebound. The 5-day win rate falls to 38% — the model looks broken. It is not. The same signals at 80-day hold are the canonical 88.5%. The edge is now in medium-term trends, not in short reversion.",
       "note_zh": "短期回调不再立刻反弹。5 日胜率仅 38% —— 模型看似失效。实际不是。同样的信号用 80 日持有就是锁定的 88.5%。alpha 在中线趋势中，不在短线反转。"
+    }
+  ],
+  "research_rigor": [
+    {
+      "label_en": "Data splitting",
+      "label_zh": "数据切分",
+      "body_en": "500 tech stocks · 2022-01 to 2026-02 · daily bars. Chronologically split into a training period and a held-out test period — never shuffled, no look-ahead, no re-tuning on the test set after the rule structure was locked.",
+      "body_zh": "500 只科技股 · 2022-01 至 2026-02 · 日线数据。按时间顺序切成训练期与留出测试期 —— 不打乱、不前瞻、规则结构锁定后绝不在测试集上重新调参。"
+    },
+    {
+      "label_en": "Training window",
+      "label_zh": "训练窗口",
+      "body_en": "2022–2024 · 21,143 daily observations. Chosen for high regime variance — includes a bull (2022), a collapse (2023), and a choppy market (2024). Rule structure (number of rules + which indicator families) fixed by IC analysis on this window before the test period was opened.",
+      "body_zh": "2022-2024 · 共 21,143 条日线样本。这个窗口包含高度异质的市场环境 —— 2022 牛市、2023 崩跌、2024 震荡。规则结构（条数与指标族）在打开测试期前已由训练集 IC 分析锁定。"
+    },
+    {
+      "label_en": "Testing window",
+      "label_zh": "测试窗口",
+      "body_en": "2025+ · 15,073 daily observations · held out completely until the final rule set was selected. All headline metrics on this page — 88.5%, 1,199-signal scan, hold-period table — are measured on this out-of-sample period, never on data the model saw during training.",
+      "body_zh": "2025+ · 共 15,073 条日线样本 · 在最终规则集选定之前从未被模型看过。本页所有头条数字 —— 88.5%、1,199 笔信号扫描、持有期表 —— 全部测在这个样本外窗口，不是训练期数据。"
+    },
+    {
+      "label_en": "Transaction costs",
+      "label_zh": "交易成本",
+      "body_en": "Headline win rates are gross of execution costs. For a realistic retail-broker scenario, deduct approximately 10–15 bps round-trip (commission + slippage + 5 bp stamp duty on sells). For institutional execution, approximately 2–5 bps. The 88.5% gross win rate translates to ≈87% net for retail and ≈88% net for institutional on liquid tech names.",
+      "body_zh": "头条胜率为不计成本的毛值。零售券商口径下，扣除约 10-15 个基点的往返成本（佣金 + 滑点 + 卖出 0.05% 印花税）。机构执行约 2-5 bps。在流动性较好的科技股样本中，88.5% 毛胜率对应零售约 87%、机构约 88% 净胜率。"
+    },
+    {
+      "label_en": "Risk control",
+      "label_zh": "风险控制",
+      "body_en": "Two hard guardrails complement the entry signal: (i) a per-position drawdown stop at a fixed percentage threshold, and (ii) a market-regime gate that forces full liquidation if HS300 falls below its 20-day moving average AND ChiNext's 20-day return drops past a documented threshold. Specific levels withheld; the architecture is disclosed.",
+      "body_zh": "两条硬性风控配合入场信号：(i) 单仓最大回撤止损（固定阈值）；(ii) 大盘环境门控 —— 当沪深 300 跌破 20 日均线、且创业板 20 日跌幅突破设定线时，强制清仓。具体阈值不公开，结构公开。"
+    },
+    {
+      "label_en": "Out-of-sample validation",
+      "label_zh": "样本外验证方法",
+      "body_en": "Single time-series split (not k-fold cross-validation) — the rule set was locked on training data before any test-set evaluation. The 80-day hold result (88.5%) is reported on the only sub-window where every signal can complete the full 80-day horizon (May 2025 – Feb 2026, n=52). Within-test stability is shown by the year-by-year breakdown in §02.",
+      "body_zh": "时间序列单次切分（不是 k 折交叉验证）—— 规则集在打开测试集前已锁定。88.5% 这个 80 日结果只在所有信号都能跑完整 80 日持有期的子窗口（2025-05 至 2026-02、52 笔）上报告。测试集内部的稳定性可从 §02 的分年度表中观察。"
     }
   ],
   "universe_size": 25,

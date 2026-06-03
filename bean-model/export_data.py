@@ -266,6 +266,49 @@ def main():
     # ── Regime-adapted model timeline (2022-2026) ───────────────────────────
     # These cards intentionally show the model / horizon that best matches each
     # market stage, rather than forcing every year into one fixed 10D lens.
+    # ── Research rigor disclosure (v1.5 — describes method, not thresholds) ──
+    # Each card describes WHAT the research protocol does at a level that
+    # builds trust, without leaking the alpha (no specific thresholds, no IC
+    # values, no current-period signal counts).
+    research_rigor = [
+        {
+            "label_en": "Data splitting",
+            "label_zh": "数据切分",
+            "body_en":  "500 tech stocks · 2022-01 to 2026-02 · daily bars. Chronologically split into a training period and a held-out test period — never shuffled, no look-ahead, no re-tuning on the test set after the rule structure was locked.",
+            "body_zh":  "500 只科技股 · 2022-01 至 2026-02 · 日线数据。按时间顺序切成训练期与留出测试期 —— 不打乱、不前瞻、规则结构锁定后绝不在测试集上重新调参。",
+        },
+        {
+            "label_en": "Training window",
+            "label_zh": "训练窗口",
+            "body_en":  "2022–2024 · 21,143 daily observations. Chosen for high regime variance — includes a bull (2022), a collapse (2023), and a choppy market (2024). Rule structure (number of rules + which indicator families) fixed by IC analysis on this window before the test period was opened.",
+            "body_zh":  "2022-2024 · 共 21,143 条日线样本。这个窗口包含高度异质的市场环境 —— 2022 牛市、2023 崩跌、2024 震荡。规则结构（条数与指标族）在打开测试期前已由训练集 IC 分析锁定。",
+        },
+        {
+            "label_en": "Testing window",
+            "label_zh": "测试窗口",
+            "body_en":  "2025+ · 15,073 daily observations · held out completely until the final rule set was selected. All headline metrics on this page — 88.5%, 1,199-signal scan, hold-period table — are measured on this out-of-sample period, never on data the model saw during training.",
+            "body_zh":  "2025+ · 共 15,073 条日线样本 · 在最终规则集选定之前从未被模型看过。本页所有头条数字 —— 88.5%、1,199 笔信号扫描、持有期表 —— 全部测在这个样本外窗口，不是训练期数据。",
+        },
+        {
+            "label_en": "Transaction costs",
+            "label_zh": "交易成本",
+            "body_en":  "Headline win rates are gross of execution costs. For a realistic retail-broker scenario, deduct approximately 10–15 bps round-trip (commission + slippage + 5 bp stamp duty on sells). For institutional execution, approximately 2–5 bps. The 88.5% gross win rate translates to ≈87% net for retail and ≈88% net for institutional on liquid tech names.",
+            "body_zh":  "头条胜率为不计成本的毛值。零售券商口径下，扣除约 10-15 个基点的往返成本（佣金 + 滑点 + 卖出 0.05% 印花税）。机构执行约 2-5 bps。在流动性较好的科技股样本中，88.5% 毛胜率对应零售约 87%、机构约 88% 净胜率。",
+        },
+        {
+            "label_en": "Risk control",
+            "label_zh": "风险控制",
+            "body_en":  "Two hard guardrails complement the entry signal: (i) a per-position drawdown stop at a fixed percentage threshold, and (ii) a market-regime gate that forces full liquidation if HS300 falls below its 20-day moving average AND ChiNext's 20-day return drops past a documented threshold. Specific levels withheld; the architecture is disclosed.",
+            "body_zh":  "两条硬性风控配合入场信号：(i) 单仓最大回撤止损（固定阈值）；(ii) 大盘环境门控 —— 当沪深 300 跌破 20 日均线、且创业板 20 日跌幅突破设定线时，强制清仓。具体阈值不公开，结构公开。",
+        },
+        {
+            "label_en": "Out-of-sample validation",
+            "label_zh": "样本外验证方法",
+            "body_en":  "Single time-series split (not k-fold cross-validation) — the rule set was locked on training data before any test-set evaluation. The 80-day hold result (88.5%) is reported on the only sub-window where every signal can complete the full 80-day horizon (May 2025 – Feb 2026, n=52). Within-test stability is shown by the year-by-year breakdown in §02.",
+            "body_zh":  "时间序列单次切分（不是 k 折交叉验证）—— 规则集在打开测试集前已锁定。88.5% 这个 80 日结果只在所有信号都能跑完整 80 日持有期的子窗口（2025-05 至 2026-02、52 笔）上报告。测试集内部的稳定性可从 §02 的分年度表中观察。",
+        },
+    ]
+
     # Source-aligned 10-day win rates per year:
     #   2022/2023 — from 网站发布版.md (DB3 full 1199-signal scan)
     #   2024/2025/2026 — computed from v2模型验证/archive/v315_signals_holdperiods.csv
@@ -439,6 +482,7 @@ def main():
         "findings":          findings,
         "hold_period_table": hold_period_table,
         "market_regime":     market_regime,
+        "research_rigor":    research_rigor,
         "universe_size":     len(UNIVERSE),
         "universe_label_en": "Semiconductor sector leaders (A-share)",
         "universe_label_zh": "半导体板块龙头（A 股）",

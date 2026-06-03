@@ -985,6 +985,18 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 <div class="horizon-grid reveal" id="v4-horizon-grid"></div>
 
 <div class="chapter-head reveal">
+    <div class="chapter-num">⊙</div>
+    <div class="chapter-title-block">
+        <div class="ch-eyebrow" data-i18n="rigor.eyebrow">Research Rigor — Method, not Thresholds</div>
+        <h2 data-i18n="rigor.title">研究方法论披露</h2>
+    </div>
+</div>
+
+<p class="reveal" data-i18n="rigor.intro">下面六张卡片披露研究协议层面的内容 —— 数据怎么切、训练 / 测试窗口怎么定、交易成本怎么计、风控怎么搭、样本外怎么验证。建立可信度，但不公开任何可复刻的具体阈值或 IC 数值。</p>
+
+<div class="findings-grid" id="rigor-grid"></div>
+
+<div class="chapter-head reveal">
     <div class="chapter-num">⊕</div>
     <div class="chapter-title-block">
         <div class="ch-eyebrow" data-i18n="findings.eyebrow">Counter-Intuitive Discoveries</div>
@@ -1236,6 +1248,9 @@ const I18N = {
     "horizon.win": "Win",
     "horizon.avg": "Avg",
     "horizon.median": "Median",
+    "rigor.eyebrow":    "Research Rigor — Method, not Thresholds",
+    "rigor.title":      "Research Protocol Disclosure",
+    "rigor.intro":      "The six cards below disclose the research protocol — how data was split, how training / testing windows were defined, how transaction costs are modeled, how risk control is structured, and how out-of-sample validation was done. Builds credibility without revealing any reproducible threshold or IC value.",
     "findings.eyebrow": "Counter-intuitive discoveries",
     "findings.title": "Key Research Findings",
     "findings.intro": "The four findings below come from multiple rounds of large-sample validation. This page shows conclusions and outcomes only, not replicable stock-selection conditions.",
@@ -1351,6 +1366,9 @@ const I18N = {
     "horizon.win": "胜率",
     "horizon.avg": "平均",
     "horizon.median": "中位",
+    "rigor.eyebrow":    "研究方法论 · 展示流程不暴露阈值",
+    "rigor.title":      "研究方法论披露",
+    "rigor.intro":      "下面六张卡片披露研究协议层面的内容 —— 数据怎么切、训练 / 测试窗口怎么定、交易成本怎么计、风控怎么搭、样本外怎么验证。建立可信度，但不公开任何可复刻的具体阈值或 IC 数值。",
     "findings.eyebrow": "反直觉发现",
     "findings.title": "关键研究结论",
     "findings.intro": "以下四条结论来自多轮大样本验证。页面只展示研究结论与结果，不展示可复刻的选股条件。",
@@ -1468,6 +1486,7 @@ function setLang(lang) {
         renderCompare(window.__data);
         renderStrategy(window.__data);
         renderFindings(window.__data);
+        renderRigor(window.__data);
         renderHoldPeriod(window.__data);
         renderRegime(window.__data);
         renderPortfolioSummary(window.__data);
@@ -1523,6 +1542,19 @@ function renderFindings(d) {
             <div class="finding-num">0${i + 1}</div>
             <div class="finding-label">${LANG === 'zh' ? f.label_zh : f.label_en}</div>
             <div class="finding-body">${LANG === 'zh' ? f.body_zh : f.body_en}</div>
+        </div>
+    `).join('');
+    grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+function renderRigor(d) {
+    const grid = document.getElementById('rigor-grid');
+    if (!grid || !d.research_rigor) return;
+    grid.innerHTML = d.research_rigor.map((r, i) => `
+        <div class="finding-card reveal delay-${(i % 4) + 1}">
+            <div class="finding-num">0${i + 1}</div>
+            <div class="finding-label">${LANG === 'zh' ? r.label_zh : r.label_en}</div>
+            <div class="finding-body">${LANG === 'zh' ? r.body_zh : r.body_en}</div>
         </div>
     `).join('');
     grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
@@ -1969,6 +2001,7 @@ async function boot() {
     renderCompare(data);
     renderStrategy(data);
     renderFindings(data);
+    renderRigor(data);
     renderHoldPeriod(data);
     renderRegime(data);
     renderPortfolioSummary(data);
