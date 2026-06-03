@@ -475,8 +475,8 @@ main {
         </a>
         <div class="topbar-spacer"></div>
         <div class="lang-toggle">
-            <button data-lang="en">EN</button>
-            <button class="active" data-lang="zh">中</button>
+            <button class="active" data-lang="en">EN</button>
+            <button data-lang="zh">中</button>
         </div>
     </div>
 </div>
@@ -686,7 +686,7 @@ const I18N = {
   }
 };
 
-let LANG = localStorage.getItem("portfolio-lang") || "zh";
+let LANG = localStorage.getItem("portfolio-lang") || "en";
 
 function t(key) {
     const v = I18N[LANG]?.[key];
