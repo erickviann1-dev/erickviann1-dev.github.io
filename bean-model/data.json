@@ -136,14 +136,14 @@
     {
       "label_en": "Testing window",
       "label_zh": "测试窗口",
-      "body_en": "2025+ · 15,073 daily observations · held out completely until the final rule set was selected. All headline metrics on this page — 88.5%, 1,199-signal scan, hold-period table — are measured on this out-of-sample period, never on data the model saw during training.",
-      "body_zh": "2025+ · 共 15,073 条日线样本 · 在最终规则集选定之前从未被模型看过。本页所有头条数字 —— 88.5%、1,199 笔信号扫描、持有期表 —— 全部测在这个样本外窗口，不是训练期数据。"
+      "body_en": "2025+ · 15,073 daily observations · held out completely until the final rule set was selected. Headline metrics are reported with their own stated validation windows; the 80-day 88.5% result is from the completed-horizon sub-window, while the 1,199-signal scan describes the broader DB3-500 background.",
+      "body_zh": "2025+ · 共 15,073 条日线样本 · 在最终规则集选定之前从未被模型看过。页面头条指标均按各自标注的验证窗口报告；80 日 88.5% 来自完整持有期子窗口，1,199 笔信号则对应更宽的 DB3-500 背景扫描。"
     },
     {
       "label_en": "Transaction costs",
       "label_zh": "交易成本",
-      "body_en": "Headline win rates are gross of execution costs. For a realistic retail-broker scenario, deduct approximately 10–15 bps round-trip (commission + slippage + 5 bp stamp duty on sells). For institutional execution, approximately 2–5 bps. The 88.5% gross win rate translates to ≈87% net for retail and ≈88% net for institutional on liquid tech names.",
-      "body_zh": "头条胜率为不计成本的毛值。零售券商口径下，扣除约 10-15 个基点的往返成本（佣金 + 滑点 + 卖出 0.05% 印花税）。机构执行约 2-5 bps。在流动性较好的科技股样本中，88.5% 毛胜率对应零售约 87%、机构约 88% 净胜率。"
+      "body_en": "Headline win rates are gross of execution costs. For a realistic retail-broker scenario, deduct approximately 10–15 bps round-trip (commission + slippage + 5 bp stamp duty on sells). For institutional execution, approximately 2–5 bps. Costs affect net returns more directly than headline win rate; net-return sensitivity should be reported separately.",
+      "body_zh": "头条胜率为不计成本的毛值。零售券商口径下，扣除约 10-15 个基点的往返成本（佣金 + 滑点 + 卖出 0.05% 印花税）。机构执行约 2-5 bps。交易成本更直接影响净收益，而不是简单线性改写胜率；净收益敏感性应单独报告。"
     },
     {
       "label_en": "Risk control",

@@ -12,6 +12,26 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
+## [copy-audit-v1] — 2026-06-03 · Website copy and translation audit fixes
+
+> Pre-edit rollback tag: `pre-copy-audit-20260603`.
+
+- Unified the Bean Model public narrative around `v4.S` instead of leaving the
+  homepage and page title anchored to `v3` / `v3.1`.
+- Clarified the key metric provenance: `88.5%` refers to the completed
+  52-signal 80D validation window; `1,199` refers to the broader DB3-500
+  background scan.
+- Replaced awkward English phrasing (`Historical Validation Under Limited
+  Strict Sample`) with `Historical Validation · Limited Strict Sample`.
+- Renamed the interactive draw from anonymous language to delayed historical
+  case language, since stock names/codes are now intentionally shown.
+- Removed the over-strong transaction-cost claim that translated gross win rate
+  directly into net win rate; revised to discuss net-return sensitivity instead.
+- Synchronized `bean-model/data.json` and `bean-model/export_data.py` so future
+  data regeneration keeps the corrected public language.
+
+---
+
 ## [snapshot-web-v1.5.1] — 2026-05-10 · Stable online rollback point
 
 > Current preserved web version. Use this as the rollback anchor if later Bean
