@@ -12,6 +12,62 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
+## [analytics-v1] - 2026-06-04 - Private visitor analytics scaffold
+
+### What changed
+- Added a private Cloudflare Worker analytics backend under
+  `analytics-worker/`.
+- Added `assets/site-analytics.js`, a lightweight frontend bridge that records
+  page views, section views, named clicks, language switches, and Bean Model
+  random-case interactions.
+- Added a quiet `Privacy` footer link and a minimal `privacy/` page. This keeps
+  IP collection disclosed without turning the site into a legal notice page.
+- Wired analytics into the portfolio homepage and Bean Model page.
+
+### Owner dashboard
+After the Worker is deployed and `SITE_ANALYTICS_CONFIG.endpoint` is filled,
+the private dashboard will be:
+
+```text
+https://<your-worker-name>.<your-subdomain>.workers.dev/dashboard?token=<ADMIN_TOKEN>
+```
+
+The dashboard auto-refreshes every 20 seconds and shows unique sessions, top
+pages, top events, viewed sections, referrers, top IPs, and recent events.
+
+### Current state
+Cloudflare Worker is deployed:
+
+```text
+https://erick-site-analytics.erickviann1.workers.dev
+```
+
+The `/collect` endpoint has been pasted into the portfolio homepage, Bean Model
+page, privacy page, and USD/CNY tracker page.
+
+### Test status
+Local structural tests passed for homepage, Bean Model, privacy notice, Worker
+routes, raw-IP support, dashboard auto-refresh, and tracking fields. Live smoke
+test also passed: dashboard HTTP 200, `/collect` accepted a synthetic page view,
+and `/summary` returned the test event. See `analytics-worker/TEST_REPORT.md`.
+
+---
+
+## [copy-audit-v2] — 2026-06-03 · Bean Model research-boundary wording refinement
+
+- Reduced repeated defensive language around protected rules / thresholds /
+  current candidates. The page now keeps that boundary mainly in the
+  **Research boundary** block instead of repeating it across hero, v4 proof,
+  interactive draw, and footer.
+- Reframed the Bean Model hero around `v4.S framework`, validation discipline,
+  account-level evidence, and market-regime evolution.
+- Changed the first-screen chip from `rules protected` / `规则受保护` to
+  `research boundary` / `研究边界`.
+- Rewrote v4 proof, methodology, delayed historical draw, and disclaimer copy
+  to sound like a research presentation rather than a defensive explanation.
+
+---
+
 ## [copy-audit-v1] — 2026-06-03 · Website copy and translation audit fixes
 
 > Pre-edit rollback tag: `pre-copy-audit-20260603`.
