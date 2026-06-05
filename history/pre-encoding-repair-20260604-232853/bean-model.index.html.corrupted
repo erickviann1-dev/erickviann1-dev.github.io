@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,11 +34,11 @@ body {
 a { color: var(--navy); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--ochre); }
 
-/* ───────── PAGE FADE-IN ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� PAGE FADE-IN ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 body { opacity: 0; transition: opacity 0.6s var(--transition-elegant); }
 body.loaded { opacity: 1; }
 
-/* ───────── REVEAL-ON-SCROLL ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� REVEAL-ON-SCROLL ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--transition-elegant), transform 0.7s var(--transition-elegant); }
 .reveal.in { opacity: 1; transform: translateY(0); }
 .reveal.delay-1 { transition-delay: 0.08s; }
@@ -46,7 +46,7 @@ body.loaded { opacity: 1; }
 .reveal.delay-3 { transition-delay: 0.24s; }
 .reveal.delay-4 { transition-delay: 0.32s; }
 
-/* ───────── TOP BAR ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� TOP BAR ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .topbar {
     position: sticky; top: 0; z-index: 50;
     background: rgba(250, 248, 245, 0.85);
@@ -99,7 +99,7 @@ body.loaded { opacity: 1; }
 
 main { max-width: var(--content-max); margin: 0 auto; padding: 64px 32px 96px; }
 
-/* ───────── HERO ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� HERO ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .hero { margin-bottom: 96px; }
 .eyebrow {
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
@@ -129,7 +129,7 @@ h1.hero-title {
     padding: 6px 12px 0 0; margin-top: 4px;
 }
 
-/* ───────── CHAPTER HEADS ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� CHAPTER HEADS ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .chapter-head {
     display: grid; grid-template-columns: 110px 1fr; gap: 28px;
     align-items: baseline;
@@ -159,7 +159,7 @@ h1.hero-title {
 
 p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 
-/* ───────── RESULT-FIRST MODULES ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� RESULT-FIRST MODULES ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .result-strip {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
     margin: -48px 0 86px;
@@ -384,7 +384,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     font-size: 12px; color: var(--muted); line-height: 1.6; font-style: italic;
 }
 
-/* ───────── METHOD BOX ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� METHOD BOX ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .method-box {
     background: var(--bg-tint);
     border-left: 3px solid var(--ochre);
@@ -401,7 +401,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 .method-box ul { padding-left: 22px; margin-bottom: 0; }
 .method-box li { margin-bottom: 8px; line-height: 1.55; color: var(--ink-soft); }
 
-/* ───────── FINDINGS CARDS ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� FINDINGS CARDS ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 28px 0; }
 @media (max-width: 720px) { .findings-grid { grid-template-columns: 1fr; } }
 .finding-card {
@@ -436,7 +436,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 }
 .finding-body { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
 
-/* ───────── §2A · CANONICAL HEADLINE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� §2A · CANONICAL HEADLINE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .canonical-hero {
     background: linear-gradient(135deg, var(--card) 0%, var(--bg-tint) 100%);
     border: 1px solid var(--hairline); border-radius: 6px;
@@ -492,7 +492,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 .canonical-decay strong { color: var(--ochre-deep); font-weight: 700; }
 .canonical-source { margin-top: 14px; font-size: 11px; font-style: italic; color: var(--muted-soft); }
 
-/* ───────── §2B · PORTFOLIO STORY ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� §2B · PORTFOLIO STORY ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .portfolio-hero {
     background: var(--card); border: 1px solid var(--hairline); border-radius: 6px;
     padding: 40px 36px 36px;
@@ -540,7 +540,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     font-size: 11.5px; color: var(--muted); letter-spacing: 0.04em;
 }
 
-/* ───────── TRADE OUTCOME GRID ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� TRADE OUTCOME GRID ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0; }
 @media (max-width: 720px) { .outcome-grid { grid-template-columns: repeat(2, 1fr); } }
 .outcome-card {
@@ -563,7 +563,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 .outcome-num.bear { color: var(--bear); }
 .outcome-sub { font-size: 11px; color: var(--muted); margin-top: 6px; }
 
-/* ───────── EQUITY CHART FIGURE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� EQUITY CHART FIGURE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .figure-wrap {
     margin: 32px 0;
     border-top: 1px solid var(--hairline);
@@ -578,7 +578,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 .figure-source { font-size: 11px; font-style: italic; color: var(--muted-soft); margin-top: 12px; }
 #equity-chart { height: 360px; }
 
-/* ───────── ALPHA / BETA + STRATEGY COMPARISON ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� ALPHA / BETA + STRATEGY COMPARISON ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 30px 0; }
 @media (max-width: 760px) { .compare-grid { grid-template-columns: 1fr; } }
 .compare-card {
@@ -639,7 +639,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 }
 .strategy-note { margin-top: 18px; font-size: 13px; color: var(--ink-soft); }
 
-/* ───────── ANNUAL TABLE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� ANNUAL TABLE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .year-figure { background: var(--bg-tint); border-radius: 4px; padding: 24px 28px; margin: 28px 0; }
 .year-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .year-table th, .year-table td {
@@ -664,7 +664,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     text-transform: uppercase; vertical-align: middle;
 }
 
-/* ───────── REGIME TIMELINE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� REGIME TIMELINE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .regime-timeline {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -720,7 +720,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     line-height: 1.5; margin-top: 8px;
 }
 
-/* ───────── PULL QUOTE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� PULL QUOTE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .pullquote {
     margin: 64px auto; max-width: 720px;
     padding: 24px 32px;
@@ -739,7 +739,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     font-weight: 600; font-style: normal;
 }
 
-/* ───────── §3 PROBE PANEL ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� §3 PROBE PANEL ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .probe-shell {
     background: var(--card); border: 1px solid var(--hairline);
     border-radius: 6px; padding: 32px 32px 28px;
@@ -845,7 +845,7 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
 }
 .probe-spark { height: 50px; width: 100%; min-width: 80px; }
 
-/* ───────── DISCLAIMER FOOTNOTE ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� DISCLAIMER FOOTNOTE ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .research-footnote {
     margin-top: 80px; padding-top: 28px;
     border-top: 1px solid var(--rule);
@@ -867,29 +867,30 @@ p { color: var(--ink-soft); margin-bottom: 16px; max-width: 720px; }
     color: var(--ochre); margin: 0 10px; font-weight: 700;
 }
 
-/* ───────── FOOTER ───────── */
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢� FOOTER ┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 .site-footer {
     margin-top: 80px; padding: 28px 32px;
     border-top: 1px solid var(--hairline);
     font-size: 11px; color: var(--muted);
     text-align: center; letter-spacing: 0.06em;
 }
+.site-footer .privacy-link {
+    color: var(--muted-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+.site-footer .privacy-link:hover {
+    color: var(--ink);
+    border-bottom-color: var(--rule);
+}
 </style>
-<script>
-window.SITE_ANALYTICS_CONFIG = {
-    site: "bean-model",
-    endpoint: "https://erick-site-analytics.erickviann1.workers.dev/collect",
-    enabled: true
-};
-</script>
-<script src="../assets/site-analytics.js?v=1"></script>
 </head>
 <body>
 
 <div class="topbar">
     <div class="topbar-inner">
-        <a class="back-link" href="../">
-            <span class="arrow">←</span>
+        <a class="back-link" href="../" data-track="bean_back_home">
+            <span class="arrow">�?/span>
             <span data-i18n="back">Back to portfolio</span>
         </a>
         <div class="topbar-spacer"></div>
@@ -900,21 +901,20 @@ window.SITE_ANALYTICS_CONFIG = {
         <div class="brand-mark">EW</div>
         <div class="lang-toggle">
             <button class="active" data-lang="en">EN</button>
-            <button data-lang="zh">中</button>
+            <button data-lang="zh">�?/button>
         </div>
     </div>
 </div>
 
 <main>
 
-<section class="hero reveal">
-    <div class="eyebrow" data-i18n="hero.eyebrow">A-Share Technology Trading Research · v4.S</div>
+<section class="hero reveal" data-track-section="bean_hero">
+    <div class="eyebrow" data-i18n="hero.eyebrow">A-Share Technology Trading Research · v4.S Framework</div>
     <h1 class="hero-title" data-i18n-html="hero.title">
-        从游资实盘买入记录中，<br><span class="accent">提炼可验证的科技股交易模型</span>
+        从游资实盘买入记录中�?br><span class="accent">提炼可验证的科技股交易模�?/span>
     </h1>
     <p class="hero-lead" data-i18n-html="hero.lead">
-        <span class="drop-cap">豆</span>模型不是一个公开选股器，也不是“预测暴涨神器”。它是一个从真实买入样本出发，经过大样本验证、随机对照、账户模拟和前向跟踪的科技股交易研究系统。公开页面只展示结果与验证纪律；具体规则、阈值、IC 排序、当前信号与实时候选池不公开。
-    </p>
+        <span class="drop-cap">�?/span>模型不是丢�个公弢�选股器，也不是��预测暴涨神器����它是一个从真实买入样本出发，经过大样本验证、随机对照��账户模拟和前向跟踪的科抢�股交易研究系统��公弢�页面重点展示结果、验证纪律，以及模型在不同市场阶段中的演进��?    </p>
 </section>
 
 <div class="result-strip reveal">
@@ -932,11 +932,11 @@ window.SITE_ANALYTICS_CONFIG = {
     </div>
     <div class="result-chip">
         <div class="k">LOCK</div>
-        <div class="label" data-i18n="strip.lock">rules protected</div>
+        <div class="label" data-i18n="strip.lock">research boundary</div>
     </div>
 </div>
 
-<div class="chapter-head reveal">
+<div class="chapter-head reveal" data-track-section="bean_research_arc">
     <div class="chapter-num">01</div>
     <div class="chapter-title-block">
         <div class="ch-eyebrow" data-i18n="s1.eyebrow">Research System</div>
@@ -944,20 +944,20 @@ window.SITE_ANALYTICS_CONFIG = {
     </div>
 </div>
 
-<p class="reveal" data-i18n="s1.p1">最初的问题很朴素：一个游资有真实买入记录，但不是每一笔都值得跟。豆模型要回答的不是“下一只暴涨股是谁”，而是：什么样的历史信号更值得被系统性跟踪，放到账户层面是否还能形成可执行的资金曲线。</p>
+<p class="reveal" data-i18n="s1.p1">朢�初的问题很朴素：丢�个游资有真实买入记录，但不是每一笔都值得跟��豆模型要回答的不是“下丢�只暴涨股是谁”，而是：什么样的历史信号更值得被系统��跟踪，放到账户层面是否还能形成可执行的资金曲线�?/p>
 
-<p class="reveal" data-i18n="s1.p2">公开页面采用“结果证明”口径：展示版本演进、胜率、收益、回撤、随机对照和 ¥100 万账户路径。</p>
+<p class="reveal" data-i18n="s1.p2">公开页面采用“结果证明��口径：展示版本演进、胜率��收益��回撤��随机对照和 ¥100 万账户路径��?/p>
 
 <div class="privacy-wall reveal">
-    <div class="privacy-icon">⊘</div>
+    <div class="privacy-icon">�?/div>
     <div>
         <h3 data-i18n="s1.privacy_label">研究产权边界</h3>
-        <p data-i18n="s1.privacy_intro">以下内容不在公开网页展示，避免模型被复制或误用：</p>
+        <p data-i18n="s1.privacy_intro">公开页面保留研究产权边界，以下内容不展开�?/p>
         <ul data-i18n-html="s1.privacy_list">
-        <li>具体入场规则与阈值</li>
-        <li>指标选择、IC 排序与具体因子值</li>
-        <li>当前年份实时信号与命中股票</li>
-        <li>触发日期与个股指标读数</li>
+        <li>具体入场规则与阈�?/li>
+        <li>指标选择、IC 排序与具体因子��?/li>
+        <li>当前年份实时信号与命中股�?/li>
+        <li>触发日期与个股指标读�?/li>
         </ul>
     </div>
 </div>
@@ -965,14 +965,13 @@ window.SITE_ANALYTICS_CONFIG = {
 <div class="timeline-grid reveal" id="model-timeline"></div>
 
 <div class="evolution-note reveal" data-i18n="evolution.note">
-    模型的进步不是“参数越堆越多”，而是研究问题逐步变清楚：v2 证明买点有效，v3.1 证明必须锁定版本，v4 把信号分层并把短线与中长线能力分开评估。越严格的层级触发越少，但中长线表现越强。
-</div>
+    模型的进步不是��参数越堆越多��，而是研究问题逐步变清楚：v2 证明买点有效，v3.1 证明必须锁定版本，v4 把信号分层并把短线与中长线能力分弢�评估。越严格的层级触发越少，但中长线表现越强�?</div>
 
 <div class="v4-brief reveal">
     <div class="v4-brief-main">
         <div class="v4-kicker" data-i18n="v4.kicker">Latest Framework</div>
         <h3 class="v4-title" data-i18n="v4.title">v4 turns one signal into a staged decision system.</h3>
-        <p class="v4-body" data-i18n="v4.body">v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes only, without exposing selection thresholds or live candidates.</p>
+        <p class="v4-body" data-i18n="v4.body">v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes, validation windows, and account-level evidence.</p>
     </div>
     <div class="v4-brief-panel">
         <div class="v4-panel-row">
@@ -992,31 +991,31 @@ window.SITE_ANALYTICS_CONFIG = {
 
 <div class="horizon-grid reveal" id="v4-horizon-grid"></div>
 
-<div class="chapter-head reveal">
-    <div class="chapter-num">⊙</div>
+<div class="chapter-head reveal" data-track-section="bean_research_rigor">
+    <div class="chapter-num">�?/div>
     <div class="chapter-title-block">
-        <div class="ch-eyebrow" data-i18n="rigor.eyebrow">Research Rigor — Method, not Thresholds</div>
-        <h2 data-i18n="rigor.title">研究方法论披露</h2>
+        <div class="ch-eyebrow" data-i18n="rigor.eyebrow">Research Rigor �?Method, not Thresholds</div>
+        <h2 data-i18n="rigor.title">研究方法论披�?/h2>
     </div>
 </div>
 
-<p class="reveal" data-i18n="rigor.intro">下面六张卡片披露研究协议层面的内容 —— 数据怎么切、训练 / 测试窗口怎么定、交易成本怎么计、风控怎么搭、样本外怎么验证。建立可信度，但不公开任何可复刻的具体阈值或 IC 数值。</p>
+<p class="reveal" data-i18n="rigor.intro">下面六张卡片披露研究协议层面的内�?—��?数据怎么切��训�?/ 测试窗口怎么定��交易成本��么计��风控��么搭��样本外怎么验证。重点是让验证流程可审视，��不是只展示漂亮结果�?/p>
 
 <div class="findings-grid" id="rigor-grid"></div>
 
-<div class="chapter-head reveal">
-    <div class="chapter-num">⊕</div>
+<div class="chapter-head reveal" data-track-section="bean_key_findings">
+    <div class="chapter-num">�?/div>
     <div class="chapter-title-block">
         <div class="ch-eyebrow" data-i18n="findings.eyebrow">Counter-Intuitive Discoveries</div>
         <h2 data-i18n="findings.title">关键研究结论</h2>
     </div>
 </div>
 
-<p class="reveal" data-i18n="findings.intro">以下四条结论来自多轮大样本验证。页面只展示研究结论与结果，不展示可复刻的选股条件。</p>
+<p class="reveal" data-i18n="findings.intro">以下四条结论来自多轮大样本验证��页面只展示研究结论与结果，不展示可复刻的��股条件�?/p>
 
 <div class="findings-grid" id="findings-grid"></div>
 
-<div class="chapter-head reveal">
+<div class="chapter-head reveal" data-track-section="bean_validation_results">
     <div class="chapter-num">02</div>
     <div class="chapter-title-block">
         <div class="ch-eyebrow" data-i18n="s2.eyebrow">Historical Validation · Limited Strict Sample</div>
@@ -1051,7 +1050,7 @@ window.SITE_ANALYTICS_CONFIG = {
             <div class="label" data-i18n="v4proof.n_label">Strict Cases</div>
         </div>
     </div>
-    <div class="v4-proof-source" data-i18n="v4proof.source">Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics; current candidates, trigger dates, thresholds and factor readings are not disclosed.</div>
+    <div class="v4-proof-source" data-i18n="v4proof.source">Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics from completed observation windows.</div>
 </div>
 
 <div class="canonical-hero reveal">
@@ -1077,14 +1076,10 @@ window.SITE_ANALYTICS_CONFIG = {
         </div>
     </div>
     <div class="canonical-decay">
-        <span data-i18n="canonical.decay_intro">Hold-period scaling — same 52 signals:</span>
-        <span class="mono">5d <strong style="color:var(--bear)">50.0%</strong></span> →
-        <span class="mono">10d 59.6%</span> →
-        <span class="mono">30d 64.4%</span> →
-        <span class="mono">60d 75.0%</span> →
-        <span class="mono">80d <strong style="color:var(--bull);font-size:1.05em">88.5%</strong></span>
+        <span data-i18n="canonical.decay_intro">Hold-period scaling �?same 52 signals:</span>
+        <span class="mono">5d <strong style="color:var(--bear)">50.0%</strong></span> �?        <span class="mono">10d 59.6%</span> �?        <span class="mono">30d 64.4%</span> �?        <span class="mono">60d 75.0%</span> �?        <span class="mono">80d <strong style="color:var(--bull);font-size:1.05em">88.5%</strong></span>
     </div>
-    <div class="canonical-source" data-i18n="canonical.source">来源 · 80 日结果来自 2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科技股、2022-2026 共 1,199 笔信号。</div>
+    <div class="canonical-source" data-i18n="canonical.source">来源 · 80 日结果来�?2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科抢�股��?022-2026 �?1,199 笔信号��?/div>
 </div>
 
 <div class="figure-wrap reveal" style="margin-top: 42px;">
@@ -1096,23 +1091,23 @@ window.SITE_ANALYTICS_CONFIG = {
     <div class="figure-source" data-i18n="compare.source">Source · historical v4.S validation vs randomly sampled technology basket. The comparison shows whether the model adds signal quality beyond sector beta.</div>
 </div>
 
-<!-- ═══════════════════ HOLD-PERIOD DISCOVERY ═══════════════════ -->
+<!-- ══════════════════�?HOLD-PERIOD DISCOVERY ══════════════════�?-->
 <div class="figure-wrap reveal" style="margin-top: 48px;">
     <div class="figure-caption">
         <strong data-i18n="hold.label">FIGURE A ·</strong>
-        <span data-i18n="hold.title">The Discovery — Win Rate vs Hold Period</span>
+        <span data-i18n="hold.title">The Discovery �?Win Rate vs Hold Period</span>
     </div>
     <div id="hold-period-chart" style="height: 320px;"></div>
     <div class="figure-source" data-i18n="hold.source">
-        Source · 52 signals from May 2025 – Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing.
+        Source · 52 signals from May 2025 �?Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing.
     </div>
 </div>
 
-<!-- ═══════════════════ MARKET REGIME TIMELINE ═══════════════════ -->
+<!-- ══════════════════�?MARKET REGIME TIMELINE ══════════════════�?-->
 <div class="figure-wrap reveal" style="margin-top: 32px;">
     <div class="figure-caption">
         <strong data-i18n="regime.label">FIGURE B ·</strong>
-        <span data-i18n="regime.title">2022–2026 · Market Style Evolution</span>
+        <span data-i18n="regime.title">2022�?026 · Market Style Evolution</span>
     </div>
     <div id="regime-timeline"></div>
     <div class="figure-source" data-i18n="regime.source">
@@ -1121,7 +1116,7 @@ window.SITE_ANALYTICS_CONFIG = {
 </div>
 
 <div class="reveal">
-    <p class="portfolio-eyebrow" style="color: var(--ochre); margin-top: 56px;" data-i18n="portfolio.intro">v3.1 在半导体板块龙头子样本（25 只）上的 ¥100 万本金实测 · 每笔 ¥10 万 · 持有 10 日（保守口径，未升级到 80 日）：</p>
+    <p class="portfolio-eyebrow" style="color: var(--ochre); margin-top: 56px;" data-i18n="portfolio.intro">v3.1 在半导体板块龙头子样本（25 只）上的 ¥100 万本金实�?· 每笔 ¥10 �?· 持有 10 日（保守口径，未升级�?80 日）�?/p>
 </div>
 
 <div class="portfolio-hero reveal">
@@ -1129,12 +1124,12 @@ window.SITE_ANALYTICS_CONFIG = {
     <div class="portfolio-money">
         <div class="money-block">
             <div class="money-num counter-money" data-target="1000000" data-decimals="0">¥0</div>
-            <div class="money-period" data-i18n="portfolio.from">2024 年 1 月</div>
+            <div class="money-period" data-i18n="portfolio.from">2024 �?1 �?/div>
         </div>
-        <div class="money-arrow">→</div>
+        <div class="money-arrow">�?/div>
         <div class="money-block right">
             <div class="money-num bull counter-money" id="final-value" data-target="1537414" data-decimals="0">¥0</div>
-            <div class="money-period" data-i18n="portfolio.to">2025 年 12 月</div>
+            <div class="money-period" data-i18n="portfolio.to">2025 �?12 �?/div>
         </div>
     </div>
     <div class="portfolio-summary-line" id="portfolio-summary"></div>
@@ -1156,14 +1151,14 @@ window.SITE_ANALYTICS_CONFIG = {
 <div class="figure-wrap reveal">
     <div class="figure-caption">
         <strong data-i18n="figure2.label">图二 ·</strong>
-        <span data-i18n="figure2.title">¥100 万本金账户走势</span>
+        <span data-i18n="figure2.title">¥100 万本金账户走�?/span>
     </div>
     <div id="equity-chart"></div>
-    <div class="figure-source" data-i18n="figure2.source">来源 · 回测每笔出场实现盈亏累计 · 虚线为 ¥1,000,000 保本线。</div>
+    <div class="figure-source" data-i18n="figure2.source">来源 · 回测每笔出场实现盈亏累计 · 虚线�?¥1,000,000 保本线��?/div>
 </div>
 
 <div class="reveal">
-    <p style="margin-top: 40px;"><strong data-i18n="annual.title">市场环境分年度（来自数据库 3 号）</strong></p>
+    <p style="margin-top: 40px;"><strong data-i18n="annual.title">市场环境分年度（来自数据�?3 号）</strong></p>
 </div>
 <div class="year-figure reveal">
     <table class="year-table">
@@ -1182,11 +1177,11 @@ window.SITE_ANALYTICS_CONFIG = {
 </div>
 
 <blockquote class="pullquote reveal">
-    <p data-i18n-html="quote.body">我们以为在研究一个短线反转策略，最终发现自己手里其实握着一个<em>中线趋势进场系统</em>。</p>
-    <cite data-i18n="quote.cite">— 研究终稿，2026 年 5 月</cite>
+    <p data-i18n-html="quote.body">我们以为在研究一个短线反转策略，朢�终发现自己手里其实握睢�丢��?em>中线趋势进场系统</em>�?/p>
+    <cite data-i18n="quote.cite">�?研究终�6�0�?026 �?5 �?/cite>
 </blockquote>
 
-<div class="chapter-head reveal">
+<div class="chapter-head reveal" data-track-section="bean_random_cases">
     <div class="chapter-num">03</div>
     <div class="chapter-title-block">
         <div class="ch-eyebrow" data-i18n="s3.eyebrow">Interactive Proof</div>
@@ -1194,7 +1189,7 @@ window.SITE_ANALYTICS_CONFIG = {
     </div>
 </div>
 
-<p class="reveal" data-i18n-html="s3.intro">从数据库4号的随机科技股样本池中抽取 5 个延迟历史案例，并可切换 2025-2026 时间段来对比它们的标准化走势。卡片展示股票名称/代码，以及 120 日观测窗口数、胜率、平均收益和标准化价格小图；触发日期、规则阈值、因子读数和当前候选池仍然隐藏。</p>
+<p class="reveal" data-i18n-html="s3.intro">从数据库4号的随机科技股样本池中抽�?5 个延迟历史案例，并可切换 2025-2026 时间段来对比它们的标准化走势。卡片展示股票名�?代码，以�?120 日观测窗口数、胜率��平均收益和标准化价格小图，让访问��看到历史样本路径，而不是只看静态胜率��?/p>
 
 <div class="probe-shell reveal">
     <div class="probe-controls">
@@ -1203,10 +1198,10 @@ window.SITE_ANALYTICS_CONFIG = {
             <span class="mono" id="probe-universe-size">50</span>
             <span data-i18n="s3.universe_suffix_short">cases</span> ·
             <span data-i18n="s3.period">Sample period</span>
-            <span class="mono">2024–2025</span>
+            <span class="mono">2024�?025</span>
         </div>
-        <button class="draw-btn" id="draw-btn">
-            <span class="ico">↻</span>
+        <button class="draw-btn" id="draw-btn" data-track="bean_draw_5_cases">
+            <span class="ico">�?/span>
             <span data-i18n="s3.draw_btn">Draw 5 random</span>
         </button>
     </div>
@@ -1218,10 +1213,10 @@ window.SITE_ANALYTICS_CONFIG = {
 </div>
 
 <aside class="research-footnote reveal">
-    <span class="dagger">†</span>
-    <span data-i18n-html="footnote.body">本页面为研究展示，不构成投资建议。所示数字均为历史回测结果，未来表现不会简单重复。模型的具体规则阈值、20 个指标的 IC 排序、当前年份信号与命中股票均不公开。读者应独立判断市场环境与个人风险承受能力。</span>
+    <span class="dagger">�?/span>
+    <span data-i18n-html="footnote.body">本页面为研究展示，不构成投资建议。所示数字均为历史回测结果，未来表现不会箢�单重复��读者应独立判断市场环境与个人风险承受能力��?/span>
     <span class="closing">
-        <span data-i18n="footnote.closing_l">独立思考</span>
+        <span data-i18n="footnote.closing_l">独立思��?/span>
         <span class="ochre-dot">·</span>
         <span data-i18n="footnote.closing_r">明辨是非</span>
     </span>
@@ -1231,6 +1226,8 @@ window.SITE_ANALYTICS_CONFIG = {
 
 <footer class="site-footer">
     <span data-i18n="footer">© 2026 Erick Wei · Columbia SIPA · Research demo, not investment advice</span>
+    &nbsp;·&nbsp;
+    <a class="privacy-link" href="../privacy/">Privacy</a>
 </footer>
 
 <script>
@@ -1238,27 +1235,27 @@ const I18N = {
   en: {
     "back": "Back to portfolio",
     "brand.role": "Quantitative Macro Research",
-    "hero.eyebrow": "A-Share technology trading research · v4.S protected logic",
+    "hero.eyebrow": "A-Share technology trading research · v4.S framework",
     "hero.title": "Extracting a verifiable technology-stock model <span class='accent'>from real trading records</span>",
-    "hero.lead": "<span class='drop-cap'>B</span>ean Model is not a public stock picker, and it is not marketed as a miracle prediction engine. It is a research system built from real buy records, then tested through large-sample validation, random controls, account-level simulation, and forward tracking. This public page shows outcomes and validation discipline; rules, thresholds, IC ranks, live signals, and current candidates are intentionally withheld.",
+    "hero.lead": "<span class='drop-cap'>B</span>ean Model is not a public stock picker, and it is not marketed as a miracle prediction engine. It is a research system built from real buy records, then tested through large-sample validation, random controls, account-level simulation, and forward tracking. This public page focuses on outcomes, validation discipline, and the model's evolution across market regimes.",
     "strip.v2": "v2 large-sample win rate",
     "strip.v4s": "v4.S historical win rate",
     "strip.fixed": "fixed allocation return",
-    "strip.lock": "rules protected",
+    "strip.lock": "research boundary",
     "s1.eyebrow": "Research system",
     "s1.title": "Research Arc",
     "s1.p1": "The original question was simple: a trader has real buy records, but not every buy is worth following. Bean Model asks which historical signals are worth tracking systematically, and whether those signals can survive at the account-curve level.",
     "s1.p2": "The public page follows a result-proof format: version evolution, win rate, return, drawdown, random control, and the ¥1,000,000 account path.",
     "s1.privacy_label": "Research boundary",
-    "s1.privacy_intro": "The following items are intentionally withheld to protect the model from copying or misuse:",
+    "s1.privacy_intro": "The public page keeps a research-boundary layer around the following items:",
     "s1.privacy_list": "<li>Specific entry rules and thresholds</li><li>Indicator selection, IC ranks, and exact factor values</li><li>Current-period live signals and stock picks</li><li>Signal-trigger dates and individual indicator readings</li>",
-    "evolution.note": "The progress is not simply more parameters. The research question became sharper: v2 proved the buy signal existed, v3.1 proved the need for locked-version discipline, and v4 separated signal quality into short-term and medium/long-term layers. The stricter the layer, the fewer the signals — but the stronger the medium/long-term result.",
+    "evolution.note": "The progress is not simply more parameters. The research question became sharper: v2 proved the buy signal existed, v3.1 proved the need for locked-version discipline, and v4 separated signal quality into short-term and medium/long-term layers. The stricter the layer, the fewer the signals �?but the stronger the medium/long-term result.",
     "horizon.win": "Win",
     "horizon.avg": "Avg",
     "horizon.median": "Median",
-    "rigor.eyebrow":    "Research Rigor — Method, not Thresholds",
+    "rigor.eyebrow":    "Research Rigor �?Method, not Thresholds",
     "rigor.title":      "Research Protocol Disclosure",
-    "rigor.intro":      "The six cards below disclose the research protocol — how data was split, how training / testing windows were defined, how transaction costs are modeled, how risk control is structured, and how out-of-sample validation was done. Builds credibility without revealing any reproducible threshold or IC value.",
+    "rigor.intro":      "The six cards below disclose the research protocol �?how data was split, how training / testing windows were defined, how transaction costs are modeled, how risk control is structured, and how out-of-sample validation was done. The goal is to make the validation process auditable, not just to show attractive headline numbers.",
     "findings.eyebrow": "Counter-intuitive discoveries",
     "findings.title": "Key Research Findings",
     "findings.intro": "The four findings below come from multiple rounds of large-sample validation. This page shows conclusions and outcomes only, not replicable stock-selection conditions.",
@@ -1266,7 +1263,7 @@ const I18N = {
     "s2.title": "Empirical Performance",
     "v4.kicker": "Latest Framework",
     "v4.title": "v4 turns one signal into a staged decision system.",
-    "v4.body": "v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes only, without exposing selection thresholds or live candidates.",
+    "v4.body": "v3.1 proved that the entry signal should be locked and judged over the right holding period. v4 is the next layer: it separates short-term validation from medium- and long-horizon trend expression, then reserves the strictest v4.S label for the highest-conviction historical cases. The public page shows this progression through outcomes, validation windows, and account-level evidence.",
     "v4.row1_key": "v4.A",
     "v4.row1_copy": "Short-horizon validation layer: useful for checking whether the original entry logic still has immediate follow-through.",
     "v4.row2_key": "v4.B",
@@ -1281,12 +1278,12 @@ const I18N = {
     "v4proof.avg_label": "Average Return",
     "v4proof.median_label": "Median Return",
     "v4proof.n_label": "Strict Cases",
-    "v4proof.source": "Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics; current candidates, trigger dates, thresholds and factor readings are not disclosed.",
+    "v4proof.source": "Source · historical v4.S strict-layer validation. Results are delayed historical validation metrics from completed observation windows.",
     "canonical.eyebrow": "v3.1 LOCKED · DB3-500 Universe · 80-Day Hold",
     "canonical.win80_label": "80-Day Win Rate",
     "canonical.signals_label": "Completed 80D Signals",
     "canonical.universe_label": "Stock Universe",
-    "canonical.decay_intro": "Hold-period scaling — same 52 signals:",
+    "canonical.decay_intro": "Hold-period scaling �?same 52 signals:",
     "canonical.source": "Source · the 80D result uses 52 completed signals from May 2025-Feb 2026; the full background scan covers the expanded DB3-500 universe, 500 tech stocks and 1,199 signals across 2022-2026.",
     "compare.label": "FIGURE 0 ·",
     "compare.title": "Signal Quality vs Random Technology Basket",
@@ -1298,10 +1295,10 @@ const I18N = {
     "compare.median": "Median Return",
     "compare.status": "LOCK_CANDIDATE",
     "hold.label": "FIGURE A ·",
-    "hold.title": "The Discovery — Win Rate vs Hold Period",
-    "hold.source": "Source · 52 signals from May 2025 – Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing — the discovery that reframed the whole model.",
+    "hold.title": "The Discovery �?Win Rate vs Hold Period",
+    "hold.source": "Source · 52 signals from May 2025 �?Feb 2026, the only window where every signal can complete an 80-day hold. Same entry signal, different exit timing. Win rate is monotonically non-decreasing �?the discovery that reframed the whole model.",
     "regime.label": "FIGURE B ·",
-    "regime.title": "2022–2026 · Regime-Adapted Model View",
+    "regime.title": "2022�?026 · Regime-Adapted Model View",
     "regime.source": "Source · research logs and DB4 validation. Each year is shown with the model / holding horizon that best matched that market regime, rather than forcing one fixed 10-day lens across all periods.",
     "portfolio.intro": "Applying the same model to a semiconductor sub-sample with ¥1,000,000 starting capital, ¥100,000 per signal, 10-day hold. Account path:",
     "portfolio.label": "Portfolio Simulation · Semiconductor sub-sample",
@@ -1329,10 +1326,10 @@ const I18N = {
     "annual.col_lift": "Lift",
     "annual.source": "Source · Research log v3.0 · year-by-year out-of-sample win rate vs market baseline",
     "quote.body": "We thought we were studying a short-term reversal strategy. We discovered we were holding a <em>medium-term trend entry system</em>.",
-    "quote.cite": "— Final research note, May 2026",
+    "quote.cite": "�?Final research note, May 2026",
     "s3.eyebrow": "Interactive proof",
     "s3.title": "Delayed Historical Case Draw",
-    "s3.intro": "Draw 5 delayed historical cases from Database 4's random technology-stock pool, then switch the 2025–2026 timeline to compare their normalized paths. Cards show stock name/code plus 120-day observation count, win rate, average return, and an inline sparkline; trigger dates, thresholds, factor readings, and current candidates remain hidden.",
+    "s3.intro": "Draw 5 delayed historical cases from Database 4's random technology-stock pool, then switch the 2025�?026 timeline to compare their normalized paths. Cards show stock name/code plus 120-day observation count, win rate, average return, and an inline sparkline, so visitors can inspect historical sample paths instead of only reading static win rates.",
     "s3.universe_label": "DB4 random tech case pool:",
     "s3.universe_suffix_short": "cases",
     "s3.period": "Sample period",
@@ -1345,7 +1342,7 @@ const I18N = {
     "probe.signals_label": "Windows",
     "probe.win10_label": "120D Win",
     "probe.avg10_label": "120D Avg",
-    "footnote.body": "This page is a research demo, not investment advice. All figures shown are historical backtest results; future performance will not simply repeat. The model's specific rule thresholds, the 20-indicator IC ranking, current-period signals and stock picks are not disclosed. Readers should independently judge market regime and personal risk tolerance.",
+    "footnote.body": "This page is a research demo, not investment advice. All figures shown are historical backtest results; future performance will not simply repeat. Readers should independently judge market regime and personal risk tolerance.",
     "footnote.closing_l": "Think for yourself",
     "footnote.closing_r": "judge clearly",
     "footer": "© 2026 Erick Wei · Columbia SIPA · Research demo, not investment advice",
@@ -1356,120 +1353,120 @@ const I18N = {
   zh: {
     "back": "返回主页",
     "brand.role": "量化宏观研究",
-    "hero.eyebrow": "A 股科技股交易研究 · v4.S 逻辑受保护",
-    "hero.title": "从游资实盘买入记录中，<br><span class='accent'>提炼可验证的科技股交易模型</span>",
-    "hero.lead": "<span class='drop-cap'>豆</span>模型不是一个公开选股器，也不是“预测暴涨神器”。它是一个从真实买入样本出发，经过大样本验证、随机对照、账户模拟和前向跟踪的科技股交易研究系统。公开页面只展示结果与验证纪律；具体规则、阈值、IC 排序、当前信号与实时候选池不公开。",
-    "strip.v2": "v2 大样本胜率",
+    "hero.eyebrow": "A 股科抢�股交易研�?· v4.S 框架",
+    "hero.title": "从游资实盘买入记录中�?br><span class='accent'>提炼可验证的科技股交易模�?/span>",
+    "hero.lead": "<span class='drop-cap'>�?/span>模型不是丢�个公弢�选股器，也不是��预测暴涨神器����它是一个从真实买入样本出发，经过大样本验证、随机对照��账户模拟和前向跟踪的科抢�股交易研究系统��公弢�页面重点展示结果、验证纪律，以及模型在不同市场阶段中的演进��?,
+    "strip.v2": "v2 大样本胜�?,
     "strip.v4s": "v4.S 历史胜率",
     "strip.fixed": "固定分仓收益",
-    "strip.lock": "规则受保护",
+    "strip.lock": "研究边界",
     "s1.eyebrow": "研究系统",
     "s1.title": "研究脉络",
-    "s1.p1": "最初的问题很朴素：一个游资有真实买入记录，但不是每一笔都值得跟。豆模型要回答的不是“下一只暴涨股是谁”，而是：什么样的历史信号更值得被系统性跟踪，放到账户层面是否还能形成可执行的资金曲线。",
-    "s1.p2": "公开页面采用“结果证明”口径：展示版本演进、胜率、收益、回撤、随机对照和 ¥100 万账户路径。",
+    "s1.p1": "朢�初的问题很朴素：丢�个游资有真实买入记录，但不是每一笔都值得跟��豆模型要回答的不是“下丢�只暴涨股是谁”，而是：什么样的历史信号更值得被系统��跟踪，放到账户层面是否还能形成可执行的资金曲线�?,
+    "s1.p2": "公开页面采用“结果证明��口径：展示版本演进、胜率��收益��回撤��随机对照和 ¥100 万账户路径��?,
     "s1.privacy_label": "研究产权边界",
-    "s1.privacy_intro": "以下内容不在公开网页展示，避免模型被复制或误用：",
-    "s1.privacy_list": "<li>具体入场规则与阈值</li><li>指标选择、IC 排序与具体因子值</li><li>当前年份实时信号与命中股票</li><li>触发日期与个股指标读数</li>",
-    "evolution.note": "模型的进步不是“参数越堆越多”，而是研究问题逐步变清楚：v2 证明买点有效，v3.1 证明必须锁定版本，v4 把信号分层并把短线与中长线能力分开评估。越严格的层级触发越少，但中长线表现越强。",
+    "s1.privacy_intro": "公开页面保留研究产权边界，以下内容不展开�?,
+    "s1.privacy_list": "<li>具体入场规则与阈�?/li><li>指标选择、IC 排序与具体因子��?/li><li>当前年份实时信号与命中股�?/li><li>触发日期与个股指标读�?/li>",
+    "evolution.note": "模型的进步不是��参数越堆越多��，而是研究问题逐步变清楚：v2 证明买点有效，v3.1 证明必须锁定版本，v4 把信号分层并把短线与中长线能力分弢�评估。越严格的层级触发越少，但中长线表现越强�?,
     "horizon.win": "胜率",
     "horizon.avg": "平均",
     "horizon.median": "中位",
-    "rigor.eyebrow":    "研究方法论 · 展示流程不暴露阈值",
-    "rigor.title":      "研究方法论披露",
-    "rigor.intro":      "下面六张卡片披露研究协议层面的内容 —— 数据怎么切、训练 / 测试窗口怎么定、交易成本怎么计、风控怎么搭、样本外怎么验证。建立可信度，但不公开任何可复刻的具体阈值或 IC 数值。",
-    "findings.eyebrow": "反直觉发现",
+    "rigor.eyebrow":    "研究方法�?· 展示流程不暴露阈�?,
+    "rigor.title":      "研究方法论披�?,
+    "rigor.intro":      "下面六张卡片披露研究协议层面的内�?—��?数据怎么切��训�?/ 测试窗口怎么定��交易成本��么计��风控��么搭��样本外怎么验证。重点是让验证流程可审视，��不是只展示漂亮结果�?,
+    "findings.eyebrow": "反直觉发�?,
     "findings.title": "关键研究结论",
-    "findings.intro": "以下四条结论来自多轮大样本验证。页面只展示研究结论与结果，不展示可复刻的选股条件。",
+    "findings.intro": "以下四条结论来自多轮大样本验证��页面只展示研究结论与结果，不展示可复刻的��股条件�?,
     "s2.eyebrow": "验证结果",
     "s2.title": "实证表现",
-    "v4.kicker": "最新框架",
-    "v4.title": "v4 把一个买点信号，升级成分层决策系统。",
-    "v4.body": "v3.1 证明了进场信号需要锁定，并且必须放在正确的持有周期里判断。v4 是下一层：它把短线验证、中线趋势表达和长线严格筛选分开，最严格的 v4.S 只留给历史表现最强、触发更少的高置信样本。公开页面只展示这种进化后的结果，不展示筛选阈值或实时候选。",
+    "v4.kicker": "朢�新框�?,
+    "v4.title": "v4 把一个买点信号，升级成分层决策系统��?,
+    "v4.body": "v3.1 证明了进场信号需要锁定，并且必须放在正确的持有周期里判断。v4 是下丢�层：它把短线验证、中线趋势表达和长线严格筛��分弢�，最严格�?v4.S 只留给历史表现最强��触发更少的高置信样本��公弢�页面通过结果、验证窗口与账户级证据展示这种进化��?,
     "v4.row1_key": "v4.A",
-    "v4.row1_copy": "短线验证层：用于观察原始买点逻辑是否仍然具备较快的后续动能。",
+    "v4.row1_copy": "短线验证层：用于观察原始买点逻辑是否仍然具备较快的后续动能��?,
     "v4.row2_key": "v4.B",
-    "v4.row2_copy": "观察层：捕捉需要更长时间验证的候选，把它们作为趋势形成过程来评估。",
+    "v4.row2_copy": "观察层：捕捉霢�要更长时间验证的候��，把它们作为趋势形成过程来评估�?,
     "v4.row3_key": "v4.S",
-    "v4.row3_copy": "严格中长线层：信号更少，但历史中长线表现更强，也是网页上最能体现模型进步的公开证据。",
+    "v4.row3_copy": "严格中长线层：信号更少，但历史中长线表现更强，也是网页上朢�能体现模型进步的公开证据�?,
     "v4proof.kicker": "当前模型证据",
-    "v4proof.title": "v4.S 展现出最强的中长线历史表现。",
-    "v4proof.copy": "最新公开证据重点展示 v4.S，也就是最严格的历史分层。它不是实时荐股列表，而是证明模型已经从宽口径买点信号，进化为更高置信度的中长线框架。",
+    "v4proof.title": "v4.S 展现出最强的中长线历史表现��?,
+    "v4proof.copy": "朢�新公弢�证据重点展示 v4.S，也就是朢�严格的历史分层��它不是实时荐股列表，��是证明模型已经从宽口径买点信号，进化为更高置信度的中长线框架��?,
     "v4proof.badge": "v4.S · 120日层",
-    "v4proof.win_label": "120日胜率",
+    "v4proof.win_label": "120日胜�?,
     "v4proof.avg_label": "平均收益",
     "v4proof.median_label": "中位收益",
     "v4proof.n_label": "严格样本",
-    "v4proof.source": "来源 · v4.S 严格分层历史验证。这里展示的是延迟历史验证指标；当前候选、触发日期、阈值与因子读数不公开。",
-    "canonical.eyebrow": "v3.1 锁定版 · DB3-500 股票池 · 80 日持有",
-    "canonical.win80_label": "80 日胜率",
-    "canonical.signals_label": "80日完整信号",
-    "canonical.universe_label": "股票池",
-    "canonical.decay_intro": "持有期递增 · 同 52 笔信号：",
-    "canonical.source": "来源 · 80 日结果来自 2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科技股、2022-2026 共 1,199 笔信号。",
-    "compare.label": "图 0 ·",
-    "compare.title": "v4.S 信号质量 vs 随机科技股票池",
-    "compare.source": "来源 · v4.S 历史验证与随机科技股票池对照。这个比较回答：模型是否只是吃到了科技 Beta，还是提高了信号质量。",
+    "v4proof.source": "来源 · v4.S 严格分层历史验证。这里展示的是已完成观察窗口的延迟历史验证指标��?,
+    "canonical.eyebrow": "v3.1 锁定�?· DB3-500 股票�?· 80 日持�?,
+    "canonical.win80_label": "80 日胜�?,
+    "canonical.signals_label": "80日完整信�?,
+    "canonical.universe_label": "股票�?,
+    "canonical.decay_intro": "持有期��增 · �?52 笔信号：",
+    "canonical.source": "来源 · 80 日结果来�?2025.05-2026.02 可完整观察的 52 笔信号；完整背景扫描为数据库 3 号扩展版 500 只科抢�股��?022-2026 �?1,199 笔信号��?,
+    "compare.label": "�?0 ·",
+    "compare.title": "v4.S 信号质量 vs 随机科技股票�?,
+    "compare.source": "来源 · v4.S 历史验证与随机科抢�股票池对照��这个比较回答：模型是否只是吃到了科抢� Beta，还是提高了信号质量�?,
     "compare.v4s": "v4.S 信号组合",
-    "compare.random": "随机科技股票池",
+    "compare.random": "随机科技股票�?,
     "compare.win": "胜率",
     "compare.avg": "平均收益",
     "compare.median": "中位收益",
     "compare.status": "LOCK_CANDIDATE",
-    "hold.label": "图 A ·",
-    "hold.title": "关键发现 — 胜率随持有期单调递增",
-    "hold.source": "来源 · 2025 年 5 月 - 2026 年 2 月共 52 笔信号（这是唯一所有信号都能完整跑完 80 日持有期的窗口）。同一组进场信号，只改变退出时间。胜率单调非递减 — 这一个发现重构了整个模型的定位。",
-    "regime.label": "图 B ·",
+    "hold.label": "�?A ·",
+    "hold.title": "关键发现 �?胜率随持有期单调递增",
+    "hold.source": "来源 · 2025 �?5 �?- 2026 �?2 月共 52 笔信号（这是唯一扢�有信号都能完整跑�?80 日持有期的窗口）。同丢�组进场信号，只改变���出时间��胜率单调非递减 �?这一个发现重构了整个模型的定位��?,
+    "regime.label": "�?B ·",
     "regime.title": "2022-2026 · 不同行情下的适配模型视图",
-    "regime.source": "来源 · 研究日志与 DB4 验证。这里不是把所有年份强行放进同一个 10 日口径，而是展示每个市场阶段更适配的模型版本与持有周期。",
-    "portfolio.intro": "将上述模型在半导体板块龙头子样本上做实测，¥100 万本金、每笔信号配 ¥10 万、持有 10 日。账户路径如下：",
+    "regime.source": "来源 · 研究日志�?DB4 验证。这里不是把扢�有年份强行放进同丢��?10 日口径，而是展示每个市场阶段更��配的模型版本与持有周期�?,
+    "portfolio.intro": "将上述模型在半导体板块龙头子样本上做实测，�?00 万本金��每笔信号配 ¥10 万��持�?10 日��账户路径如下：",
     "portfolio.label": "组合仿真 · 半导体板块子样本",
-    "portfolio.from": "2024 年 1 月",
-    "portfolio.to": "2025 年 12 月",
+    "portfolio.from": "2024 �?1 �?,
+    "portfolio.to": "2025 �?12 �?,
     "portfolio.config": "每笔 ¥100,000 · 持有 10 个交易日 · 出场实现盈亏",
     "strategy.label": "互动 ·",
     "strategy.title": "持有方式取舍",
-    "strategy.return": "总收益",
-    "strategy.dd": "最大回撤",
+    "strategy.return": "总收�?,
+    "strategy.dd": "朢�大回�?,
     "outcome.wins_label": "盈利笔数",
     "outcome.losses_label": "亏损笔数",
-    "outcome.best_label": "最佳单笔",
-    "outcome.best_sub": "单仓 ¥10 万",
-    "outcome.worst_label": "最差单笔",
-    "outcome.worst_sub": "单仓 ¥10 万",
+    "outcome.best_label": "朢�佳单�?,
+    "outcome.best_sub": "单仓 ¥10 �?,
+    "outcome.worst_label": "朢�差单�?,
+    "outcome.worst_sub": "单仓 ¥10 �?,
     "figure2.label": "图二 ·",
-    "figure2.title": "¥100 万本金账户走势",
-    "figure2.source": "来源 · 回测每笔出场实现盈亏累计 · 虚线为 ¥1,000,000 保本线。",
-    "annual.title": "市场环境分年度（来自数据库 3 号）",
+    "figure2.title": "¥100 万本金账户走�?,
+    "figure2.source": "来源 · 回测每笔出场实现盈亏累计 · 虚线�?¥1,000,000 保本线��?,
+    "annual.title": "市场环境分年度（来自数据�?3 号）",
     "annual.col_year": "年份",
     "annual.col_market": "市场环境",
     "annual.col_baseline": "基准胜率",
-    "annual.col_model": "豆模型胜率",
+    "annual.col_model": "豆模型胜�?,
     "annual.col_lift": "提升",
     "annual.source": "来源 · 研究日志 v3.0 · 分年度样本外胜率 vs 市场基准",
-    "quote.body": "我们以为在研究一个短线反转策略，最终发现自己手里其实握着一个<em>中线趋势进场系统</em>。",
-    "quote.cite": "— 研究终稿，2026 年 5 月",
+    "quote.body": "我们以为在研究一个短线反转策略，朢�终发现自己手里其实握睢�丢��?em>中线趋势进场系统</em>�?,
+    "quote.cite": "�?研究终�6�0�?026 �?5 �?,
     "s3.eyebrow": "互动证明",
     "s3.title": "延迟历史案例抽卡",
-    "s3.intro": "从数据库4号的随机科技股样本池中抽取 5 个延迟历史案例，并可切换 2025-2026 时间段来对比它们的标准化走势。卡片展示股票名称/代码，以及 120 日观测窗口数、胜率、平均收益和标准化价格小图；触发日期、规则阈值、因子读数和当前候选池仍然隐藏。",
+    "s3.intro": "从数据库4号的随机科技股样本池中抽�?5 个延迟历史案例，并可切换 2025-2026 时间段来对比它们的标准化走势。卡片展示股票名�?代码，以�?120 日观测窗口数、胜率��平均收益和标准化价格小图，让访问��看到历史样本路径，而不是只看静态胜率��?,
     "s3.universe_label": "DB4 随机科技案例池：",
-    "s3.universe_suffix_short": "个案例",
-    "s3.period": "样本期",
-    "s3.draw_btn": "随机抽 5 个案例",
+    "s3.universe_suffix_short": "个案�?,
+    "s3.period": "样本�?,
+    "s3.draw_btn": "随机�?5 个案�?,
     "probe.case_label": "历史案例",
-    "probe.range_full": "2025-2026 全区间",
-    "probe.range_2025h1": "2025 上半年",
-    "probe.range_2025h2": "2025 下半年",
-    "probe.range_2026": "2026 年",
+    "probe.range_full": "2025-2026 全区�?,
+    "probe.range_2025h1": "2025 上半�?,
+    "probe.range_2025h2": "2025 下半�?,
+    "probe.range_2026": "2026 �?,
     "probe.signals_label": "观测窗口",
-    "probe.win10_label": "120 日胜率",
-    "probe.avg10_label": "120 日均收",
-    "footnote.body": "本页面为研究展示，不构成投资建议。所示数字均为历史回测结果，未来表现不会简单重复。模型的具体规则阈值、20 个指标的 IC 排序、当前年份信号与命中股票均不公开。读者应独立判断市场环境与个人风险承受能力。",
-    "footnote.closing_l": "独立思考",
+    "probe.win10_label": "120 日胜�?,
+    "probe.avg10_label": "120 日均�?,
+    "footnote.body": "本页面为研究展示，不构成投资建议。所示数字均为历史回测结果，未来表现不会箢�单重复��读者应独立判断市场环境与个人风险承受能力��?,
+    "footnote.closing_l": "独立思��?,
     "footnote.closing_r": "明辨是非",
     "footer": "© 2026 Erick Wei · 哥伦比亚大学 SIPA · 研究展示页面，不构成投资建议",
     "mkt.choppy": "震荡",
     "mkt.choppy_weak": "震荡偏弱",
-    "mkt.structural": "结构性牛市",
+    "mkt.structural": "结构性牛�?,
   }
 };
 
@@ -1520,7 +1517,7 @@ function animateCounter(el, target, decimals, duration, prefix, suffix, formatte
     requestAnimationFrame(frame);
 }
 function fmtCNY(v) { return '¥' + Math.round(v).toLocaleString('en-US'); }
-function fmtCNYsigned(v) { return (v >= 0 ? '+' : '−') + '¥' + Math.abs(Math.round(v)).toLocaleString('en-US'); }
+function fmtCNYsigned(v) { return (v >= 0 ? '+' : '�?) + '¥' + Math.abs(Math.round(v)).toLocaleString('en-US'); }
 function fmtPct(v) { return (v > 0 ? '+' : '') + Number(v).toFixed(2) + '%'; }
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -1681,7 +1678,7 @@ function renderPortfolioSummary(d) {
         <span class="sep">·</span>
         <span class="${cls}">${fmtCNYsigned(p.total_pnl)}</span>
         <span class="sep">·</span>
-        <span class="neg">${LANG === 'zh' ? '最大回撤' : 'max DD'} ${fmtCNYsigned(-Math.abs(p.max_drawdown_cny))}</span>
+        <span class="neg">${LANG === 'zh' ? '朢�大回�? : 'max DD'} ${fmtCNYsigned(-Math.abs(p.max_drawdown_cny))}</span>
     `;
 }
 
@@ -1690,7 +1687,7 @@ function renderOutcomes(d) {
     const p = d.portfolio;
     if (!grid || !p) return;
     const total = p.n_wins + p.n_losses;
-    const subT = `${LANG === 'zh' ? '共' : 'of'} ${total} ${LANG === 'zh' ? '笔交易' : 'trades'}`;
+    const subT = `${LANG === 'zh' ? '�? : 'of'} ${total} ${LANG === 'zh' ? '笔交�? : 'trades'}`;
     const cards = [
         { label: t('outcome.wins_label'),  num: p.n_wins,                   cls: 'bull', sub: subT },
         { label: t('outcome.losses_label'), num: p.n_losses,                cls: 'bear', sub: subT },
@@ -1747,7 +1744,7 @@ function renderEquity(d) {
         annotations: [{
             xref: 'paper', x: 1, xanchor: 'right',
             yref: 'y', y: principal, yanchor: 'bottom',
-            text: '¥1,000,000 ' + (LANG === 'zh' ? '保本线' : 'break-even'),
+            text: '¥1,000,000 ' + (LANG === 'zh' ? '保本�? : 'break-even'),
             showarrow: false,
             font: { size: 10, color: '#a16207', family: 'JetBrains Mono' },
         }],
@@ -1878,6 +1875,7 @@ function renderProbeRangeTabs() {
     wrap.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', () => {
             PROBE_RANGE = btn.dataset.range;
+            if (window.siteTrack) window.siteTrack('bean_probe_range', { range: PROBE_RANGE });
             renderProbe();
         });
     });
@@ -1903,7 +1901,7 @@ function renderProbeTimeline() {
             mode: 'lines',
             name: `${s.name} ${s.code}`,
             line: { color: palette[idx % palette.length], width: 2, shape: 'spline' },
-            hovertemplate: `%{x}<br><b>${s.name}</b><br>${LANG === 'zh' ? '标准化价格' : 'Normalized'}: %{y:.2f}x<extra></extra>`,
+            hovertemplate: `%{x}<br><b>${s.name}</b><br>${LANG === 'zh' ? '标准化价�? : 'Normalized'}: %{y:.2f}x<extra></extra>`,
         };
     }).filter(Boolean);
     Plotly.newPlot(el, traces, {
@@ -1985,13 +1983,22 @@ async function boot() {
     window.__data = data;
 
     document.querySelectorAll('.lang-toggle button').forEach(b => {
-        b.addEventListener('click', () => setLang(b.dataset.lang));
+        b.addEventListener('click', () => {
+            setLang(b.dataset.lang);
+            if (window.siteTrack) window.siteTrack('switch_language', { lang: b.dataset.lang, site_section: 'bean_model' });
+        });
     });
     document.getElementById('draw-btn').addEventListener('click', () => {
         const wrap = document.getElementById('probe-cards');
         wrap.classList.add('shuffling');
         setTimeout(() => {
             CURRENT_DRAW = drawRandomFive(data.per_stock);
+            if (window.siteTrack) {
+                window.siteTrack('bean_draw_cases', {
+                    range: PROBE_RANGE,
+                    codes: CURRENT_DRAW.map(s => s.code || s.case_id || '').filter(Boolean).join(',')
+                });
+            }
             renderProbe();
             wrap.classList.remove('shuffling');
         }, 220);
@@ -2026,5 +2033,15 @@ async function boot() {
 
 document.addEventListener('DOMContentLoaded', boot);
 </script>
+<script>
+window.SITE_ANALYTICS_CONFIG = {
+    site: "bean-model",
+    endpoint: "https://erick-site-analytics.erickviann1.workers.dev/collect",
+    enabled: true
+};
+</script>
+<script src="../assets/site-analytics.js?v=1"></script>
 </body>
 </html>
+
+

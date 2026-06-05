@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,10 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════════
- *  Portfolio Hub · v1.0
+/* ══════════════════════════════════════════════════════════════�? *  Portfolio Hub · v1.0
  *  Design language inherits from usdcny-tracker
- * ═══════════════════════════════════════════════════════════════ */
+ * ══════════════════════════════════════════════════════════════�?*/
 :root {
     --bg:           #faf8f5;
     --bg-tint:      #f5f2ec;
@@ -57,7 +56,7 @@ a:hover { color: var(--ochre); }
 .mono  { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 .hairline { border: none; border-top: 1px solid var(--hairline); margin: 0; }
 
-/* ─── TOP BAR ─── */
+/* ┢�┢�┢� TOP BAR ┢�┢�┢� */
 .topbar {
     position: sticky;
     top: 0;
@@ -117,14 +116,14 @@ a:hover { color: var(--ochre); }
 }
 .lang-toggle button.active { background: var(--ink); color: var(--bg); }
 
-/* ─── PAGE LAYOUT ─── */
+/* ┢�┢�┢� PAGE LAYOUT ┢�┢�┢� */
 main {
     max-width: var(--content-max);
     margin: 0 auto;
     padding: 56px 32px 96px;
 }
 
-/* ─── HERO ─── */
+/* ┢�┢�┢� HERO ┢�┢�┢� */
 .hero {
     display: grid;
     grid-template-columns: 168px 1fr;
@@ -190,7 +189,7 @@ main {
     max-width: 640px;
 }
 
-/* ─── SECTION HEAD ─── */
+/* ┢�┢�┢� SECTION HEAD ┢�┢�┢� */
 .section-head {
     margin: 56px 0 24px;
     display: flex; align-items: baseline; gap: 16px;
@@ -221,7 +220,7 @@ main {
     font-weight: 500;
 }
 
-/* ─── TOOLS GRID ─── */
+/* ┢�┢�┢� TOOLS GRID ┢�┢�┢� */
 .tools-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -327,7 +326,7 @@ main {
     color: var(--ink);
 }
 
-/* ─── PAPERS LIST ─── */
+/* ┢�┢�┢� PAPERS LIST ┢�┢�┢� */
 .papers {
     display: flex;
     flex-direction: column;
@@ -390,7 +389,7 @@ main {
     vertical-align: middle;
 }
 
-/* ─── CONTACT ─── */
+/* ┢�┢�┢� CONTACT ┢�┢�┢� */
 .contact {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -448,7 +447,7 @@ main {
 }
 .contact-item:hover .contact-value { color: var(--ochre); }
 
-/* ─── FOOTER ─── */
+/* ┢�┢�┢� FOOTER ┢�┢�┢� */
 .site-footer {
     margin-top: 96px;
     padding: 24px 32px;
@@ -458,20 +457,15 @@ main {
     text-align: center;
     letter-spacing: 0.04em;
 }
-.site-footer .mono { color: var(--muted-soft); }
+.site-footer .mono,
+.site-footer .privacy-link { color: var(--muted-soft); }
+.site-footer .privacy-link { text-decoration: none; border-bottom: 1px solid transparent; }
+.site-footer .privacy-link:hover { color: var(--ink); border-bottom-color: var(--rule); }
 </style>
-<script>
-window.SITE_ANALYTICS_CONFIG = {
-    site: "portfolio-hub",
-    endpoint: "https://erick-site-analytics.erickviann1.workers.dev/collect",
-    enabled: true
-};
-</script>
-<script src="assets/site-analytics.js?v=1"></script>
 </head>
 <body>
 
-<!-- ═══════════════════ TOP BAR ═══════════════════ -->
+<!-- ══════════════════�?TOP BAR ══════════════════�?-->
 <div class="topbar">
     <div class="topbar-inner">
         <a class="brand" href="/">
@@ -484,15 +478,15 @@ window.SITE_ANALYTICS_CONFIG = {
         <div class="topbar-spacer"></div>
         <div class="lang-toggle">
             <button class="active" data-lang="en">EN</button>
-            <button data-lang="zh">中</button>
+            <button data-lang="zh">�?/button>
         </div>
     </div>
 </div>
 
 <main>
 
-<!-- ═══════════════════ HERO ═══════════════════ -->
-<section class="hero">
+<!-- ══════════════════�?HERO ══════════════════�?-->
+<section class="hero" id="home" data-track-section="home_hero">
     <div class="avatar"><img src="assets/headshot.png" alt="Erick Wei" loading="eager"></div>
     <div>
         <div class="hero-overline" data-i18n="hero.overline">Personal Research Site</div>
@@ -502,13 +496,12 @@ window.SITE_ANALYTICS_CONFIG = {
             B.A. Economics, Boston University
         </p>
         <p class="hero-bio" data-i18n="hero.bio">
-            哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位。具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层逻辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略。
-        </p>
+            哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位��具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层��辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略�?        </p>
     </div>
 </section>
 
-<!-- ═══════════════════ TOOLS ═══════════════════ -->
-<div class="section-head">
+<!-- ══════════════════�?TOOLS ══════════════════�?-->
+<div class="section-head" data-track-section="home_tools">
     <div class="section-num">01</div>
     <div class="section-title" data-i18n="tools.title">Live Research Tools</div>
     <div class="section-eyebrow" data-i18n="tools.eyebrow">Updated daily</div>
@@ -516,9 +509,9 @@ window.SITE_ANALYTICS_CONFIG = {
 
 <div class="tools-grid">
 
-    <!-- TOOL 1 — USD/CNY Tracker -->
-    <a class="tool-card live" href="https://erickviann1-dev.github.io/usdcny-tracker/" target="_blank" rel="noopener">
-        <div class="tool-card-arrow">↗</div>
+    <!-- TOOL 1 �?USD/CNY Tracker -->
+    <a class="tool-card live" href="https://erickviann1-dev.github.io/usdcny-tracker/" target="_blank" rel="noopener" data-track="open_usdcny_tracker">
+        <div class="tool-card-arrow">�?/div>
         <div class="tool-card-tag"><span class="pulse"></span><span data-i18n="card.tracker.tag">Live · Daily Updates</span></div>
         <div class="tool-card-title" data-i18n="card.tracker.title">
             USD/CNY Macro-Policy Divergence Tracker
@@ -529,7 +522,7 @@ window.SITE_ANALYTICS_CONFIG = {
         <div class="tool-card-stats">
             <div>
                 <div class="stat-label" data-i18n="card.tracker.stat1_label">Coverage</div>
-                <div class="stat-value">2024–2026</div>
+                <div class="stat-value">2024�?026</div>
             </div>
             <div>
                 <div class="stat-label" data-i18n="card.tracker.stat2_label">Layers</div>
@@ -542,19 +535,17 @@ window.SITE_ANALYTICS_CONFIG = {
         </div>
     </a>
 
-    <!-- TOOL 2 — Bobo Bean Model -->
-    <a class="tool-card research" href="bean-model/">
-        <div class="tool-card-arrow">↗</div>
+    <!-- TOOL 2 �?Bobo Bean Model -->
+    <a class="tool-card research" href="bean-model/" data-track="open_bean_model">
+        <div class="tool-card-arrow">�?/div>
         <div class="tool-card-tag"><span data-i18n="card.bean.tag">Research · A-Share Alpha</span></div>
         <div class="tool-card-title" data-i18n="card.bean.title">
-            豆模型 v4.S — 从信号发现到中长线验证
-        </div>
+            豆模�?v4.S �?从信号发现到中长线验�?        </div>
         <div class="tool-card-subtitle" data-i18n="card.bean.subtitle">
-            v4.S 是当前最严格的中长线层。DB3-500 背景扫描覆盖 500 只科技股、1,199 笔信号；88.5% 的 80 日结果来自 52 笔完整持有期验证窗口。点击进入查看 v4.S 证据、持有期发现与市场风格演化。
-        </div>
+            v4.S 是当前最严格的中长线层��DB3-500 背景扫描覆盖 500 只科抢�股��?,199 笔信号；88.5% �?80 日结果来�?52 笔完整持有期验证窗口。点击进入查�?v4.S 证据、持有期发现与市场风格演化��?        </div>
         <div class="tool-card-stats">
             <div>
-                <div class="stat-label" data-i18n="card.bean.stat1_label">股票池</div>
+                <div class="stat-label" data-i18n="card.bean.stat1_label">股票�?/div>
                 <div class="stat-value">500 stocks</div>
             </div>
             <div>
@@ -562,7 +553,7 @@ window.SITE_ANALYTICS_CONFIG = {
                 <div class="stat-value">1,199 trades</div>
             </div>
             <div>
-                <div class="stat-label" data-i18n="card.bean.stat3_label">完整 80 日胜率</div>
+                <div class="stat-label" data-i18n="card.bean.stat3_label">完整 80 日胜�?/div>
                 <div class="stat-value" data-i18n="card.bean.stat3_value">88.5%</div>
             </div>
         </div>
@@ -570,8 +561,8 @@ window.SITE_ANALYTICS_CONFIG = {
 
 </div>
 
-<!-- ═══════════════════ PAPERS ═══════════════════ -->
-<div class="section-head">
+<!-- ══════════════════�?PAPERS ══════════════════�?-->
+<div class="section-head" data-track-section="home_papers">
     <div class="section-num">02</div>
     <div class="section-title" data-i18n="papers.title">Research &amp; Working Papers</div>
     <div class="section-eyebrow" data-i18n="papers.eyebrow">Selected work</div>
@@ -579,26 +570,26 @@ window.SITE_ANALYTICS_CONFIG = {
 
 <div class="papers">
 
-    <a class="paper-row" href="https://ssrn.com/abstract=6645380" target="_blank" rel="noopener">
+    <a class="paper-row" href="https://ssrn.com/abstract=6645380" target="_blank" rel="noopener" data-track="open_ssrn_paper">
         <div class="paper-year">2026</div>
         <div>
             <div class="paper-title" data-i18n="paper1.title">Warsh's Quantitative-Tightening Dilemma and the Structural Opportunity in RMB Assets</div>
             <div class="paper-meta" data-i18n="paper1.meta">Erick Wei · April 2026 · SSRN Working Paper · Path Analysis &amp; Falsification Scenarios</div>
         </div>
-        <div class="paper-link">SSRN →</div>
+        <div class="paper-link">SSRN �?/div>
     </a>
 
 </div>
 
-<!-- ═══════════════════ CONTACT ═══════════════════ -->
-<div class="section-head">
+<!-- ══════════════════�?CONTACT ══════════════════�?-->
+<div class="section-head" data-track-section="home_contact">
     <div class="section-num">03</div>
     <div class="section-title" data-i18n="contact.title">Contact</div>
 </div>
 
 <div class="contact">
 
-    <a class="contact-item" href="mailto:lw3170@columbia.edu">
+    <a class="contact-item" href="mailto:lw3170@columbia.edu" data-track="contact_email">
         <div class="contact-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
         </div>
@@ -608,7 +599,7 @@ window.SITE_ANALYTICS_CONFIG = {
         </div>
     </a>
 
-    <a class="contact-item" href="https://www.linkedin.com/in/laiwei1961aa2a0" target="_blank" rel="noopener">
+    <a class="contact-item" href="https://www.linkedin.com/in/laiwei1961aa2a0" target="_blank" rel="noopener" data-track="contact_linkedin">
         <div class="contact-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
         </div>
@@ -622,17 +613,19 @@ window.SITE_ANALYTICS_CONFIG = {
 
 </main>
 
-<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<!-- ══════════════════�?FOOTER ══════════════════�?-->
 <footer class="site-footer">
     <span data-i18n="footer.copyright">© 2026 Erick Wei · Columbia SIPA</span>
     &nbsp;·&nbsp;
     <span class="mono">portfolio v1.0</span>
+    &nbsp;·&nbsp;
+    <a class="privacy-link" href="privacy/">Privacy</a>
 </footer>
 
 <script>
-/* ──────────────────────────────────────────────────────────────
+/* ┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�
  *  Minimal i18n engine
- * ────────────────────────────────────────────────────────────── */
+ * ┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢�┢� */
 const I18N = {
   en: {
     "brand.role":         "Quantitative Macro Research",
@@ -648,7 +641,7 @@ const I18N = {
     "card.tracker.stat2_label": "Layers",
     "card.tracker.stat3_label": "Sources",
     "card.bean.tag":            "Research · A-Share Alpha",
-    "card.bean.title":          "Bean Model v4.S — From Signal Discovery to Medium-Term Validation",
+    "card.bean.title":          "Bean Model v4.S �?From Signal Discovery to Medium-Term Validation",
     "card.bean.subtitle":       "v4.S is the current strict medium/long-horizon layer. The DB3-500 background scan covers 500 tech stocks and 1,199 signals; the 88.5% 80-day result comes from the completed 52-signal validation window. Open the page to see the v4.S evidence, hold-period discovery, and 2022-2026 market-style evolution.",
     "card.bean.stat1_label":    "Universe",
     "card.bean.stat2_label":    "Background Signals",
@@ -666,27 +659,27 @@ const I18N = {
   zh: {
     "brand.role":         "量化宏观研究",
     "hero.overline":      "个人研究主页",
-    "hero.tagline":       "<strong>哥伦比亚大学 SIPA</strong> · 国际金融与资本市场 &nbsp;·&nbsp; 波士顿大学经济学学士",
-    "hero.bio":           "哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位。具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层逻辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略。",
+    "hero.tagline":       "<strong>哥伦比亚大学 SIPA</strong> · 国际金融与资本市�?&nbsp;·&nbsp; 波士顿大学经济学学士",
+    "hero.bio":           "哥伦比亚大学国际与公共事务学院（SIPA）研究生，主修国际金融与资本市场。此前以荣誉毕业生（Honor Graduate）身份获得波士顿大学经济学学士学位��具备扎实的宏观经济理论基础、跨国政策分析视野与量化分析能力，擅长从地缘政治变局与货币政策框架中剖析全球资本市场的底层��辑。目前专注于全球资本市场研究，致力于将宏观叙事转化为可落地的投资策略�?,
     "tools.title":        "在线研究工具",
     "tools.eyebrow":      "每日更新",
     "card.tracker.tag":         "实时 · 每日更新",
-    "card.tracker.title":       "USD/CNY 宏观政策分歧追踪器",
-    "card.tracker.subtitle":    "三层实时解读：央行政策意图 vs 市场对套利交易的定价。裁决、政策姿态与数据完整性审计在纽约时间每天 10:00 与 14:00 自动刷新。",
-    "card.tracker.stat1_label": "覆盖期",
-    "card.tracker.stat2_label": "分析层",
-    "card.tracker.stat3_label": "数据源",
-    "card.bean.tag":            "研究 · A 股 Alpha",
-    "card.bean.title":          "豆模型 v4.S — 从信号发现到中长线验证",
-    "card.bean.subtitle":       "v4.S 是当前最严格的中长线层。DB3-500 背景扫描覆盖 500 只科技股、1,199 笔信号；88.5% 的 80 日结果来自 52 笔完整持有期验证窗口。点击进入查看 v4.S 证据、持有期发现与市场风格演化。",
-    "card.bean.stat1_label":    "股票池",
+    "card.tracker.title":       "USD/CNY 宏观政策分歧追踪�?,
+    "card.tracker.subtitle":    "三层实时解读：央行政策意�?vs 市场对套利交易的定价。裁决��政策姿态与数据完整性审计在纽约时间每天 10:00 �?14:00 自动刷新�?,
+    "card.tracker.stat1_label": "覆盖�?,
+    "card.tracker.stat2_label": "分析�?,
+    "card.tracker.stat3_label": "数据�?,
+    "card.bean.tag":            "研究 · A �?Alpha",
+    "card.bean.title":          "豆模�?v4.S �?从信号发现到中长线验�?,
+    "card.bean.subtitle":       "v4.S 是当前最严格的中长线层��DB3-500 背景扫描覆盖 500 只科抢�股��?,199 笔信号；88.5% �?80 日结果来�?52 笔完整持有期验证窗口。点击进入查�?v4.S 证据、持有期发现与市场风格演化��?,
+    "card.bean.stat1_label":    "股票�?,
     "card.bean.stat2_label":    "背景信号",
-    "card.bean.stat3_label":    "完整 80 日胜率",
+    "card.bean.stat3_label":    "完整 80 日胜�?,
     "card.bean.stat3_value":    "88.5%",
-    "papers.title":       "学术论文与工作底稿",
-    "papers.eyebrow":     "精选研究",
-    "paper1.title":       "Warsh 的缩表困境与人民币资产的结构性机会",
-    "paper1.meta":        "魏来 · 2026 年 4 月 · SSRN 工作论文 · 路径分析与证伪情景",
+    "papers.title":       "学术论文与工作底�?,
+    "papers.eyebrow":     "精��研�?,
+    "paper1.title":       "Warsh 的缩表困境与人民币资产的结构性机�?,
+    "paper1.meta":        "魏来 · 2026 �?4 �?· SSRN 工作论文 · 路径分析与证伪情�?,
     "contact.title":      "联系方式",
     "contact.email_label":    "电子邮箱",
     "contact.linkedin_label": "领英",
@@ -711,35 +704,46 @@ function applyI18n() {
     document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
 }
 
-function setLang(lang) {
+function setLang(lang, shouldTrack = false) {
     LANG = lang;
     localStorage.setItem("portfolio-lang", lang);
     document.querySelectorAll(".lang-toggle button").forEach(b => {
         b.classList.toggle("active", b.dataset.lang === lang);
     });
     applyI18n();
+    if (shouldTrack && window.siteTrack) window.siteTrack("switch_language", { lang });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".lang-toggle button").forEach(b => {
-        b.addEventListener("click", () => setLang(b.dataset.lang));
+        b.addEventListener("click", () => setLang(b.dataset.lang, true));
     });
-    setLang(LANG);
+    setLang(LANG, false);
 
-    // Bean model link — show coming-soon notice if URL not set
+    // Bean model link �?show coming-soon notice if URL not set
     const bean = document.getElementById("bean-link");
     if (bean) {
         bean.addEventListener("click", e => {
             if (bean.getAttribute("href") === "#") {
                 e.preventDefault();
                 alert(LANG === "zh"
-                    ? "豆模型详情页正在搭建中。已点亮位置等待网页上线。"
+                    ? "豆模型详情页正在搭建中��已点亮位置等待网页上线�?
                     : "The Bean Model page is under construction.");
             }
         });
     }
 });
 </script>
+<script>
+window.SITE_ANALYTICS_CONFIG = {
+    site: "portfolio-hub",
+    endpoint: "https://erick-site-analytics.erickviann1.workers.dev/collect",
+    enabled: true
+};
+</script>
+<script src="assets/site-analytics.js?v=1"></script>
 
 </body>
 </html>
+
+
