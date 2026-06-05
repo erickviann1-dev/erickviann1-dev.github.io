@@ -30,6 +30,10 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 - The private token is stored only in local ignored file
   `PRIVATE_ANALYTICS_ACCESS.md` and as the Cloudflare `ADMIN_TOKEN` secret.
 
+### Follow-up
+- Added visible IP reporting to the standalone monitor:
+  `Top IPs` panel plus an `IP` column in Recent Activity.
+
 ---
 
 ## [analytics-v1] - 2026-06-04 - Private visitor analytics scaffold
