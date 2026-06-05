@@ -341,6 +341,10 @@ main { max-width: 1200px; margin: 0 auto; padding: 40px 28px 80px; }
     color: var(--ochre);
     white-space: nowrap;
 }
+.recent .col-location {
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
 @media (max-width: 720px) {
     .recent .col-ts, .recent th.col-ts { display: none; }
 }
@@ -503,6 +507,13 @@ main { max-width: 1200px; margin: 0 auto; padding: 40px 28px 80px; }
             </div>
             <div class="panel-body" id="panel-ips"></div>
         </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h3>Top Locations</h3>
+                <div class="panel-meta">city / region / country</div>
+            </div>
+            <div class="panel-body" id="panel-locations"></div>
+        </div>
     </div>
 
     <!-- Recent activity -->
@@ -519,6 +530,7 @@ main { max-width: 1200px; margin: 0 auto; padding: 40px 28px 80px; }
                         <th class="col-site">Site</th>
                         <th class="col-event">Event</th>
                         <th class="col-path">Path</th>
+                        <th class="col-location">Location</th>
                         <th class="col-ip">IP</th>
                     </tr>
                 </thead>
@@ -667,6 +679,7 @@ function render(data) {
     renderList("panel-sections",  data.top_sections,  "section", 12);
     renderList("panel-refs",      data.top_referrers, "ref", 12);
     renderList("panel-ips",       data.top_ips,       "ip", 12);
+    renderList("panel-locations", data.top_locations, "geo", 12);
 
     // Recent activity
     renderRecent(data.recent || []);
@@ -699,7 +712,7 @@ function renderList(elId, rows, badge, limit) {
 function renderRecent(rows) {
     const tbody = document.getElementById("recent-tbody");
     if (!rows || rows.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:var(--muted-soft); font-style:italic">No events yet</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--muted-soft); font-style:italic">No events yet</td></tr>';
         return;
     }
     tbody.innerHTML = rows.slice(0, 40).map(r => {
@@ -713,6 +726,7 @@ function renderRecent(rows) {
             <td class="col-site"><span class="tag">${escapeHtml(r.site || "?")}</span></td>
             <td class="col-event">${escapeHtml(r.event || "—")}</td>
             <td class="col-path">${escapeHtml(r.path || "")}</td>
+            <td class="col-location">${escapeHtml(r.location || "")}</td>
             <td class="col-ip">${escapeHtml(r.ip || "")}</td>
         </tr>`;
     }).join("");

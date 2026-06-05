@@ -33,6 +33,9 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 ### Follow-up
 - Added visible IP reporting to the standalone monitor:
   `Top IPs` panel plus an `IP` column in Recent Activity.
+- Added Cloudflare-derived location reporting:
+  `Top Locations` panel plus a `Location` column in Recent Activity. New visits
+  record city / region / country when Cloudflare provides those fields.
 
 ---
 

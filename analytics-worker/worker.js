@@ -67,6 +67,7 @@ async function collect(request, env) {
   const session = clean(body.session_id || "no_session", 80);
   const ip = clientIp(request);
   const ipKey = await ipIdentity(ip, env);
+  const geo = geoInfo(request);
 
   await Promise.all([
     inc(env, `count:${site}:day:${day}:event:${event}`),
@@ -75,6 +76,7 @@ async function collect(request, env) {
     inc(env, `count:${site}:hour:${hour}:event:${event}`),
     section ? inc(env, `count:${site}:day:${day}:section:${section}`) : null,
     inc(env, `count:${site}:day:${day}:ip:${ipKey}`),
+    geo.location ? inc(env, `count:${site}:day:${day}:loc:${geo.location}`) : null,
     env.ANALYTICS_KV.put(`visit:${site}:${day}:${session}`, "1", { expirationTtl: 60 * 60 * 24 * 45 }),
     env.ANALYTICS_KV.put(`last:${site}:${Date.now()}:${Math.random().toString(36).slice(2)}`, JSON.stringify({
       ts: now.toISOString(),
@@ -86,6 +88,11 @@ async function collect(request, env) {
       lang,
       viewport,
       ip: ipKey,
+      location: geo.location,
+      country: geo.country,
+      region: geo.region,
+      city: geo.city,
+      colo: geo.colo,
     }), { expirationTtl: 60 * 60 * 24 * 14 }),
   ].filter(Boolean));
 
@@ -102,6 +109,22 @@ function clientIp(request) {
     || request.headers.get("X-Forwarded-For")
     || request.headers.get("X-Real-IP")
     || "unknown";
+}
+
+function geoInfo(request) {
+  const cf = request.cf || {};
+  const city = clean(cf.city || "", 80);
+  const region = clean(cf.region || cf.regionCode || "", 80);
+  const country = clean(cf.country || "", 8);
+  const colo = clean(cf.colo || "", 12);
+  const parts = [city, region, country].filter(Boolean);
+  return {
+    city,
+    region,
+    country,
+    colo,
+    location: clean(parts.length ? parts.join(", ") : (country || colo || "unknown"), 160),
+  };
 }
 
 async function ipIdentity(ip, env) {
@@ -170,6 +193,7 @@ async function buildSummary(env) {
     top_sections: topByType(all, "section", 30),
     top_referrers: topByType(all, "ref", 20),
     top_ips: topByType(all, "ip", 30),
+    top_locations: topByType(all, "loc", 30),
     recent: recentRows
       .map(row => {
         try { return JSON.parse(row.value); }
