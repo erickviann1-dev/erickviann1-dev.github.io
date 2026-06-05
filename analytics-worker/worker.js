@@ -16,7 +16,7 @@
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
@@ -33,8 +33,8 @@ export default {
     }
 
     if (url.pathname === "/summary" && request.method === "GET") {
-      if (!authorized(url, env)) return json({ error: "unauthorized" }, 401);
-      return json(await buildSummary(env));
+      if (!authorized(url, env)) return json({ error: "unauthorized" }, 401, CORS);
+      return json(await buildSummary(env), 200, CORS);
     }
 
     if (url.pathname === "/dashboard" && request.method === "GET") {

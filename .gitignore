@@ -3,3 +3,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 analytics-worker/.env.deploy.local
+
+PRIVATE_ANALYTICS_ACCESS.md

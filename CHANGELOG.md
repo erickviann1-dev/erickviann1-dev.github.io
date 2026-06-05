@@ -12,6 +12,26 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
+## [analytics-v1.1] - 2026-06-05 - Stats dashboard CORS fix
+
+### Fixed
+- Fixed the Cloudflare Worker `/summary` route for the standalone GitHub Pages
+  monitor at `https://erickviann1-dev.github.io/stats/`.
+- `/summary` now returns CORS headers on both success and unauthorized responses,
+  so the monitor can distinguish a wrong `ADMIN_TOKEN` from a blocked network
+  request.
+- Updated the deploy script to preserve UTF-8 when it rewrites analytics
+  endpoint URLs, preventing the previous HTML mojibake failure mode from
+  recurring during deployment.
+
+### Current owner access
+- Worker summary smoke test passed with HTTP 200 and
+  `Access-Control-Allow-Origin: *`.
+- The private token is stored only in local ignored file
+  `PRIVATE_ANALYTICS_ACCESS.md` and as the Cloudflare `ADMIN_TOKEN` secret.
+
+---
+
 ## [analytics-v1] - 2026-06-04 - Private visitor analytics scaffold
 
 ### What changed

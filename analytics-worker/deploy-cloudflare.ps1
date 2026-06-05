@@ -151,10 +151,11 @@ function Replace-Endpoint {
         Write-Warning "Endpoint target not found: $Path"
         return
     }
-    $content = Get-Content $Path -Raw
+    $resolved = Resolve-Path $Path
+    $content = [System.IO.File]::ReadAllText($resolved)
     $pattern = 'endpoint:\s*"[^"]*"'
     $updated = [regex]::Replace($content, $pattern, 'endpoint: "' + $CollectUrl + '"', 1)
-    Set-Content -Path $Path -Value $updated -Encoding UTF8
+    [System.IO.File]::WriteAllText($resolved, $updated, [System.Text.UTF8Encoding]::new($false))
 }
 
 $envMap = Read-DeployEnv -Path $EnvFile
