@@ -36,6 +36,8 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 - Added Cloudflare-derived location reporting:
   `Top Locations` panel plus a `Location` column in Recent Activity. New visits
   record city / region / country when Cloudflare provides those fields.
+- Added a location-coverage note explaining that historical IP records collected
+  before the 2026-06-05 Worker update cannot be backfilled automatically.
 
 ---
 

@@ -288,6 +288,13 @@ main { max-width: 1200px; margin: 0 auto; padding: 40px 28px 80px; }
     font-size: 12px;
     font-style: italic;
 }
+.panel-note {
+    padding: 10px 20px 14px;
+    border-top: 1px solid var(--hairline);
+    color: var(--muted-soft);
+    font-size: 11px;
+    line-height: 1.45;
+}
 
 /* ─── Recent activity table ─── */
 .recent-panel { margin-top: 24px; }
@@ -679,7 +686,7 @@ function render(data) {
     renderList("panel-sections",  data.top_sections,  "section", 12);
     renderList("panel-refs",      data.top_referrers, "ref", 12);
     renderList("panel-ips",       data.top_ips,       "ip", 12);
-    renderList("panel-locations", data.top_locations, "geo", 12);
+    renderLocations(data);
 
     // Recent activity
     renderRecent(data.recent || []);
@@ -707,6 +714,19 @@ function renderList(elId, rows, badge, limit) {
             <div class="row-bar" style="right: calc(20px + ${100 - pct}%)"></div>
         </div>`;
     }).join("");
+}
+
+function renderLocations(data) {
+    const rows = data.top_locations || [];
+    const recent = data.recent || [];
+    const missing = recent.filter(r => !r.location).length;
+    renderList("panel-locations", rows, "geo", 12);
+    const wrap = document.getElementById("panel-locations");
+    const note = `<div class="panel-note">
+        Geo starts from the 2026-06-05 Worker update. Older IP records are not backfilled.
+        ${missing ? `${missing} of the last ${recent.length} recent events still have no location.` : "Recent events now include location when Cloudflare provides it."}
+    </div>`;
+    wrap.insertAdjacentHTML("beforeend", note);
 }
 
 function renderRecent(rows) {
