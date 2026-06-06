@@ -20,6 +20,9 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 - Updated the private stats login copy to identify `ewalpha.cn`.
 - Analytics collection already allows both `https://ewalpha.cn` and
   `https://www.ewalpha.cn`.
+- Alibaba Cloud DNS validated with all four GitHub Pages apex A records and
+  the `www` CNAME.
+- GitHub Pages reports the site as built with HTTPS enforcement enabled.
 
 ---
 
