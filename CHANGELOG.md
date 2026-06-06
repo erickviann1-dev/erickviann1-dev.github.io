@@ -12,17 +12,6 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
-## [domain-v1] - 2026-06-06 - ewalpha.cn custom domain
-
-- Added the GitHub Pages `CNAME` file for `ewalpha.cn`.
-- Changed the USD/CNY project link to the same-domain path
-  `/usdcny-tracker/`.
-- Updated the private stats login copy to identify `ewalpha.cn`.
-- Analytics collection already allows both `https://ewalpha.cn` and
-  `https://www.ewalpha.cn`.
-
----
-
 ## [analytics-v1.1] - 2026-06-05 - Stats dashboard CORS fix
 
 ### Fixed
