@@ -20,6 +20,44 @@ const CORS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+// Browser-origin whitelist for /collect. Server-to-server callers (curl,
+// sendBeacon edge cases) often omit Origin entirely — those we let
+// through and rely on the rate limiter to catch abuse.
+const ALLOWED_ORIGINS = new Set([
+  "https://erickviann1-dev.github.io",
+  "https://ewalpha.cn",
+  "https://www.ewalpha.cn",
+  "http://localhost:8000",
+  "http://127.0.0.1:8000",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+]);
+
+// Per-IP soft rate limit. A normal page-view burst is ~10 events
+// (page_view + section views + a few clicks), so 60/min is generous
+// for humans and still chokes a script doing >1 req/s.
+const RATE_LIMIT_PER_MIN = 60;
+
+function originAllowed(request) {
+  const origin = request.headers.get("Origin");
+  if (!origin) return true; // no Origin header — let it through
+  return ALLOWED_ORIGINS.has(origin);
+}
+
+async function rateLimitOk(ip, env) {
+  // Fail-open: if KV is unavailable or throws, never block legit traffic.
+  try {
+    const minute = Math.floor(Date.now() / 60000);
+    const key = `rl:${ip}:${minute}`;
+    const current = parseInt(await env.ANALYTICS_KV.get(key) || "0", 10);
+    if (current >= RATE_LIMIT_PER_MIN) return false;
+    await env.ANALYTICS_KV.put(key, String(current + 1), { expirationTtl: 120 });
+    return true;
+  } catch (_) {
+    return true;
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -47,6 +85,14 @@ export default {
 };
 
 async function collect(request, env) {
+  if (!originAllowed(request)) {
+    return json({ ok: false, error: "origin_not_allowed" }, 403, CORS);
+  }
+  const ip = clientIp(request);
+  if (!(await rateLimitOk(ip, env))) {
+    return json({ ok: false, error: "rate_limited" }, 429, CORS);
+  }
+
   let body;
   try {
     body = await request.json();
@@ -65,7 +111,6 @@ async function collect(request, env) {
   const lang = clean(body.lang || "", 24);
   const viewport = clean(body.viewport || "", 24);
   const session = clean(body.session_id || "no_session", 80);
-  const ip = clientIp(request);
   const ipKey = await ipIdentity(ip, env);
   const geo = geoInfo(request);
 
