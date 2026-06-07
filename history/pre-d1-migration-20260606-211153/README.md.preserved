@@ -1,7 +1,7 @@
 # Private Analytics Backend
 
 This folder contains the private visitor analytics backend for Erick Wei's
-research site. It uses Cloudflare Workers + D1.
+research site. It is designed for Cloudflare Workers + KV.
 
 ## What It Records
 
@@ -42,19 +42,18 @@ https://<your-worker-name>.<your-subdomain>.workers.dev/summary?token=<ADMIN_TOK
 ## Deployment Checklist
 
 1. Create a Cloudflare Worker.
-2. Create a D1 database and bind it as `ANALYTICS_DB`.
-3. Apply `schema.sql`.
-4. Add Worker environment variables:
+2. Create a KV namespace and bind it as `ANALYTICS_KV`.
+3. Add Worker environment variables:
    - `ADMIN_TOKEN`: a long private password/token.
    - `STORE_RAW_IP`: `true` if raw IP addresses should be stored.
-5. Deploy `worker.js`.
-6. Copy the collection endpoint:
+4. Deploy `worker.js`.
+5. Copy the collection endpoint:
 
 ```text
 https://<your-worker-name>.<your-subdomain>.workers.dev/collect
 ```
 
-7. Paste that endpoint into the `SITE_ANALYTICS_CONFIG.endpoint` value in:
+6. Paste that endpoint into the `SITE_ANALYTICS_CONFIG.endpoint` value in:
    - `index.html`
    - `bean-model/index.html`
    - `privacy/index.html`
@@ -62,14 +61,6 @@ https://<your-worker-name>.<your-subdomain>.workers.dev/collect
 
 Until the endpoint is filled, the frontend analytics scripts stay disabled and
 do not send data.
-
-## Storage Model
-
-Each analytics event is one row in D1 and therefore one database write. The
-previous KV implementation performed roughly 9-10 KV writes per event and
-could exhaust the free daily KV write allowance after a small number of page
-sessions. The old KV namespace is intentionally retained as a rollback archive,
-but the current Worker no longer binds to or writes to it.
 
 ## Frontend Disclosure
 

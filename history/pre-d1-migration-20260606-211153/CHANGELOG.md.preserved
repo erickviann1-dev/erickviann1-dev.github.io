@@ -12,38 +12,6 @@ Finance & Capital Markets). Hosted at **https://erickviann1-dev.github.io**.
 
 ---
 
-## [analytics-v2] - 2026-06-06 - Workers KV to D1 migration
-
-### Why
-- The original Worker generated roughly 9-10 KV writes for every analytics
-  event. Cloudflare's free KV allowance was exhausted after a small number of
-  browsing sessions.
-
-### Changed
-- Replaced the `ANALYTICS_KV` binding with D1 binding `ANALYTICS_DB`.
-- Added `analytics-worker/schema.sql` with the `events` table and query
-  indexes.
-- Each page view, section view, or named interaction now performs one D1
-  `INSERT`.
-- Rebuilt `/summary` using D1 SQL aggregation while preserving the existing
-  JSON contract used by `/stats/`.
-- Replaced the KV-backed rate limiter with an in-memory per-isolate limiter,
-  eliminating an extra storage write for every event.
-- Updated the deploy script to create/reuse `erick_site_analytics_d1`, apply
-  the schema, and bind it to the Worker automatically.
-
-### Deployment and verification
-- D1 database ID: `68b51450-30c8-49c6-946a-feaa6bd44e6c`.
-- Worker deployment succeeded.
-- D1 insert, summary aggregation, CORS, IP/location fields, and origin
-  rejection tests passed.
-- The previous KV namespace was retained and not deleted. It is no longer
-  bound to the deployed Worker.
-- Rollback snapshot:
-  `history/pre-d1-migration-20260606-211153/`.
-
----
-
 ## [domain-v1] - 2026-06-06 - ewalpha.cn custom domain
 
 - Added the GitHub Pages `CNAME` file for `ewalpha.cn`.

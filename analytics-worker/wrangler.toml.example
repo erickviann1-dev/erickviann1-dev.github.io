@@ -2,9 +2,10 @@ name = "erick-site-analytics"
 main = "worker.js"
 compatibility_date = "2026-06-01"
 
-[[kv_namespaces]]
-binding = "ANALYTICS_KV"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+[[d1_databases]]
+binding = "ANALYTICS_DB"
+database_name = "erick_site_analytics_d1"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
 
 [vars]
 STORE_RAW_IP = "true"

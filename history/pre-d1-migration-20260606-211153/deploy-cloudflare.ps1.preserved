@@ -54,24 +54,15 @@ function Invoke-Cf {
     return Invoke-RestMethod -Method $Method -Uri $uri -Headers $headers -ContentType $ContentType -Body $Body
 }
 
-function Get-OrCreateD1Database {
-    param([string]$AccountId, [string]$Name)
+function Get-OrCreateKvNamespace {
+    param([string]$AccountId, [string]$Title)
 
-    $list = Invoke-Cf -Method "GET" -Path "/accounts/$AccountId/d1/database"
-    $existing = $list.result | Where-Object { $_.name -eq $Name } | Select-Object -First 1
-    if ($existing) { return $existing.uuid }
+    $list = Invoke-Cf -Method "GET" -Path "/accounts/$AccountId/storage/kv/namespaces"
+    $existing = $list.result | Where-Object { $_.title -eq $Title } | Select-Object -First 1
+    if ($existing) { return $existing.id }
 
-    $created = Invoke-Cf -Method "POST" -Path "/accounts/$AccountId/d1/database" -Body @{ name = $Name }
-    return $created.result.uuid
-}
-
-function Initialize-D1Schema {
-    param([string]$AccountId, [string]$DatabaseId, [string]$SchemaPath)
-
-    $sql = [System.IO.File]::ReadAllText((Resolve-Path $SchemaPath))
-    Invoke-Cf -Method "POST" -Path "/accounts/$AccountId/d1/database/$DatabaseId/query" -Body @{
-        sql = $sql
-    } | Out-Null
+    $created = Invoke-Cf -Method "POST" -Path "/accounts/$AccountId/storage/kv/namespaces" -Body @{ title = $Title }
+    return $created.result.id
 }
 
 function Set-WorkerSecret {
@@ -90,7 +81,7 @@ function Publish-WorkerModule {
         [string]$AccountId,
         [string]$WorkerName,
         [string]$WorkerPath,
-        [string]$D1DatabaseId,
+        [string]$KvNamespaceId,
         [string]$StoreRawIp
     )
 
@@ -98,9 +89,9 @@ function Publish-WorkerModule {
         main_module = "worker.js"
         bindings = @(
             @{
-                type = "d1"
-                name = "ANALYTICS_DB"
-                id = $D1DatabaseId
+                type = "kv_namespace"
+                name = "ANALYTICS_KV"
+                namespace_id = $KvNamespaceId
             },
             @{
                 type = "plain_text"
@@ -171,19 +162,16 @@ $envMap = Read-DeployEnv -Path $EnvFile
 $script:Token = Require-Value $envMap "CLOUDFLARE_API_TOKEN"
 $accountId = Require-Value $envMap "CLOUDFLARE_ACCOUNT_ID"
 $workerName = if ($envMap["WORKER_NAME"]) { $envMap["WORKER_NAME"] } else { "erick-site-analytics" }
-$d1Name = if ($envMap["D1_DATABASE_NAME"]) { $envMap["D1_DATABASE_NAME"] } else { "erick_site_analytics_d1" }
+$kvTitle = if ($envMap["KV_NAMESPACE_TITLE"]) { $envMap["KV_NAMESPACE_TITLE"] } else { "erick_site_analytics_kv" }
 $adminToken = Require-Value $envMap "ADMIN_TOKEN"
 $storeRawIp = if ($envMap["STORE_RAW_IP"]) { $envMap["STORE_RAW_IP"] } else { "true" }
 
-Write-Host "Creating or reusing D1 database: $d1Name"
-$d1Id = Get-OrCreateD1Database -AccountId $accountId -Name $d1Name
-Write-Host "D1 database id: $d1Id"
-
-Write-Host "Applying D1 schema"
-Initialize-D1Schema -AccountId $accountId -DatabaseId $d1Id -SchemaPath "schema.sql"
+Write-Host "Creating or reusing KV namespace: $kvTitle"
+$kvId = Get-OrCreateKvNamespace -AccountId $accountId -Title $kvTitle
+Write-Host "KV namespace id: $kvId"
 
 Write-Host "Publishing Worker: $workerName"
-Publish-WorkerModule -AccountId $accountId -WorkerName $workerName -WorkerPath "worker.js" -D1DatabaseId $d1Id -StoreRawIp $storeRawIp | Out-Null
+Publish-WorkerModule -AccountId $accountId -WorkerName $workerName -WorkerPath "worker.js" -KvNamespaceId $kvId -StoreRawIp $storeRawIp | Out-Null
 
 Write-Host "Setting ADMIN_TOKEN secret"
 Set-WorkerSecret -AccountId $accountId -WorkerName $workerName -Name "ADMIN_TOKEN" -Text $adminToken

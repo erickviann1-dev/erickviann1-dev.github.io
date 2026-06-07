@@ -1,10 +1,10 @@
 /*
  * Erick Wei research-site analytics worker.
  *
- * Deploy target: Cloudflare Workers + D1.
+ * Deploy target: Cloudflare Workers + KV.
  *
  * Required bindings / vars:
- * - ANALYTICS_DB: D1 database binding
+ * - ANALYTICS_KV: KV namespace binding
  * - ADMIN_TOKEN: secret token for /dashboard and /summary
  * - STORE_RAW_IP: "true" to store raw IP strings; anything else stores a hash
  *
@@ -37,7 +37,6 @@ const ALLOWED_ORIGINS = new Set([
 // (page_view + section views + a few clicks), so 60/min is generous
 // for humans and still chokes a script doing >1 req/s.
 const RATE_LIMIT_PER_MIN = 60;
-const rateBuckets = new Map();
 
 function originAllowed(request) {
   const origin = request.headers.get("Origin");
@@ -45,19 +44,18 @@ function originAllowed(request) {
   return ALLOWED_ORIGINS.has(origin);
 }
 
-function rateLimitOk(ip) {
-  const minute = Math.floor(Date.now() / 60000);
-  const key = `${ip}:${minute}`;
-  const current = rateBuckets.get(key) || 0;
-  if (current >= RATE_LIMIT_PER_MIN) return false;
-  rateBuckets.set(key, current + 1);
-
-  if (rateBuckets.size > 500) {
-    for (const bucketKey of rateBuckets.keys()) {
-      if (!bucketKey.endsWith(`:${minute}`)) rateBuckets.delete(bucketKey);
-    }
+async function rateLimitOk(ip, env) {
+  // Fail-open: if KV is unavailable or throws, never block legit traffic.
+  try {
+    const minute = Math.floor(Date.now() / 60000);
+    const key = `rl:${ip}:${minute}`;
+    const current = parseInt(await env.ANALYTICS_KV.get(key) || "0", 10);
+    if (current >= RATE_LIMIT_PER_MIN) return false;
+    await env.ANALYTICS_KV.put(key, String(current + 1), { expirationTtl: 120 });
+    return true;
+  } catch (_) {
+    return true;
   }
-  return true;
 }
 
 export default {
@@ -91,7 +89,7 @@ async function collect(request, env) {
     return json({ ok: false, error: "origin_not_allowed" }, 403, CORS);
   }
   const ip = clientIp(request);
-  if (!rateLimitOk(ip)) {
+  if (!(await rateLimitOk(ip, env))) {
     return json({ ok: false, error: "rate_limited" }, 429, CORS);
   }
 
@@ -103,6 +101,8 @@ async function collect(request, env) {
   }
 
   const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const hour = now.toISOString().slice(0, 13);
   const site = clean(body.site || "unknown", 60);
   const event = clean(body.event || "event", 80);
   const path = clean(body.path || "/", 180);
@@ -114,28 +114,32 @@ async function collect(request, env) {
   const ipKey = await ipIdentity(ip, env);
   const geo = geoInfo(request);
 
-  await env.ANALYTICS_DB.prepare(`
-    INSERT INTO events (
-      ts, site, event, path, section, referrer_host, lang, viewport,
-      session_id, ip, location, country, region, city, colo
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).bind(
-    now.toISOString(),
-    site,
-    event,
-    path,
-    section,
-    ref,
-    lang,
-    viewport,
-    session,
-    ipKey,
-    geo.location,
-    geo.country,
-    geo.region,
-    geo.city,
-    geo.colo,
-  ).run();
+  await Promise.all([
+    inc(env, `count:${site}:day:${day}:event:${event}`),
+    inc(env, `count:${site}:day:${day}:path:${path}`),
+    inc(env, `count:${site}:day:${day}:ref:${ref}`),
+    inc(env, `count:${site}:hour:${hour}:event:${event}`),
+    section ? inc(env, `count:${site}:day:${day}:section:${section}`) : null,
+    inc(env, `count:${site}:day:${day}:ip:${ipKey}`),
+    geo.location ? inc(env, `count:${site}:day:${day}:loc:${geo.location}`) : null,
+    env.ANALYTICS_KV.put(`visit:${site}:${day}:${session}`, "1", { expirationTtl: 60 * 60 * 24 * 45 }),
+    env.ANALYTICS_KV.put(`last:${site}:${Date.now()}:${Math.random().toString(36).slice(2)}`, JSON.stringify({
+      ts: now.toISOString(),
+      site,
+      event,
+      path,
+      section,
+      referrer_host: ref,
+      lang,
+      viewport,
+      ip: ipKey,
+      location: geo.location,
+      country: geo.country,
+      region: geo.region,
+      city: geo.city,
+      colo: geo.colo,
+    }), { expirationTtl: 60 * 60 * 24 * 14 }),
+  ].filter(Boolean));
 
   return json({ ok: true }, 200, CORS);
 }
@@ -182,72 +186,82 @@ function clean(value, maxLen) {
     .slice(0, maxLen);
 }
 
+async function inc(env, key) {
+  const current = parseInt(await env.ANALYTICS_KV.get(key) || "0", 10);
+  await env.ANALYTICS_KV.put(key, String(current + 1), { expirationTtl: 60 * 60 * 24 * 90 });
+}
+
+async function scan(env, prefix, limit = 1000) {
+  let cursor;
+  const rows = [];
+  do {
+    const res = await env.ANALYTICS_KV.list({ prefix, cursor, limit: 1000 });
+    for (const key of res.keys) {
+      rows.push({ key: key.name, value: parseInt(await env.ANALYTICS_KV.get(key.name) || "0", 10) });
+      if (rows.length >= limit) return rows;
+    }
+    cursor = res.cursor;
+  } while (cursor);
+  return rows;
+}
+
+async function scanRaw(env, prefix, limit = 1000) {
+  let cursor;
+  const rows = [];
+  do {
+    const res = await env.ANALYTICS_KV.list({ prefix, cursor, limit: 1000 });
+    for (const key of res.keys) {
+      rows.push({ key: key.name, value: await env.ANALYTICS_KV.get(key.name) });
+      if (rows.length >= limit) return rows;
+    }
+    cursor = res.cursor;
+  } while (cursor);
+  return rows;
+}
+
 async function buildSummary(env) {
   const days = [...Array(14)].map((_, i) => {
     const d = new Date(Date.now() - i * 86400000);
     return d.toISOString().slice(0, 10);
   }).reverse();
 
-  const windowSql = "datetime(ts) >= datetime('now', '-45 days')";
-  const [
-    sessionResult,
-    pagesResult,
-    eventsResult,
-    sectionsResult,
-    referrersResult,
-    ipsResult,
-    locationsResult,
-    recentResult,
-  ] = await env.ANALYTICS_DB.batch([
-    env.ANALYTICS_DB.prepare(
-      `SELECT COUNT(DISTINCT site || '|' || substr(ts, 1, 10) || '|' || session_id) AS count
-       FROM events WHERE ${windowSql}`
-    ),
-    topQuery(env, "path", windowSql, 20),
-    topQuery(env, "event", windowSql, 30),
-    topQuery(env, "section", `${windowSql} AND section <> ''`, 30),
-    topQuery(env, "referrer_host", windowSql, 20),
-    topQuery(env, "ip", windowSql, 30),
-    topQuery(env, "location", `${windowSql} AND location <> ''`, 30),
-    env.ANALYTICS_DB.prepare(
-      `SELECT ts, site, event, path, section, referrer_host, lang, viewport,
-              ip, location, country, region, city, colo
-       FROM events ORDER BY id DESC LIMIT 40`
-    ),
-  ]);
+  const all = await scan(env, "count:", 5000);
+  const visitRows = await scanRaw(env, "visit:", 5000);
+  const recentRows = await scanRaw(env, "last:", 120);
 
   return {
     generated_at: new Date().toISOString(),
     last_14_days: days,
-    unique_sessions: Number(sessionResult.results?.[0]?.count || 0),
-    top_pages: normalizeTop(pagesResult),
-    top_events: normalizeTop(eventsResult),
-    top_sections: normalizeTop(sectionsResult),
-    top_referrers: normalizeTop(referrersResult),
-    top_ips: normalizeTop(ipsResult),
-    top_locations: normalizeTop(locationsResult),
-    recent: recentResult.results || [],
+    unique_sessions: visitRows.length,
+    top_pages: topByType(all, "path", 20),
+    top_events: topByType(all, "event", 30),
+    top_sections: topByType(all, "section", 30),
+    top_referrers: topByType(all, "ref", 20),
+    top_ips: topByType(all, "ip", 30),
+    top_locations: topByType(all, "loc", 30),
+    recent: recentRows
+      .map(row => {
+        try { return JSON.parse(row.value); }
+        catch (_) { return { ts: "", site: "", event: "bad_recent_row", path: row.key, ip: "" }; }
+      })
+      .sort((a, b) => String(b.ts || "").localeCompare(String(a.ts || "")))
+      .slice(0, 40),
   };
 }
 
-function topQuery(env, column, whereSql, limit) {
-  const allowed = new Set(["path", "event", "section", "referrer_host", "ip", "location"]);
-  if (!allowed.has(column)) throw new Error("Unsupported analytics column");
-  return env.ANALYTICS_DB.prepare(
-    `SELECT ${column} AS name, COUNT(*) AS count
-     FROM events
-     WHERE ${whereSql}
-     GROUP BY ${column}
-     ORDER BY count DESC
-     LIMIT ${Number(limit)}`
-  );
-}
-
-function normalizeTop(result) {
-  return (result.results || []).map(row => ({
-    name: String(row.name || ""),
-    count: Number(row.count || 0),
-  }));
+function topByType(rows, type, limit) {
+  const map = new Map();
+  for (const row of rows) {
+    const parts = row.key.split(":");
+    const idx = parts.indexOf(type);
+    if (idx < 0) continue;
+    const name = parts.slice(idx + 1).join(":");
+    map.set(name, (map.get(name) || 0) + row.value);
+  }
+  return [...map.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
 }
 
 function json(obj, status = 200, headers = {}) {

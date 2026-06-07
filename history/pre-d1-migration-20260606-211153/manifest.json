@@ -1,0 +1,12 @@
+﻿{
+    "tag":  "pre-d1-migration-20260606-211153",
+    "created_at":  "2026-06-06T21:11:53.6582527-05:00",
+    "git_head":  "133a398e46e05bd23f4722534be14967b5e0a0c3",
+    "purpose":  "Before Cloudflare KV to D1 analytics migration",
+    "files":  [
+                  "analytics-worker/worker.js",
+                  "analytics-worker/deploy-cloudflare.ps1",
+                  "analytics-worker/README.md",
+                  "CHANGELOG.md"
+              ]
+}
